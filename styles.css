@@ -1,0 +1,1135 @@
+/* NEXORA - Main Stylesheet */
+
+/* FOUC Prevention - Critical Styles */
+html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+html.ready {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Ensure smooth loading */
+* {
+  box-sizing: border-box;
+}
+
+/* Prevent oversized elements during load */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent default link styling flash */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* CSS Variables for consistent theming */
+:root {
+  --cream: #fefdf8;
+  --paper: #fffffe;
+}
+
+/* Better initial body styling to prevent layout shifts */
+body {
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--cream);
+  color: #1e293b;
+}
+
+/* Prevent flash of unstyled buttons */
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Prevent mobile text auto-zoom that widens/wraps text */
+html { 
+  -webkit-text-size-adjust: 100%; 
+  text-size-adjust: 100%; 
+  scroll-behavior: smooth;
+}
+
+/* Smooth anchor scroll + offset for sticky header */
+section[id] { 
+  scroll-margin-top: 80px; 
+}
+
+/* --- HERO SECTION --- */
+.hero-box {
+  aspect-ratio: 16 / 9; /* Default mobile aspect ratio */
+  height: auto !important;
+  min-height: 0 !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Desktop: Change hero to 21:9 ultra-wide aspect ratio */
+@media (min-width: 1024px) {
+  .hero-box {
+    aspect-ratio: 21 / 9; /* Ultra-wide cinematic ratio for desktop */
+  }
+}
+
+/* Enable container queries for mobile proportional scaling */
+@media (max-width: 768px) {
+  .hero-box {
+    container-type: inline-size;
+    aspect-ratio: 16 / 9; /* Keep mobile at 16:9 */
+  }
+}
+
+/* Fill hero exactly */
+.hero-box .carousel-track { 
+  height: 100%; 
+  transition: transform 0.5s ease-in-out;
+}
+
+.hero-box .carousel-track > .slide { 
+  height: 100%; 
+  position: relative; /* Make each slide a positioning context */
+}
+
+.hero-box .slide img {
+  display: block; 
+  width: 100%; 
+  height: 100%;
+  object-fit: cover;
+  object-position: center !important; /* same crop on all screens */
+}
+
+/* Hero overlay and caption */
+.hero-overlay {
+  position: absolute; 
+  inset: 0; 
+  z-index: 10;
+  display: grid; 
+  grid-template-columns: 1fr;
+  align-items: center; 
+  pointer-events: none;
+}
+
+.hero-overlay > :last-child { 
+  display: none; 
+}
+
+@media (min-width: 768px) {
+  .hero-overlay { 
+    grid-template-columns: 48% 1fr; 
+  }
+  .hero-overlay > :last-child { 
+    display: block; 
+  }
+}
+
+#heroPanel {
+  --hero-pad: clamp(12px, 4vw, 20px);
+  height: 100%; 
+  padding: var(--hero-pad);
+  display: flex; 
+  align-items: center; 
+  justify-content: flex-start;
+  pointer-events: auto; 
+  background: transparent;
+}
+
+/* Caption scales with hero (not viewport) */
+.hero-caption { 
+  position: absolute; 
+  inset: 0;
+  display: flex; 
+  align-items: center; 
+  justify-content: flex-start;
+  padding: clamp(16px, 4vw, 32px) clamp(16px, 4vw, 32px) clamp(16px, 4vw, 32px) 20px !important;
+  pointer-events: none;
+  /* Transparent overlay to show image behind */
+  background: transparent !important;
+}
+
+.hero-caption-inner {
+  max-width: min(560px, 90vw) !important;
+  font-size: clamp(16px, 4vw, 18px) !important; /* Fixed viewport units for reliable scaling */
+  pointer-events: auto;
+  -webkit-font-smoothing: antialiased; 
+  text-rendering: optimizeLegibility;
+  /* Black text with strong white shadow for visibility */
+  color: #000000 !important;
+  text-shadow: 2px 2px 8px rgba(255,255,255,0.9), 1px 1px 4px rgba(255,255,255,0.8) !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border-radius: 0 !important;
+  padding: 20px;
+}
+
+/* All sizes derived from viewport units for reliable scaling */
+.hero-caption-inner h1 {
+  white-space: normal;
+  font-weight: 800; 
+  line-height: 1.1; 
+  margin-top: 8px !important;
+  font-size: clamp(28px, 7vw, 48px) !important;
+  color: #000000 !important;
+  text-shadow: 2px 2px 8px rgba(255,255,255,0.9), 1px 1px 4px rgba(255,255,255,0.8) !important;
+}
+
+.hero-caption-inner .caption-sub { 
+  font-size: clamp(16px, 2.8vw, 18px) !important; 
+  margin-top: 12px !important; 
+  color: #000000 !important;
+  text-shadow: 2px 2px 8px rgba(255,255,255,0.9), 1px 1px 4px rgba(255,255,255,0.8) !important;
+}
+
+/* Buttons and gaps scale with viewport */
+.hero-caption-inner .cta-row { 
+  display: flex; 
+  flex-wrap: wrap;
+  gap: clamp(8px, 2vw, 16px) !important; 
+  margin-top: clamp(16px, 3vw, 24px) !important;
+}
+
+.hero-caption-inner .cta-row a {
+  font-size: clamp(16px, 2.2vw, 18px) !important;
+  padding: clamp(12px, 1.8vw, 16px) clamp(18px, 3vw, 28px) !important;
+  border-radius: 8px !important;
+  text-decoration: none !important;
+}
+
+/* See Products button - Black with border */
+.hero-caption-inner .cta-row a.btn-see-products {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+
+.hero-caption-inner .cta-row a.btn-see-products:hover {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+}
+
+/* Contact Us button - WhatsApp green with border */
+.hero-caption-inner .cta-row a[href*="wa.me"] {
+  background-color: #25D366 !important;
+  color: #ffffff !important;
+  border: 2px solid #25D366 !important;
+}
+
+.hero-caption-inner .cta-row a[href*="wa.me"]:hover {
+  background-color: #1DA851 !important;
+  color: #ffffff !important;
+  border: 2px solid #1DA851 !important;
+}
+
+/* HERO chip — scale with viewport */
+.hero-caption-inner > span.inline-flex:first-child {
+  font-size: clamp(10px, 1.4vw, 12px) !important;
+  line-height: 1 !important;
+  padding: 6px 12px !important;
+  gap: 6px !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-radius: 20px !important;
+  border: 1px solid #333333 !important;
+}
+
+/* HERO headline subline */
+.hero-caption-inner h1 .sub-kicker {
+  display: block;
+  font-size: .8em !important;
+  font-weight: 800 !important;
+  margin-top: .18em !important;
+}
+
+/* Force H1 to exactly two lines */
+.hero-caption-inner h1 .line1,
+.hero-caption-inner h1 .line2 {
+  display: block;
+  white-space: nowrap !important;
+  font-size: .95em !important;
+}
+
+/* Arrows: move down on tiny phones */
+@media (max-width: 640px) {
+  #prevBtn, #nextBtn { 
+    top: auto; 
+    bottom: 10px; 
+    transform: none; 
+  }
+  #prevBtn { 
+    left: 10px; 
+  }  
+  #nextBtn { 
+    right: 10px; 
+  }
+}
+
+/* HERO: mobile = touch scroll + snap, hide arrows */
+@media (max-width: 767px) {
+  #prevBtn, #nextBtn { 
+    display: none !important; 
+  }
+
+  #carouselTrack {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  #carouselTrack::-webkit-scrollbar { 
+    display: none; 
+  }
+  
+  #carouselTrack > .slide { 
+    scroll-snap-align: start; 
+  }
+  
+  /* no transform animation on mobile track */
+  .hero-box .carousel-track { 
+    transition: none !important; 
+  }
+  
+  /* Mobile-specific hero text transparency fix */
+  .hero-caption-inner {
+    background: rgba(255,255,255,0.9) !important; /* Light background on mobile for black text readability */
+    backdrop-filter: blur(2px) !important; /* Less blur for better performance */
+  }
+}
+
+/* Dots visible on all views */
+.dot {
+  width: 10px; 
+  height: 10px;
+  border-radius: 9999px;
+  display: inline-block;
+}
+
+/* Hide hero carousel dots on mobile */
+@media (max-width: 767px) {
+  .hero-box .absolute.inset-x-0.bottom-2 {
+    display: none !important;
+  }
+}
+
+/* --- PRODUCT CARDS --- */
+.product-card {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+
+.product-image-container {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: #f8f9fa;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease-in-out;
+  background: white;
+}
+
+/* Ensure frame images are properly stacked */
+.product-image-container img[data-frame] {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: opacity 0.2s ease-in-out !important;
+  background: white !important;
+  z-index: 1 !important;
+}
+
+.product-image-container img[data-frame].active {
+  z-index: 2 !important;
+}
+
+.product-image-container img[data-frame]:first-child {
+  position: relative !important;
+}
+
+/* Force white background for transparent images */
+.product-image-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  z-index: 0;
+}
+
+/* Loading state for images */
+.product-image-container img {
+  background: white;
+}
+
+.product-image-container img:not([src]) {
+  background: #f0f0f0;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+.discount-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #ff3f6c;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 6px;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+}
+
+.product-info {
+  padding: 12px;
+  background: white;
+}
+
+.product-brand {
+  font-size: 14px;
+  font-weight: 600;
+  color: #282c3f;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.product-title {
+  font-size: 12px;
+  color: #535766;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-pricing {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.current-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: #282c3f;
+}
+
+.original-price {
+  font-size: 12px;
+  color: #94969f;
+  text-decoration: line-through;
+}
+
+.discount-percent {
+  font-size: 12px;
+  color: #ff3f6c;
+  font-weight: 600;
+}
+
+.product-rating {
+  display: none !important; /* Hide ratings temporarily */
+}
+
+.rating-star {
+  color: #14958f;
+  font-weight: 600;
+}
+
+.rating-count {
+  color: #94969f;
+}
+
+/* Update existing product cards to use new styling */
+.shrink-0.w-56 {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+/* Override existing product card styles */
+.shrink-0 .relative .absolute.inset-x-0.bottom-0 {
+  position: static !important;
+  background: none !important;
+  padding: 0 !important;
+  min-height: auto !important;
+}
+
+.shrink-0 .bg-gradient-to-t {
+  display: none !important;
+}
+
+/* --- QUOTE BUTTON STYLES --- */
+.quote-btn {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e293b;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+  min-height: 32px;
+  min-width: 80px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.product-card:hover .quote-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.quote-btn.btn-added {
+  background: #dc2626;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.quote-btn:hover {
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Mobile: always show quote buttons */
+@media (max-width: 767px) {
+  .quote-btn {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .quote-btn {
+    opacity: 1;
+    pointer-events: auto;
+    bottom: 12px;
+    padding: 10px 16px;
+    font-size: 12px;
+    min-height: 36px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  
+  .quote-btn:active {
+    transform: translateX(-50%) scale(0.95);
+  }
+  
+  .product-card {
+    position: relative;
+  }
+  
+  .product-image-container {
+    position: relative;
+  }
+  
+  /* DISABLE hover effects on mobile */
+  .product-card:hover .product-image {
+    transform: none !important;
+  }
+  
+  .product-card:hover {
+    transform: none !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+  }
+}
+
+/* --- FRAME IMAGE STYLES FOR ROTATOR CARDS --- */
+.frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.frame:first-child {
+  opacity: 1;
+}
+
+.rotator-card .frame.active {
+  opacity: 1;
+}
+
+.frame.broken {
+  display: none !important;
+}
+
+/* --- QUOTE SYSTEM --- */
+.quote-counter {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #dc2626;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0);
+  transition: transform 0.2s ease;
+}
+
+.quote-counter.show {
+  transform: scale(1);
+}
+
+/* Selected product list in form */
+.selected-products {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 8px;
+}
+
+.selected-product {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.selected-product:last-child {
+  border-bottom: none;
+}
+
+.remove-product {
+  color: #dc2626;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.remove-product:hover {
+  background: #fee2e2;
+}
+
+/* --- FAQ SECTION --- */
+/* Smooth FAQ animation for makkhan effect */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              margin 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+}
+
+.faq-answer.expanded {
+  max-height: 200px;
+  padding-top: 8px;
+  padding-bottom: 0;
+  margin-top: 8px;
+}
+
+/* 2-column layout for desktop, single column for mobile */
+@media (min-width: 768px) {
+  #faqList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2rem;
+  }
+  
+  #faqList > div {
+    break-inside: avoid;
+  }
+}
+
+/* --- SPECIAL SECTIONS --- */
+
+/* Mobile: hide T‑Shirts/Hoodies/Varsity row arrows; touch scroll only */
+@media (max-width: 767px) {
+  .row-prev, .row-next { 
+    display: none !important; 
+  }
+}
+
+/* Ronaldo head-pop: leave ~40% empty at top */
+.head-pop { 
+  background: var(--cream); 
+}
+
+.head-pop > img {
+  /* override Tailwind absolute inset-0 + sizing */
+  top: auto !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 60% !important;   /* leaves ~40% empty at top */
+  width: 100% !important;
+  object-fit: contain !important;
+  object-position: bottom center !important;
+}
+
+/* --- ROTATOR CARDS --- */
+.rotator-card { 
+  position: relative; 
+}
+
+.rotator-card .frame {
+  position: absolute; 
+  inset: 0;
+  width: 100%; 
+  height: 100%;
+  object-fit: contain;
+  opacity: 0; 
+  transition: opacity .25s ease;
+}
+
+.rotator-card .frame.active { 
+  opacity: 1; 
+}
+
+.rotator-dots {
+  position: absolute; 
+  top: 8px; 
+  right: 8px;
+  display: none; 
+  gap: 6px;
+}
+
+.rotator-card.rot-show .rotator-dots { 
+  display: flex; 
+}
+
+.rotator-dots .dot {
+  width: 8px; 
+  height: 8px; 
+  border-radius: 9999px;
+  background: rgba(0,0,0,.28);
+}
+
+.rotator-dots .dot.active { 
+  background: #fff; 
+}
+
+/* Hide rotator dots entirely */
+.rotator-dots { 
+  display: none !important; 
+}
+
+/* Ensure first frame shows by default (mobile/no-hover) */
+.rotator-card .frame:first-of-type { 
+  opacity: 1 !important; 
+}
+
+/* Default first frame visible when no hover */
+.rotator-card .frame { 
+  position: absolute; 
+  inset: 0; 
+  width: 100%; 
+  height: 100%; 
+  object-fit: contain; 
+  opacity: 0; 
+  transition: opacity .25s; 
+}
+
+.rotator-card .frame:first-of-type { 
+  opacity: 1 !important; 
+}
+
+/* --- MODAL STYLES --- */
+#imgModal {
+  opacity: 0; 
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+#imgModal.open {
+  opacity: 1; 
+  pointer-events: auto;
+}
+
+#imgModal .modal-shell {
+  transform: scale(0.96);
+  transition: transform 220ms ease;
+}
+
+#imgModal.open .modal-shell {
+  transform: scale(1);
+}
+
+/* Optional dots (inside modal) */
+#imgModalDots .dot { 
+  width: 8px; 
+  height: 8px; 
+  border-radius: 9999px; 
+  background: #ffffff66; 
+}
+
+#imgModalDots .dot.active { 
+  background: #fff; 
+}
+
+/* --- LAYOUT FIXES --- */
+
+/* Fix product card text overlapping */
+.shrink-0 .relative .absolute.inset-x-0.bottom-0 {
+  /* Increase padding and ensure proper spacing */
+  padding: 16px 12px 12px 12px !important;
+  min-height: 80px !important; /* Ensure enough vertical space */
+}
+
+/* CLEAN FIX: Move ALL discount badges to top-right corner */
+span.absolute.top-2.left-2 {
+  top: 6px !important;
+  left: auto !important;
+  right: 6px !important;
+  z-index: 30 !important;
+}
+
+/* Alternative selector to catch all discount badges */
+.absolute.top-2.left-2,
+.absolute[class*="top-2"][class*="left-2"] {
+  top: 6px !important;
+  left: auto !important;
+  right: 6px !important;
+  z-index: 30 !important;
+}
+
+/* Enhanced gradient for better text readability */
+.shrink-0 .relative .bg-gradient-to-t {
+  background: linear-gradient(to top, 
+    rgba(255,255,255,0.98) 0%, 
+    rgba(255,255,255,0.92) 50%, 
+    rgba(255,255,255,0.75) 70%,
+    rgba(255,255,255,0.3) 85%,
+    transparent 100%) !important;
+}
+
+/* --- LEGACY MESSAGE ELEMENT (Keep for compatibility) --- */
+#quoteMessage {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 9999;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.3;
+  max-width: 280px;
+  word-wrap: break-word;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#quoteMessage.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+#quoteMessage.hide {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Mobile responsive message */
+@media (max-width: 768px) {
+  #quoteMessage {
+    right: 8px;
+    top: 8px;
+    max-width: 250px;
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+}
+
+/* MOBILE OVERRIDE: True proportional scaling like a poster */
+@media (max-width: 768px) {
+  .hero-caption,
+  .hero-caption-inner,
+  .hero-caption-inner > span.inline-flex {
+    background: transparent !important;
+    backdrop-filter: none !important;
+  }
+  
+  /* Keep the text layout proportional to carousel size */
+  .hero-caption {
+    /* Move content significantly further left on mobile */
+    padding: 3cqi 3cqi 3cqi 0.3cqi !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+  
+  .hero-caption-inner {
+    /* Same proportional width and font size as desktop */
+    max-width: 42cqi !important;
+    font-size: 1.35cqi !important;
+    color: #000000 !important;
+    text-shadow: 2px 2px 8px rgba(255,255,255,0.9), 1px 1px 4px rgba(255,255,255,0.8) !important;
+  }
+  
+  .hero-caption-inner h1 {
+    /* Same proportional H1 size as desktop */
+    font-size: 3.3em !important;
+    color: #000000 !important;
+    text-shadow: 2px 2px 8px rgba(255,255,255,0.9), 1px 1px 4px rgba(255,255,255,0.8) !important;
+    margin-top: .5em !important;
+    line-height: 1.1 !important;
+  }
+  
+  .hero-caption-inner .caption-sub {
+    /* Same proportional subtitle size as desktop */
+    font-size: 1.15em !important;
+    color: #000000 !important;
+    text-shadow: 2px 2px 8px rgba(255,255,255,0.9), 1px 1px 4px rgba(255,255,255,0.8) !important;
+    margin-top: .8em !important;
+  }
+  
+  .hero-caption-inner .cta-row {
+    /* Same proportional spacing as desktop */
+    gap: 1.6cqi !important;
+    margin-top: 2.2cqi !important;
+  }
+  
+  .hero-caption-inner .cta-row a {
+    /* Same proportional button size as desktop */
+    font-size: 1em !important;
+    padding: 1.1cqi 1.8cqi !important;
+    border-radius: 1.1cqi !important;
+  }
+  
+  .hero-caption-inner > span.inline-flex:first-child {
+    /* Same proportional chip size as desktop */
+    font-size: .85em !important;
+    padding: .55em .9em !important;
+    gap: .5em !important;
+  }
+}
+
+/* Enhanced form button states */
+#quoteForm button[type="submit"] {
+  transition: all 0.3s ease;
+}
+
+#quoteForm button[type="submit"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* File upload enhancements */
+#fileList .bg-slate-50:hover {
+  background-color: #f1f5f9;
+}
+
+/* Success/Error message animations */
+#quoteStatus > div {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced FAQ animation for smooth makkhan effect */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  opacity: 0;
+  transform: translateY(-5px);
+}
+
+.faq-answer.expanded {
+  max-height: 200px;
+  padding-top: 8px;
+  padding-bottom: 0;
+  margin-top: 8px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Enhanced triangle rotation */
+.faq-q span:last-child {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+  display: inline-block;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.faq-q[aria-expanded="true"] span:last-child {
+  transform: rotate(90deg);
+  color: #0ea5e9;
+}
+
+/* Better hover effect for FAQ questions */
+.faq-q {
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  padding: 8px 4px;
+  margin: -8px -4px;
+}
+
+.faq-q:hover {
+  background-color: #f8fafc;
+  color: #0ea5e9;
+}
+
+.faq-q:hover span:last-child {
+  color: #0ea5e9;
+  transform: scale(1.1);
+}
+
+.faq-q[aria-expanded="true"]:hover span:last-child {
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* --- FORM VALIDATION STYLES --- */
+/* Form validation error styles */
+.form-error {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 1px #dc2626 !important;
+}
+
+.form-error:focus {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2) !important;
+}
+
+/* Enhanced error styling for required fields */
+input.border-red-500,
+textarea.border-red-500 {
+  border-color: #dc2626 !important;
+}
+
+input.border-red-500:focus,
+textarea.border-red-500:focus {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2) !important;
+  outline: none !important;
+}
+
+/* Required field indicator (optional) */
+.required-field::after {
+  content: " *";
+  color: #dc2626;
+  font-weight: bold;
+}
+
+/* --- COMING SOON CAROUSEL --- */
+/* Set 21:9 aspect ratio for both desktop and mobile */
+.coming-soon-carousel {
+  aspect-ratio: 21 / 9;
+  overflow: hidden;
+  border-radius: 1rem; /* rounded-2xl equivalent */
+  background-color: #e2e8f0; /* bg-slate-200 equivalent */
+  position: relative;
+}
+
+.coming-soon-carousel .carousel-track {
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.coming-soon-carousel .carousel-track > div {
+  height: 100%;
+}
+
+.coming-soon-carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mobile: Use standard transform animation (no touch scroll) */
+@media (max-width: 767px) {
+  .coming-soon-carousel .carousel-track {
+    transition: transform 0.5s ease-in-out !important;
+  }
+}
+
+/* --- TOAST ANIMATIONS --- */
+@keyframes slideInFromTop {
+  from {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToTop {
+  from {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+  }
+}

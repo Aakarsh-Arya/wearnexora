@@ -1,0 +1,1167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>NEXORA — Custom T-Shirts, Hoodies & Varsity Jackets for Colleges | Fast Quotes</title>
+  <meta name="description" content="Bulk custom T-shirts, hoodies & varsity jackets for colleges and teams across India. Fast mockups and quotes with NEXORA." />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#ffffff">
+  
+  <!-- Canonical and Open Graph -->
+  <link rel="canonical" href="https://nexora.in/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nexora.in/">
+  <meta property="og:site_name" content="NEXORA">
+  <meta property="og:title" content="Custom Campus Merch — Fast Quotes & Mockups">
+  <meta property="og:description" content="Bulk custom T-shirts, hoodies & varsity jackets for colleges and teams. Fast mockups and quotes.">
+  <meta property="og:image" content="https://nexora.in/Images/Carousel_Hoodies.jpg">
+  <meta property="og:image:alt" content="Collage of custom campus hoodies by NEXORA">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Custom Campus Merch — Fast Quotes & Mockups">
+  <meta name="twitter:description" content="Bulk custom T-shirts, hoodies & varsity jackets. Fast quotes.">
+  <meta name="twitter:image" content="https://nexora.in/Images/Carousel_T_Shirts.png">
+  
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" href="Images/Nex_favicon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0DGGCH26BD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-0DGGCH26BD');
+  </script>
+  
+  <!-- CRITICAL CSS - Inline to prevent FOUC -->
+  <style>
+    /* Hide content until everything is ready */
+    html {
+      visibility: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    /* Show content when ready */
+    html.ready {
+      visibility: visible;
+    }
+    
+    /* Prevent logo enlargement */
+    img { max-width: 100%; height: auto; }
+    
+    /* Prevent blue links */
+    a { color: inherit; text-decoration: none; }
+    
+    /* Basic layout to prevent jumps */
+    body { 
+      margin: 0; 
+      padding: 0; 
+      background-color: #fefdf8; 
+      color: #1e293b; 
+    }
+  </style>
+  
+  <!-- Load Tailwind synchronously (remove defer) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonts with display=block to prevent font swap -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=block" rel="stylesheet">
+  
+  <!-- Enhanced FOUC Prevention -->
+  <script>
+    (function() {
+      'use strict';
+      
+      let resourcesReady = 0;
+      const totalResources = 3; // CSS, Fonts, Tailwind
+      
+      function checkReady() {
+        resourcesReady++;
+        if (resourcesReady >= totalResources) {
+          document.documentElement.classList.add('ready');
+          console.log('FOUC fix: All resources loaded, content visible');
+        }
+      }
+      
+      // 1. Check Tailwind
+      function checkTailwind() {
+        if (window.tailwind || document.querySelector('.tailwind, .tw-*')) {
+          checkReady();
+        } else {
+          setTimeout(checkTailwind, 10);
+        }
+      }
+      checkTailwind();
+      
+      // 2. Check fonts
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(checkReady).catch(checkReady);
+      } else {
+        setTimeout(checkReady, 100);
+      }
+      
+      // 3. Check CSS/DOM
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', checkReady);
+      } else {
+        checkReady();
+      }
+      
+      // Emergency fallback - show after 1.5 seconds no matter what
+      setTimeout(() => {
+        document.documentElement.classList.add('ready');
+      }, 1500);
+    })();
+  </script>
+  
+  <!-- Tailwind (CDN) + Your CSS -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Critical image preloads (reduce hero CLS) -->
+  <link rel="preload" as="image" href="Images/Carousel_Hoodies.jpg" imagesrcset="Images/Carousel_Hoodies.jpg 1600w" imagesizes="100vw">
+  <link rel="preload" as="image" href="Images/Carousel_T_Shirts.png" imagesrcset="Images/Carousel_T_Shirts.png 1600w" imagesizes="100vw">
+  <link rel="preload" as="image" href="Images/Varsity.jpg" imagesrcset="Images/Varsity.jpg 1600w" imagesizes="100vw">
+
+  <!-- Structured Data: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "NEXORA",
+    "url": "https://nexora.in/",
+    "logo": "https://nexora.in/assets/logo.jpg",
+    "sameAs": ["https://www.instagram.com/nexora/"]
+  }
+  </script>
+
+  <!-- Structured Data: ItemList of Products -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "Product",
+        "name": "Classic Cotton Tee — Unisex",
+        "brand": { "@type": "Brand", "name": "NEXORA" },
+        "description": "Classic unisex cotton t-shirt for bulk campus orders.",
+        "offers": { "@type": "Offer", "priceCurrency": "INR", "price": "499", "availability": "https://schema.org/InStock" }
+      },
+      {
+        "@type": "Product",
+        "name": "Pullover Hoodie — Fleece Cozy",
+        "brand": { "@type": "Brand", "name": "NEXORA" },
+        "description": "Cozy fleece pullover hoodie ideal for teams and clubs.",
+        "offers": { "@type": "Offer", "priceCurrency": "INR", "price": "1199", "availability": "https://schema.org/InStock" }
+      },
+      {
+        "@type": "Product",
+        "name": "Classic Varsity — Wool Blend",
+        "brand": { "@type": "Brand", "name": "NEXORA" },
+        "description": "Wool blend varsity jacket with customization options.",
+        "offers": { "@type": "Offer", "priceCurrency": "INR", "price": "1999", "availability": "https://schema.org/InStock" }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-[var(--cream)] text-slate-900 antialiased">
+  <a href="#hero" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-white focus:text-slate-900 focus:px-3 focus:py-2 focus:rounded">Skip to content</a>
+
+  <!-- Announcement bar -->
+  <div class="w-full bg-white/70 backdrop-blur border-b border-stone-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 text-center text-sm">
+      🎉 First order? <span class="font-semibold">Get 10% OFF</span> • <a href="#quote" class="underline underline-offset-4" onclick="event.preventDefault(); document.getElementById('quote').scrollIntoView({behavior:'smooth'});">Order Now</a>
+    </div>
+  </div>
+
+  <!-- Header with quote counter -->
+  <header class="sticky top-0 z-40 bg-white/70 backdrop-blur border-b border-stone-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3" aria-label="Go to homepage">
+        <img src="Images/Nexora_logo.png" alt="NEXORA Logo" class="h-9 w-auto" loading="eager" decoding="sync" />
+        <span class="text-lg font-bold tracking-tight">NEXORA</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm" aria-label="Primary">
+        <a href="#home" class="text-slate-600 hover:text-slate-900">Home</a>
+        <a href="#tshirts" class="text-slate-600 hover:text-slate-900 nav-products-link">Products</a>
+        <a href="#fest" class="text-slate-600 hover:text-slate-900">Fests</a>
+        <a href="#faq" class="text-slate-600 hover:text-slate-900">FAQ</a>
+      </nav>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="#quote" class="relative rounded-xl border border-stone-300 px-4 py-2 text-sm btn-pop" onclick="event.preventDefault(); document.getElementById('quote').scrollIntoView({behavior:'smooth'});">
+          Order Now
+          <span id="quoteCounter" class="quote-counter" aria-live="polite" aria-atomic="true">0</span>
+        </a>
+        <a href="https://wa.me/918360833126?text=Hi%20NEXORA%20team%2C%20I%20want%20to%20order%20custom%20T-shirts." target="_blank" rel="noopener noreferrer" class="rounded-xl bg-slate-900 text-white px-4 py-2 text-sm font-semibold btn-pop">WhatsApp Us</a>
+      </div>
+      <button id="menuBtn" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg bg-stone-100" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" role="img" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+      </button>
+    </div>
+    <div id="mobileNav" class="md:hidden hidden border-t border-stone-200 bg-white/90" role="region" aria-label="Mobile">
+      <div class="mx-auto max-w-7xl px-4 py-4 space-y-3 text-sm">
+        <a href="#home" class="block text-slate-600 hover:text-slate-900">Home</a>
+        <a href="#tshirts" class="block text-slate-600 hover:text-slate-900 nav-products-link">Products</a>
+        <a href="#fest" class="block text-slate-600 hover:text-slate-900">Fests</a>
+        <a href="#faq" class="block text-slate-600 hover:text-slate-900">FAQ</a>
+        <div class="pt-3 flex gap-2">
+          <a href="#quote" class="flex-1 rounded-xl border border-stone-300 px-4 py-2 text-center" onclick="event.preventDefault(); document.getElementById('quote').scrollIntoView({behavior:'smooth'}); document.getElementById('mobileNav').classList.add('hidden');">Order Now</a>
+          <a href="https://wa.me/918360833126?text=Hi%20NEXORA%20team%2C%20I%20want%20to%20order%20custom%20T-shirts." target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-slate-900 text-white px-4 py-2 text-center font-semibold">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="hero" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-4">
+    <div class="relative rounded-2xl overflow-hidden bg-slate-200 hero-box">
+      <div id="carouselTrack" class="carousel-track flex" role="region" aria-label="Featured products carousel">
+        <!-- Slide 1 -->
+        <div class="min-w-full slide" aria-roledescription="slide" aria-label="Hoodies slide 1 of 3">
+          <img src="Images/Carousel_Hoodies.jpg" alt="Custom hoodies for colleges by NEXORA" class="w-full h-full object-cover" fetchpriority="high" decoding="async" />
+          <div class="hero-caption">
+            <div class="hero-caption-inner">
+              <span class="inline-flex items-center gap-2 rounded-full border border-white/40 bg-transparent backdrop-blur px-3 py-1 text-[11px]">
+                Bulk • Campus • Fast mockups
+              </span>
+              <h1>
+                <span class="line1">What you customize</span>
+                <span class="line2">becomes your aura</span>
+                <span class="sub-kicker">the next aura is yours</span>
+              </h1>
+              <p class="caption-sub">Discounts only on prices, never on quality.</p>
+              <div class="cta-row">
+                <a href="#tshirts" class="rounded-xl border border-slate-300 px-6 py-2.5 font-semibold btn-see-products">See Products</a>
+                <a href="https://wa.me/918360833126?text=Hi%20NEXORA%20team%2C%0A%0AI%27m%20interested%20in%20custom%20apparel%20for%20my%20college%2Forganization.%20Could%20you%20please%20provide%20more%20details%20about%3A%0A%0A%E2%80%A2%20Available%20products%20%28T-shirts%2C%20hoodies%2C%20varsity%20jackets%29%0A%E2%80%A2%20Pricing%20for%20bulk%20orders%0A%E2%80%A2%20Customization%20options%0A%E2%80%A2%20Delivery%20timelines%0A%0AThank%20you%21" class="rounded-xl px-6 py-2.5 font-semibold" style="background-color:#25D366;color:#fff;">Contact Us</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="min-w-full slide" aria-roledescription="slide" aria-label="T-shirts slide 2 of 3">
+          <img src="Images/Carousel_T_Shirts.png" alt="Custom T-shirts for student crews by NEXORA" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+          <div class="hero-caption">
+            <div class="hero-caption-inner">
+              <span class="inline-flex items-center gap-2 rounded-full border border-white/40 bg-transparent backdrop-blur px-3 py-1 text-[11px]">Bulk • Campus • Fast mockups</span>
+              <h1>
+                <span class="line1">What you customize</span>
+                <span class="line2">becomes your aura</span>
+                <span class="sub-kicker">the next aura is yours</span>
+              </h1>
+              <p class="caption-sub">Discounts only on prices, never on quality.</p>
+              <div class="cta-row">
+                <a href="#tshirts" class="rounded-xl border border-slate-300 px-6 py-2.5 font-semibold btn-see-products">See Products</a>
+                <a href="https://wa.me/918360833126?text=Hi%20NEXORA%20team" class="rounded-xl px-6 py-2.5 font-semibold" style="background-color:#25D366;color:#fff;">Contact Us</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="min-w-full slide" aria-roledescription="slide" aria-label="Varsity jackets slide 3 of 3">
+          <img src="Images/Varsity.jpg" alt="Custom varsity jackets by NEXORA" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+          <div class="hero-caption">
+            <div class="hero-caption-inner">
+              <span class="inline-flex items-center gap-2 rounded-full border border-white/40 bg-transparent backdrop-blur px-3 py-1 text-[11px]">Bulk • Campus • Fast mockups</span>
+              <h1>
+                <span class="line1">What you customize</span>
+                <span class="line2">becomes your aura</span>
+                <span class="sub-kicker">the next aura is yours</span>
+              </h1>
+              <p class="caption-sub">Discounts only on prices, never on quality.</p>
+              <div class="cta-row">
+                <a href="#tshirts" class="rounded-xl border border-slate-300 px-6 py-2.5 font-semibold btn-see-products">See Products</a>
+                <a href="https://wa.me/918360833126?text=Hi%20NEXORA%20team" class="rounded-xl px-6 py-2.5 font-semibold" style="background-color:#25D366;color:#fff;">Contact Us</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls/Dots -->
+      <button id="prevBtn" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Previous slide" type="button">‹</button>
+      <button id="nextBtn" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Next slide" type="button">›</button>
+      <div class="absolute inset-x-0 bottom-2 flex items-center justify-center gap-2" role="tablist" aria-label="Hero slides">
+        <button class="dot bg-white/80" data-dot="0" role="tab" aria-label="Go to slide 1"></button>
+        <button class="dot bg-white/40" data-dot="1" role="tab" aria-label="Go to slide 2"></button>
+        <button class="dot bg-white/40" data-dot="2" role="tab" aria-label="Go to slide 3"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alias anchor for Fest (Perfect for section) -->
+  <div id="fest" class="sr-only" aria-hidden="true"></div>
+
+  <!-- Perfect for -->
+  <section id="usecases" class="border-t border-stone-200 bg-[var(--paper)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+      <div class="mb-6">
+        <h2 class="text-2xl sm:text-3xl font-bold">Perfect for…</h2>
+        <p class="text-slate-600 text-sm mt-2">Made for every moment that matters</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm hover:shadow transition" data-usecase="fests">
+          <div class="text-3xl" aria-hidden="true">🎪</div>
+          <h3 class="mt-2 font-semibold">College Fests</h3>
+          <p class="text-sm text-slate-600">Bulk merch that makes your fest unforgettable.</p>
+          <button class="mt-3 text-sky-700 hover:underline text-sm get-quote-uc" data-use-case="College Fests" type="button">Get a Quote →</button>
+        </div>
+        <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm hover:shadow transition" data-usecase="section_merch">
+          <div class="text-3xl" aria-hidden="true">🎓</div>
+          <h3 class="mt-2 font-semibold">Section Merch</h3>
+          <p class="text-sm text-slate-600">Build unity, wear your batch pride.</p>
+          <button class="mt-3 text-sky-700 hover:underline text-sm get-quote-uc" data-use-case="Section Merch" type="button">Get a Quote →</button>
+        </div>
+        <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm hover:shadow transition" data-usecase="sports_teams">
+          <div class="text-3xl" aria-hidden="true">⚽</div>
+          <h3 class="mt-2 font-semibold">Sports Teams</h3>
+          <p class="text-sm text-slate-600">One jersey, one spirit—on & off the field.</p>
+          <button class="mt-3 text-sky-700 hover:underline text-sm get-quote-uc" data-use-case="Sports Teams" type="button">Get a Quote →</button>
+        </div>
+        <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm hover:shadow transition" data-usecase="club_identity">
+          <div class="text-3xl" aria-hidden="true">🚀</div>
+          <h3 class="mt-2 font-semibold">Club Identity</h3>
+          <p class="text-sm text-slate-600">Your vibe, your brand, your nexora.</p>
+          <button class="mt-3 text-sky-700 hover:underline text-sm get-quote-uc" data-use-case="Club Identity" type="button">Get a Quote →</button>
+        </div>
+        <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm hover:shadow transition" data-usecase="events_giveaways">
+          <div class="text-3xl" aria-hidden="true">🎁</div>
+          <h3 class="mt-2 font-semibold">Events & Giveaways</h3>
+          <p class="text-sm text-slate-600">Gifts that carry your brand everywhere.</p>
+          <button class="mt-3 text-sky-700 hover:underline text-sm get-quote-uc" data-use-case="Events & Giveaways" type="button">Get a Quote →</button>
+        </div>
+        <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm hover:shadow transition" data-usecase="corporate_alumni">
+          <div class="text-3xl" aria-hidden="true">👔</div>
+          <h3 class="mt-2 font-semibold">Corporate & Alumni</h3>
+          <p class="text-sm text-slate-600">Professional yet personal—for teams & memories.</p>
+          <button class="mt-3 text-sky-700 hover:underline text-sm get-quote-uc" data-use-case="Corporate & Alumni" type="button">Get a Quote →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alias anchor for Home -->
+  <div id="home" class="sr-only" aria-hidden="true"></div>
+
+  <!-- Product rows -->
+  <!-- T-Shirts section -->
+  <section id="tshirts" class="mx-auto max-w-7xl px-3 sm:px-6 mt-10">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-xl font-semibold">T-Shirts</h2>
+      <button onclick="if(typeof showCatalogMessage === 'function') showCatalogMessage()" class="text-sky-700 hover:underline">See more</button>
+    </div>
+    <div class="relative">
+      <div class="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth" data-row="tshirts" aria-label="T-Shirts list">
+        <!-- Card 1 -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-product-id="tee1">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Tee_1a.jpg" alt="Red Polo Neck T-Shirt Front" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="1" src="Images/Tee_1b.jpg" alt="Red Polo Neck T-Shirt Side" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="2" src="Images/Tee_1c.jpg" alt="Red Polo Neck T-Shirt Back" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">20% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="tee1" data-name="Red Polo Neck" data-price="₹350-450" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Red Polo Neck</div>
+            <div class="product-pricing">
+              <span class="current-price">₹399-549</span>
+              <span class="original-price">₹686+</span>
+              <span class="discount-percent">(20% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(856)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-product-id="tee2">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Tee_2a.jpg" alt="Oversized Dark Green Tee Front" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="1" src="Images/Tee_2b.jpg" alt="Oversized Dark Green Tee Side" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="2" src="Images/Tee_2c.jpg" alt="Oversized Dark Green Tee Back" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">25% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="tee2" data-name="Oversized Dark Green Tee" data-price="₹325-425" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Oversized Dark Green Tee</div>
+            <div class="product-pricing">
+              <span class="current-price">₹399-529</span>
+              <span class="original-price">₹705+</span>
+              <span class="discount-percent">(25% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.1 ★</span>
+              <span class="rating-count">(642)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-product-id="tee3">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Tee_3a.jpg" alt="Oversized Heavy GSM White Tee Front" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="1" src="Images/Tee_3b.jpg" alt="Oversized Heavy GSM White Tee Side" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="2" src="Images/Tee_3c.jpg" alt="Oversized Heavy GSM White Tee Back" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">15% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="tee3" data-name="Oversized Heavy GSM White Tee" data-price="₹300-425" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Oversized Heavy GSM White Tee</div>
+            <div class="product-pricing">
+              <span class="current-price">₹399-499</span>
+              <span class="original-price">₹624</span>
+              <span class="discount-percent">(20% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.4 ★</span>
+              <span class="rating-count">(1.3k)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 4 (rotator card) -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-rotator="tee4" data-product-id="tee4">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Tee_4a.jpg" alt="Black Polo Neck Front" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="1" src="Images/Tee_4b.jpg" alt="Black Polo Neck Back" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">30% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="tee4" data-name="Black Polo Neck" data-price="₹350-450" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Black Polo Neck</div>
+            <div class="product-pricing">
+              <span class="current-price">₹399-499</span>
+              <span class="original-price">₹665</span>
+              <span class="discount-percent">(25% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.6 ★</span>
+              <span class="rating-count">(928)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 5 -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-product-id="tee5">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Tee_5a.jpg" alt="Orange Polo Neck Tee" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">10% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="tee5" data-name="Orange Polo Neck Tee" data-price="₹300-400" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Orange Polo Neck Tee</div>
+            <div class="product-pricing">
+              <span class="current-price">₹399-499</span>
+              <span class="original-price">₹624</span>
+              <span class="discount-percent">(20% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.7 ★</span>
+              <span class="rating-count">(1.1k)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="row-prev absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Scroll T-Shirts left" data-target="tshirts" type="button">‹</button>
+      <button class="row-next absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Scroll T-Shirts right" data-target="tshirts" type="button">›</button>
+    </div>
+  </section>
+
+  <!-- Hoodies section -->
+  <section id="hoodies" class="mx-auto max-w-7xl px-3 sm:px-6 mt-10">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-xl font-semibold">Hoodies</h2>
+      <button onclick="if(typeof showCatalogMessage === 'function') showCatalogMessage()" class="text-sky-700 hover:underline">See more</button>
+    </div>
+    <div class="relative">
+      <div class="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth" data-row="hoodies" aria-label="Hoodies list">
+        <!-- Example hoodie card (replicate pattern as needed) -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie1">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Hoodie_1a.jpg" alt="Black Hoodie" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">15% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie1" data-name="Black Hoodie" data-price="₹650-850" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Black Hoodie</div>
+            <div class="product-pricing">
+              <span class="current-price">₹799-999</span>
+              <span class="original-price">₹1176+</span>
+              <span class="discount-percent">(15% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(743)</span>
+            </div>
+          </div>
+        </div>
+        <!-- Add remaining hoodie cards here -->
+         <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie2">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Hoodie_2a.jpg" alt="Beige Hoodie 350 GSM" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">10% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie2" data-name="Beige Hoodie 350 GSM" data-price="₹650-850" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Beige Hoodie 350 GSM</div>
+            <div class="product-pricing">
+              <span class="current-price">₹799-999</span>
+              <span class="original-price">₹1111</span>
+              <span class="discount-percent">(10% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(743)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie3">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Hoodie_3a.jpg" alt="Red Pullover Hoodie" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">12% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie3" data-name="Red Pullover Hoodie" data-price="₹700-875" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Red Pullover Hoodie</div>
+            <div class="product-pricing">
+              <span class="current-price">₹799-999</span>
+              <span class="original-price">₹1135</span>
+              <span class="discount-percent">(12% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(743)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie4">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Hoodie_4a.jpg" alt="Dark Green Pullover Hoodie" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">10% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie4" data-name="Dark Green Pullover Hoodie" data-price="₹625-800" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Dark Green Pullover Hoodie</div>
+            <div class="product-pricing">
+              <span class="current-price">₹799-949</span>
+              <span class="original-price">₹1054</span>
+              <span class="discount-percent">(10% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(743)</span>
+            </div>
+          </div>
+        </div>
+
+         <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie5">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Hoodie_5a.jpg" alt="Purple Pullover Hoodie" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">10% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie5" data-name="Purple Pullover Hoodie" data-price="₹675-800" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Purple Pullover Hoodie</div>
+            <div class="product-pricing">
+              <span class="current-price">₹799-949</span>
+              <span class="original-price">₹1054</span>
+              <span class="discount-percent">(10% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(743)</span>
+            </div>
+          </div>
+        </div>
+
+         <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie6">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Hoodie_6a.jpg" alt="Chocolate Brown Hoodie" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">5% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie6" data-name="Chocolate Brown Hoodie" data-price="₹725-830" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Chocolate Brown Hoodie</div>
+            <div class="product-pricing">
+              <span class="current-price">₹799-999</span>
+              <span class="original-price">₹1053</span>
+              <span class="discount-percent">(5% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(743)</span>
+            </div>
+          </div>
+        </div>
+
+         <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie7">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Hoodie_7a.jpg" alt="Pink Pullover Hoodie" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">10% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie7" data-name="Pink Pullover Hoodie" data-price="₹600-750" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Pink Pullover Hoodie</div>
+            <div class="product-pricing">
+              <span class="current-price">₹799-999</span>
+              <span class="original-price">₹1111</span>
+              <span class="discount-percent">(10% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(743)</span>
+            </div>
+          </div>
+        </div>
+
+         <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie8">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Hoodie_8a.jpg" alt="Maroon Hoodie Front" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="1" src="Images/Hoodie_8b.jpg" alt="Maroon Hoodie Back" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">5% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie8" data-name="Maroon Hoodie" data-price="₹750-850" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Maroon Hoodie</div>
+            <div class="product-pricing">
+              <span class="current-price">₹749-899</span>
+              <span class="original-price">₹946</span>
+              <span class="discount-percent">(5% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(743)</span>
+            </div>
+          </div>
+        </div>
+
+          
+        
+      </div>
+      <button class="row-prev absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Scroll Hoodies left" data-target="hoodies" type="button">‹</button>
+      <button class="row-next absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Scroll Hoodies right" data-target="hoodies" type="button">›</button>
+    </div>
+  </section>
+
+  <!-- Varsity section -->
+  <section id="varsity" class="mx-auto max-w-7xl px-3 sm:px-6 mt-10">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-xl font-semibold">Varsity Jackets</h2>
+      <button onclick="if(typeof showCatalogMessage === 'function') showCatalogMessage()" class="text-sky-700 hover:underline">See more</button>
+    </div>
+    <div class="relative">
+      <div class="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth" data-row="varsity" aria-label="Varsity jackets list">
+        <!-- Example varsity card -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-rotator="varsity1" data-product-id="varsity1">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Varsity_1a.jpg" alt="Black and White Varsity Front" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="1" src="Images/Varsity_1b.jpg" alt="Black and White Varsity Side" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="2" src="Images/Varsity_1c.jpg" alt="Black and White Varsity Back" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="3" src="Images/Varsity_1d.jpg" alt="Black and White Varsity Detail" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">20% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity1" data-name="Black and White Varsity" data-price="₹800-1250" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Black and White Varsity</div>
+            <div class="product-pricing">
+              <span class="current-price">₹949-1300</span>
+              <span class="original-price">₹1,625</span>
+              <span class="discount-percent">(20% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(456)</span>
+            </div>
+          </div>
+        </div>
+        <!-- Add remaining varsity cards here -->
+         <div class="shrink-0 w-56 product-card rotator-card" data-rotator="varsity2" data-product-id="varsity2">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Varsity_2a.jpg" alt="Green and White Varsity Front" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="1" src="Images/Varsity_2b.jpg" alt="Green and White Varsity Side" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="2" src="Images/Varsity_2c.jpg" alt="Green and White Varsity Back" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="3" src="Images/Varsity_2d.jpg" alt="Green and White Varsity Detail" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">20% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity2" data-name="Green and White Varsity" data-price="₹800-1250" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Green and White Varsity</div>
+            <div class="product-pricing">
+              <span class="current-price">₹949-1300</span>
+              <span class="original-price">₹1,625</span>
+              <span class="discount-percent">(20% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(456)</span>
+            </div>
+          </div>
+        </div>
+        <div class="shrink-0 w-56 product-card rotator-card" data-rotator="varsity3" data-product-id="varsity3">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Varsity_3a.jpg" alt="Blue and White Varsity Front" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="1" src="Images/Varsity_3b.jpg" alt="Blue and White Varsity Back" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">20% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity3" data-name="Blue and White Varsity" data-price="₹800-1250" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Blue and White Varsity</div>
+            <div class="product-pricing">
+              <span class="current-price">₹949-1300</span>
+              <span class="original-price">₹1,625</span>
+              <span class="discount-percent">(20% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(456)</span>
+            </div>
+          </div>
+        </div>
+        <div class="shrink-0 w-56 product-card rotator-card" data-rotator="varsity4" data-product-id="varsity4">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Varsity_4a.jpg" alt="Yellow and White Varsity Front" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="1" src="Images/Varsity_4b.jpg" alt="Yellow and White Varsity Side" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="2" src="Images/Varsity_4c.jpg" alt="Yellow and White Varsity Back" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="3" src="Images/Varsity_4d.jpg" alt="Yellow and White Varsity Detail" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">20% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity4" data-name="Yellow and White Varsity" data-price="₹800-1250" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Yellow and White Varsity</div>
+            <div class="product-pricing">
+              <span class="current-price">₹949-1300</span>
+              <span class="original-price">₹1,625</span>
+              <span class="discount-percent">(20% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(456)</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="shrink-0 w-56 product-card rotator-card" data-rotator="varsity5" data-product-id="varsity5">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Varsity_5a.jpg" alt="Navy Blue and White Varsity" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">20% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity5" data-name="Navy Blue and White Varsity" data-price="₹800-1250" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Navy Blue and White Varsity</div>
+            <div class="product-pricing">
+              <span class="current-price">₹949-1300</span>
+              <span class="original-price">₹1,625</span>
+              <span class="discount-percent">(20% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(456)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="shrink-0 w-56 product-card rotator-card" data-rotator="varsity6" data-product-id="varsity6">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Varsity_6a.jpg" alt="Red and White Varsity Front" class="frame product-image" loading="lazy" decoding="async" />
+            <img data-frame="1" src="Images/Varsity_6b.jpg" alt="Red and White Varsity Back" class="frame product-image" loading="lazy" decoding="async" />
+            <span class="discount-badge">20% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity6" data-name="Red and White Varsity" data-price="₹800-1250" type="button">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Red and White Varsity</div>
+            <div class="product-pricing">
+              <span class="current-price">₹949-1300</span>
+              <span class="original-price">₹1,625</span>
+              <span class="discount-percent">(20% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(456)</span>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+      
+      <button class="row-prev absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Scroll Varsity left" data-target="varsity" type="button">‹</button>
+      <button class="row-next absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Scroll Varsity right" data-target="varsity" type="button">›</button>
+    </div>
+  </section>
+
+  <!-- Quote form -->
+  <section id="quote" class="mx-auto max-w-3xl px-3 sm:px-6 mt-12">
+    <div class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm p-6 sm:p-8">
+      <h2 class="text-2xl font-bold">Get a quick quote</h2>
+      <p class="text-slate-600 text-sm mt-1">We'll call you back in 10—15 mins.</p>
+      
+      <!-- Selected products display -->
+      <div id="selectedProductsContainer">
+        <label class="block text-sm font-medium mt-4 mb-2">Selected Products</label>
+        <div id="selectedProductsList" class="selected-products" style="display: none;"></div>
+      </div>
+
+      <form id="quoteForm" class="mt-5 space-y-4" name="quote" netlify data-netlify="true" data-netlify-honeypot="company" enctype="multipart/form-data" aria-describedby="quoteStatus" novalidate>
+        <input type="hidden" name="form-name" value="quote" />
+        <input type="hidden" name="selectedProducts" id="selectedProductsInput" />
+        <input type="hidden" name="products" id="products" />
+        <!-- NEW: Track which submission service is used -->
+        <input type="hidden" name="submission_service" id="submissionService" value="netlify" />
+        
+        <div>
+          <label for="quoteName" class="block text-sm font-medium">Name *</label>
+          <input id="quoteName" required name="name" type="text" autocomplete="name" class="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-sky-500" />
+        </div>
+        <div>
+          <label for="quotePhone" class="block text-sm font-medium">Phone *</label>
+          <input id="quotePhone" required name="phone" type="tel" inputmode="numeric" pattern="[0-9\\s\\-\\+\\(\\)]*" autocomplete="tel" class="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-sky-500" />
+        </div>
+        <div>
+          <label for="quoteEmail" class="block text-sm font-medium">Email (optional)</label>
+          <input id="quoteEmail" name="email" type="email" autocomplete="email" class="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-sky-500" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Product type (optional)</label>
+          <div id="productChips" class="mt-1 flex flex-wrap gap-2" aria-live="polite"></div>
+          <input type="hidden" name="productType" id="productType" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Upload your designs (optional)</label>
+          <div class="mt-1 relative">
+            <input type="file" name="designs" id="designUpload" multiple accept="image/*,.pdf,.ai,.psd" class="hidden" onchange="handleFileUpload(this)" />
+            <label for="designUpload" class="flex items-center justify-center w-full h-32 border-2 border-dashed border-slate-300 rounded-lg cursor-pointer hover:border-slate-400 transition-colors">
+              <div class="text-center">
+                <div class="text-2xl mb-2" aria-hidden="true">📎</div>
+                <div class="text-sm text-slate-600">
+                  <span class="font-medium text-sky-600">Click to upload</span> or drag and drop
+                </div>
+                <div class="text-xs text-slate-500 mt-1">PNG, JPG, PDF, AI, PSD up to 10MB each</div>
+              </div>
+            </label>
+            <div id="fileList" class="mt-2 space-y-1" aria-live="polite"></div>
+          </div>
+        </div>
+        <div>
+          <label for="quoteMessage" class="block text-sm font-medium">Additional requirements (optional)</label>
+          <textarea id="quoteMessage" name="message" rows="4" placeholder="Tell us about quantity, colors, sizes, deadlines, or any special requirements..." class="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-sky-500"></textarea>
+        </div>
+        <div id="quoteStatus" class="hidden" role="status" aria-live="polite"></div>
+        <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div class="flex items-center gap-3">
+          <button type="submit" class="rounded-xl bg-slate-900 text-white px-5 py-3 font-semibold">Get Quote</button>
+          <a href="https://wa.me/918360833126?text=Hi%20NEXORA%20team" target="_blank" rel="noopener noreferrer" class="text-sky-700 hover:underline text-sm">Prefer WhatsApp?</a>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-2">By submitting, you agree to be contacted by NEXORA.</p>
+      </form>
+    </div>
+  </section>
+
+
+
+  <!-- Coming soon carousel -->
+  <section class="mx-auto max-w-7xl px-3 sm:px-6 mt-12">
+    <div class="mb-3">
+      <h2 class="text-2xl font-bold">🔥 Coming Soon</h2>
+      <p class="text-slate-600 text-sm">New drops you'll love</p>
+    </div>
+    <div class="coming-soon-carousel">
+      <div id="comingTrack" class="carousel-track flex h-full" role="region" aria-label="Coming soon carousel">
+        <div class="min-w-full h-full"><img src="https://images.unsplash.com/photo-1557800636-894a64c1696f?q=80&w=1600&auto=format&fit=crop" alt="Yearbook sample" class="w-full h-full object-cover" loading="lazy" decoding="async" /></div>
+        <div class="min-w-full h-full"><img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?q=80&w=1600&auto=format&fit=crop" alt="Branded mugs" class="w-full h-full object-cover" loading="lazy" decoding="async" /></div>
+        <div class="min-w-full h-full"><img src="https://images.unsplash.com/photo-1579047134765-3a03f94b1876?q=80&w=1600&auto=format&fit=crop" alt="Custom keychains" class="w-full h-full object-cover" loading="lazy" decoding="async" /></div>
+      </div>
+      <div class="absolute inset-0 bg-black/5 flex items-center justify-center pointer-events-none" aria-hidden="true">
+        <div class="text-center text-white">
+          <div class="text-sm tracking-widest">COMING SOON</div>
+        </div>
+      </div>
+      <div class="absolute inset-x-0 bottom-2 flex items-center justify-center gap-2" role="tablist" aria-label="Coming slides">
+        <button class="dot bg-white/80" data-cdot="0" role="tab" aria-label="Go to coming slide 1"></button>
+        <button class="dot bg-white/40" data-cdot="1" role="tab" aria-label="Go to coming slide 2"></button>
+        <button class="dot bg-white/40" data-cdot="2" role="tab" aria-label="Go to coming slide 3"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="mx-auto max-w-4xl px-3 sm:px-6 mt-12 mb-16">
+    <h2 class="text-2xl font-bold">Frequently Asked Questions</h2>
+    <div class="mt-4 divide-y divide-slate-200" id="faqList">
+      <div class="py-3">
+        <button id="faq-q-products" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-products" data-id="products">
+          <span class="font-medium">What products do you offer?</span>
+          <span class="transition-transform rotate-0" aria-hidden="true">▼</span>
+        </button>
+        <div id="faq-a-products" class="mt-2 text-sm text-slate-600 hidden faq-answer" role="region" aria-labelledby="faq-q-products">Currently, we've got T-shirts (round neck oversized + normal, polo), hoodies (oversized + normal), and varsity jackets. But hey, we're just getting started 👀. Stay tuned — follow us on LinkedIn or Insta for new drops!</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-custom_design" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-custom_design" data-id="custom_design">
+          <span class="font-medium">Can you print our custom design?</span>
+          <span class="transition-transform rotate-0" aria-hidden="true">▼</span>
+        </button>
+        <div id="faq-a-custom_design" class="mt-2 text-sm text-slate-600 hidden faq-answer" role="region" aria-labelledby="faq-q-custom_design">Oh yes, Picasso 🎨. Just shoot us your design and we'll help turn it into wearable reality.</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-design_help" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-design_help" data-id="design_help">
+          <span class="font-medium">Can you help us with design ideas if we don't have one?</span>
+          <span class="transition-transform rotate-0" aria-hidden="true">▼</span>
+        </button>
+        <div id="faq-a-design_help" class="mt-2 text-sm text-slate-600 hidden faq-answer" role="region" aria-labelledby="faq-q-design_help">100%! Even if you're starting with just a vibe (like "retro fest energy" or "clean minimal drip"), our design team will brainstorm and suggest what fits best. We don't just print — we co-create ✨.</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-mockups" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-mockups" data-id="mockups">
+          <span class="font-medium">Do you provide design mockups?</span>
+          <span class="transition-transform rotate-0" aria-hidden="true">▼</span>
+        </button>
+        <div id="faq-a-mockups" class="mt-2 text-sm text-slate-600 hidden faq-answer" role="region" aria-labelledby="faq-q-mockups">Not yet — but soon we'll roll out mockup previews so you can see your drip before it's stitched.</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-moq" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-moq" data-id="moq">
+          <span class="font-medium">Is there a minimum order quantity (MOQ)?</span>
+          <span class="transition-transform rotate-0" aria-hidden="true">▼</span>
+        </button>
+        <div id="faq-a-moq" class="mt-2 text-sm text-slate-600 hidden faq-answer" role="region" aria-labelledby="faq-q-moq">Right now, we're about squad goals. Lone wolves, don't worry — your time to shine is coming soon 🐺✨.</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-pricing" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-pricing" data-id="pricing">
+          <span class="font-medium">How are prices decided?</span>
+          <span class="transition-transform rotate-0" aria-hidden="true">▼</span>
+        </button>
+        <div id="faq-a-pricing" class="mt-2 text-sm text-slate-600 hidden faq-answer" role="region" aria-labelledby="faq-q-pricing">Pricing depends on fabric type, design complexity, and number of colors in your design. Slide into our DMs — we'll keep it transparent and tailored to your vibe.</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-sample" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-sample" data-id="sample">
+          <span class="font-medium">Can we get a sample before bulk order?</span>
+          <span class="transition-transform rotate-0" aria-hidden="true">▼</span>
+        </button>
+        <div id="faq-a-sample" class="mt-2 text-sm text-slate-600 hidden faq-answer" role="region" aria-labelledby="faq-q-sample">Yep! For bulk orders, we'll hook you up with a sample first. Just fill out the form or ping us on WhatsApp — easy peasy.</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-delivery" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-delivery" data-id="delivery">
+          <span class="font-medium">How long does delivery take?</span>
+          <span class="transition-transform rotate-0" aria-hidden="true">▼</span>
+        </button>
+        <div id="faq-a-delivery" class="mt-2 text-sm text-slate-600 hidden faq-answer" role="region" aria-labelledby="faq-q-delivery">Usually 7–12 days after order finalization, depending on your location.</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-shipping" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-shipping" data-id="shipping">
+          <span class="font-medium">Do you ship across India?</span>
+          <span class="transition-transform rotate-0" aria-hidden="true">▼</span>
+        </button>
+        <div id="faq-a-shipping" class="mt-2 text-sm text-slate-600 hidden faq-answer" role="region" aria-labelledby="faq-q-shipping">Yes fam, we cover every state and UT — from the snow of Leh to the sand of Kanyakumari 🗺️.</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-tracking" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-tracking" data-id="tracking">
+          <span class="font-medium">How can I track my order?</span>
+          <span class="transition-transform rotate-0" aria-hidden="true">▼</span>
+        </button>
+        <div id="faq-a-tracking" class="mt-2 text-sm text-slate-600 hidden faq-answer" role="region" aria-labelledby="faq-q-tracking">We'll keep you posted via WhatsApp & email. Plus, you'll get a tracking ID (from our delivery partner) to stalk your merch's journey 🚚✨.</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-defects" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-defects" data-id="defects">
+          <span class="font-medium">What if the merch has defects?</span>
+          <span class="transition-transform rotate-0" aria-hidden="true">▼</span>
+        </button>
+        <div id="faq-a-defects" class="mt-2 text-sm text-slate-600 hidden faq-answer" role="region" aria-labelledby="faq-q-defects">We take quality super seriously. If you receive a defective piece, click a pic and send it to us within 48 hours — we'll make it right.</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-resell" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-resell" data-id="resell">
+          <span class="font-medium">Can I resell NEXORA merch at my college?</span>
+          <span class="transition-transform rotate-0" aria-hidden="true">▼</span>
+        </button>
+        <div id="faq-a-resell" class="mt-2 text-sm text-slate-600 hidden faq-answer" role="region" aria-labelledby="faq-q-resell">Absolutely! Become a campus rep and rep both your style & your hustle 💸🔥. DM us to join the tribe and start earning while flexing NEXORA.</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-fest_collab" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-fest_collab" data-id="fest_collab">
+          <span class="font-medium">We have a college fest coming up — can you sponsor or collab?</span>
+          <span class="transition-transform rotate-0" aria-hidden="true">▼</span>
+        </button>
+        <div id="faq-a-fest_collab" class="mt-2 text-sm text-slate-600 hidden faq-answer" role="region" aria-labelledby="faq-q-fest_collab">We ❤️ fests. Got a creative collab idea? Pitch it — if it vibes, we'll make it happen.</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-order_process" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-order_process" data-id="order_process">
+          <span class="font-medium">How do I place an order?</span>
+          <span class="transition-transform rotate-0" aria-hidden="true">▼</span>
+        </button>
+        <div id="faq-a-order_process" class="mt-2 text-sm text-slate-600 hidden faq-answer" role="region" aria-labelledby="faq-q-order_process">Fill out the form or hit us up on WhatsApp/call. We'll take care of the rest — and farm your aura 🌈.</div>
+      </div>
+    </div>
+
+    <!-- FAQ Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"What's the typical delivery time?","acceptedAnswer":{"@type":"Answer","text":"Usually 7—10 working days, depending on quantity and customization."}},
+        {"@type":"Question","name":"Is there a minimum order quantity?","acceptedAnswer":{"@type":"Answer","text":"We're bulk-friendly; MOQs vary by product. Share your needs in the quote form."}},
+        {"@type":"Question","name":"What print methods do you support?","acceptedAnswer":{"@type":"Answer","text":"DTF, screen print, embroidery, and more—picked to match your design and budget."}}
+      ]
+    }
+    </script>
+
+    <div class="mt-4 text-sm">
+      Didn't find your answer? <a href="#quote" class="text-sky-700 hover:underline" onclick="event.preventDefault(); document.getElementById('quote').scrollIntoView({behavior:'smooth'});">Drop your question</a> and we'll get back.
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-300">
+    <div class="mx-auto max-w-7xl px-3 sm:px-6 py-6 text-xs flex items-center justify-between">
+      <p>© <span id="year">2024</span> NEXORA</p>
+      <div class="flex items-center gap-4">
+        <a href="https://www.instagram.com/wearnexora.in?igsh=OWZhc2g4ZWU3MjFp" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors" aria-label="Follow us on Instagram">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/company/nexoraprints/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors" aria-label="Connect with us on LinkedIn">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <p>No tracking cookies. Fast quotes.</p>
+      </div>
+    </div>
+    <div class="mx-auto max-w-7xl px-3 sm:px-6 pb-4 text-xs text-center text-slate-400">
+      <p>1815/1D, Guru Nanak Dev Nagar, Haibowal Kalan, Ludhiana, PIN: 141001</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="scripts.js" defer></script>
+
+  <!-- Image modal/lightbox -->
+  <div id="imgModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex items-center justify-center" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Product images viewer">
+    <div class="relative w-full h-full max-w-4xl max-h-full modal-shell">
+      <button id="imgModalClose" class="absolute top-4 right-4 z-10 text-white text-2xl" aria-label="Close image viewer">&times;</button>
+      <div id="imgModalTrack" class="w-full h-full overflow-hidden">
+        <div data-track class="flex h-full transition-transform duration-500"><!-- slides inserted by JS --></div>
+      </div>
+      <div id="imgModalDots" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2" role="tablist" aria-label="Image thumbnails"><!-- dots inserted by JS --></div>
+    </div>
+    <div data-close class="absolute inset-0 -z-10" aria-hidden="true"></div>
+  </div>
+
+  <!-- Quote Reminder -->
+  <div id="quoteReminder" class="fixed bottom-4 right-4 bg-slate-900 text-white px-4 py-2 rounded-lg shadow-lg text-sm font-medium z-20 opacity-0 transition-opacity duration-300" style="display: none;" role="status" aria-live="polite">
+    📋 Check your quote below!
+  </div>
+
+  <!-- Noscript fallback -->
+  <noscript>
+    <div class="mx-auto max-w-3xl px-3 sm:px-6 my-6 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg p-3">
+      JavaScript is disabled. Carousels and quote builder require JavaScript to function. You can still reach us on
+      <a class="underline" href="https://wa.me/918360833126?text=Hi%20NEXORA%20team">WhatsApp</a>.
+    </div>
+  </noscript>
+
+  <!-- Chat Widget -->
+  <div id="chat-widget" class="fixed bottom-4 right-4 z-50">
+    <button id="chat-toggle" class="bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors">
+      💬
+    </button>
+
+    <div id="chat-window" class="hidden absolute bottom-16 right-0 w-80 h-96 bg-white rounded-lg shadow-xl border flex flex-col">
+      <div class="bg-blue-600 text-white p-3 rounded-t-lg flex justify-between items-center">
+        <span class="font-semibold">NEXORA Assistant</span>
+        <button id="chat-close" class="text-white hover:text-gray-200">✕</button>
+      </div>
+
+      <div id="chat-messages" class="flex-1 p-3 overflow-y-auto space-y-2">
+        <div class="text-gray-600 text-sm">Hi! How can I help you with custom apparel today?</div>
+      </div>
+      
+      <!-- Typing indicator -->
+      <div id="typing-indicator" class="hidden p-3 text-gray-500 text-sm">
+        <div class="flex items-center space-x-2">
+          <div class="flex space-x-1">
+            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+          </div>
+          <span>NEXORA AI is typing...</span>
+        </div>
+      </div>
+
+      <div class="p-3 border-t">
+        <div class="flex gap-2">
+          <input id="chat-input" type="text" placeholder="Type your message..."
+                 class="flex-1 border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <button id="chat-send" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
