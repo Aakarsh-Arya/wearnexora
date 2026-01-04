@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AryaKart — Mock E‑commerce Homepage</title>
+  <meta name="description" content="Flipkart‑style mock homepage for testing. Lightweight, static, no backend." />
+  <!--
+    ⚠️ NOTE (for Aakarsh):
+    This page is ORIGINAL and only *inspired* by common e‑commerce UI patterns (header with search, categories bar, hero carousel, offer grids).
+    It does not copy Flipkart logos, brand assets, or proprietary code/trade dress.
+
+    Stack: Tailwind (CDN) + tiny vanilla JS (no build step). You can save this as index.html and open it directly.
+  -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --brand:#0ea5e9; }
+    html { scroll-behavior:smooth; }
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", sans-serif; }
+    /* hide scrollbar on category scroller (still scrollable) */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    /* carousel */
+    .carousel-track { transition: transform .6s cubic-bezier(.22,.61,.36,1); }
+    .dot { width:10px; height:10px; border-radius:9999px; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <!-- Top Announcement Bar (optional) -->
+  <div class="bg-sky-700 text-white text-sm text-center py-2 hidden md:block">
+    <span class="font-semibold">AryaKart Festive Deals</span> — Free delivery on orders over ₹499 · 7‑day returns
+  </div>
+
+  <!-- Header -->
+  <header class="bg-sky-600 text-white">
+    <div class="mx-auto max-w-7xl px-3 sm:px-6">
+      <div class="flex items-center gap-3 py-3">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2 font-bold tracking-tight text-white text-xl shrink-0" aria-label="AryaKart home">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M3 3h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 5M7 13l-2.293 2.293A1 1 0 005 17h12m-5 4a2 2 0 100-4 2 2 0 000 4zm6 0a2 2 0 100-4 2 2 0 000 4z"/></svg>
+          Arya<span class="text-yellow-300">Kart</span>
+        </a>
+
+        <!-- Search -->
+        <form class="flex-1 hidden md:flex" role="search" aria-label="Site search" onsubmit="event.preventDefault()">
+          <label for="search" class="sr-only">Search products</label>
+          <div class="flex w-full bg-white rounded-md overflow-hidden ring-1 ring-transparent focus-within:ring-2 focus-within:ring-yellow-300">
+            <input id="search" name="q" type="search" placeholder="Search for products, brands and more" class="w-full px-4 py-2 text-slate-800 placeholder-slate-400 outline-none" />
+            <button class="px-4 py-2 bg-yellow-300 text-slate-900 font-semibold hover:bg-yellow-200" aria-label="Search">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 2a8 8 0 015.292 13.708l4 4a1 1 0 11-1.414 1.414l-4-4A8 8 0 1110 2zm0 2a6 6 0 100 12A6 6 0 0010 4z" clip-rule="evenodd"/></svg>
+            </button>
+          </div>
+        </form>
+
+        <!-- Actions -->
+        <div class="ml-auto flex items-center gap-2 sm:gap-4">
+          <!-- Login -->
+          <details class="relative group">
+            <summary class="list-none flex items-center gap-2 px-3 py-2 rounded-md bg-sky-500/70 hover:bg-sky-500 cursor-pointer select-none">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 12a5 5 0 100-10 5 5 0 000 10zm-7 9a7 7 0 1114 0H5z"/></svg>
+              <span class="hidden sm:inline">Login</span>
+            </summary>
+            <div class="absolute right-0 mt-2 w-64 bg-white text-slate-800 rounded-lg shadow-lg p-4 z-20 border border-slate-200">
+              <h3 class="font-semibold mb-2">Welcome to AryaKart</h3>
+              <input type="email" placeholder="Email" class="w-full border border-slate-300 rounded-md px-3 py-2 mb-2" />
+              <input type="password" placeholder="Password" class="w-full border border-slate-300 rounded-md px-3 py-2 mb-3" />
+              <button class="w-full bg-sky-600 text-white font-semibold rounded-md py-2 hover:bg-sky-700">Sign in</button>
+              <p class="text-xs text-slate-500 mt-2">(Mock form — no backend)</p>
+            </div>
+          </details>
+
+          <!-- Cart -->
+          <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-md bg-sky-500/70 hover:bg-sky-500" aria-label="Cart">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M3 3h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 5M7 13l-2.293 2.293A1 1 0 005 17h12m-5 4a2 2 0 100-4 2 2 0 000 4zm6 0a2 2 0 100-4 2 2 0 000 4z"/></svg>
+            <span class="hidden sm:inline">Cart</span>
+            <span id="cartCount" class="ml-1 inline-flex items-center justify-center text-xs font-bold bg-yellow-300 text-slate-900 rounded-full w-5 h-5">2</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Categories bar -->
+    <nav class="bg-sky-700/80">
+      <div class="mx-auto max-w-7xl px-3 sm:px-6">
+        <ul class="flex gap-6 overflow-x-auto py-3 text-sm no-scrollbar" aria-label="Top categories">
+          <li><a class="text-white/90 hover:text-white whitespace-nowrap" href="#">Top Offers</a></li>
+          <li><a class="text-white/90 hover:text-white whitespace-nowrap" href="#">Mobiles</a></li>
+          <li><a class="text-white/90 hover:text-white whitespace-nowrap" href="#">Electronics</a></li>
+          <li><a class="text-white/90 hover:text-white whitespace-nowrap" href="#">Fashion</a></li>
+          <li><a class="text-white/90 hover:text-white whitespace-nowrap" href="#">Home & Kitchen</a></li>
+          <li><a class="text-white/90 hover:text-white whitespace-nowrap" href="#">Appliances</a></li>
+          <li><a class="text-white/90 hover:text-white whitespace-nowrap" href="#">Beauty</a></li>
+          <li><a class="text-white/90 hover:text-white whitespace-nowrap" href="#">Toys & Baby</a></li>
+          <li><a class="text-white/90 hover:text-white whitespace-nowrap" href="#">Two‑Wheelers</a></li>
+          <li><a class="text-white/90 hover:text-white whitespace-nowrap" href="#">Grocery</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Carousel Section -->
+  <section class="mx-auto max-w-7xl px-3 sm:px-6 mt-4">
+    <div class="relative rounded-2xl overflow-hidden bg-slate-200">
+      <!-- Carousel track (slides remain unchanged) -->
+      <div id="carouselTrack" class="carousel-track flex">
+        <!-- Slide 1 -->
+        <div class="min-w-full">
+          <img src="Images/Carousel_Hoodies.jpg" alt="New smartphones on offer" class="w-full h-[478px] sm:h-[558px] object-cover" />
+        </div>
+        <!-- Slide 2 -->
+        <div class="min-w-full">
+          <img src="Images/Carousel_T Shirts.jpg" alt="Trendy sneakers sale" class="w-full h-[478px] sm:h-[558px] object-cover" />
+        </div>
+        <!-- Slide 3 -->
+        <div class="min-w-full">
+          <img src="Images/Varsity.jpg" alt="Smartwatches and wearables" class="w-full h-[478px] sm:h-[558px] object-cover" />
+        </div>
+      </div>
+      <!-- Fixed Overlay (remains the same while slides change) -->
+      <div class="absolute inset-0 flex items-start pt-10">
+        <div class="bg-black bg-opacity-0 text-black p-6 ml-8 w-[38%]">
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/20 px-4 py-2 text-xs">
+            Bulk-friendly • Campus-ready • Mockups fast
+          </span>
+          <h1 class="mt-5 text-3xl sm:text-4xl font-extrabold tracking-tight">
+            What you customize becomes your aura, <br>
+            The NEXT AURA is yours
+          </h1>
+          <!-- Rotating subline -->
+          <p id="subTagline" class="mt-2 text-sm">
+            Discounts only on prices, never on quality.
+          </p>
+          <!-- Buttons -->
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#order" class="rounded-xl bg-slate-900 text-white px-5 py-3 font-semibold">
+              Order Now
+            </a>
+            <a href="https://wa.me/918360833126?text=Hi%20NEXORA%20team" target="_blank" rel="noreferrer" class="rounded-xl px-5 py-3 font-semibold" style="background-color: #25D366; color: white;">
+              WhatsApp Us
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Controls -->
+      <button id="prevBtn" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Previous slide">&#9664;</button>
+      <button id="nextBtn" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Next slide">&#9654;</button>
+      <!-- Dots -->
+      <div class="absolute inset-x-0 bottom-2 flex items-center justify-center gap-2">
+        <span class="dot bg-white/60" data-dot="0"></span>
+        <span class="dot bg-white/30" data-dot="1"></span>
+        <span class="dot bg-white/30" data-dot="2"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Top Offers grid -->
+  <section class="mx-auto max-w-7xl px-3 sm:px-6 mt-8">
+    <div class="flex items-baseline justify-between mb-3">
+      <h2 class="text-lg sm:text-xl font-semibold">Top Offers</h2>
+      <a href="#" class="text-sky-700 font-medium hover:underline">View All</a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+      <!-- Card template x6 -->
+      <template id="offerCardTemplate">
+        <a href="#" class="group bg-white rounded-xl shadow-sm ring-1 ring-slate-200 p-3 hover:shadow md:hover:-translate-y-0.5 transition">
+          <div class="relative">
+            <img class="w-full h-28 object-cover rounded-md" alt="Offer image" />
+            <span class="absolute top-2 left-2 bg-yellow-300 text-slate-900 text-[11px] font-bold px-2 py-0.5 rounded">-40%</span>
+          </div>
+          <div class="mt-2 text-sm">
+            <p class="font-medium truncate">Product Name</p>
+            <p class="text-emerald-600 font-semibold">₹999 <span class="text-xs text-slate-500 line-through ml-1">₹1,499</span></p>
+            <p class="text-[11px] text-slate-500">Free Delivery</p>
+          </div>
+        </a>
+      </template>
+      <!-- Cards will be injected by JS for brevity -->
+      <div id="offersGrid" class="contents"></div>
+    </div>
+  </section>
+
+  <!-- Deals slider (scroll-snap) -->
+  <section class="mx-auto max-w-7xl px-3 sm:px-6 mt-8">
+    <div class="flex items-baseline justify-between mb-3">
+      <h2 class="text-lg sm:text-xl font-semibold">Deals of the Day</h2>
+      <div class="flex gap-2">
+        <button id="dealsPrev" class="px-2 py-1 rounded bg-white ring-1 ring-slate-200 shadow-sm">&#9664;</button>
+        <button id="dealsNext" class="px-2 py-1 rounded bg-white ring-1 ring-slate-200 shadow-sm">&#9654;</button>
+      </div>
+    </div>
+    <div id="dealsTrack" class="relative overflow-x-auto no-scrollbar scroll-smooth">
+      <ul class="flex gap-3 snap-x snap-mandatory min-w-full">
+        <!-- 10 mock items -->
+        <script>
+          (function(){
+            const items = [
+              {img:'https://images.unsplash.com/photo-1510557880182-3d4d3cba35f6?q=80&w=1200&auto=format&fit=crop', name:'Headphones Pro', price:'₹1,299'},
+              {img:'https://images.unsplash.com/photo-1517059224940-d4af9eec41e5?q=80&w=1200&auto=format&fit=crop', name:'Smart TV 43"', price:'₹19,990'},
+              {img:'https://images.unsplash.com/photo-1565372910381-1a0aa0c62f07?q=80&w=1200&auto=format&fit=crop', name:'Mixer Grinder', price:'₹2,499'},
+              {img:'https://images.unsplash.com/photo-1516387938699-a93567ec168e?q=80&w=1200&auto=format&fit=crop', name:'DSLR Camera', price:'₹38,990'},
+              {img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop', name:'Running Shoes', price:'₹1,999'},
+              {img:'https://images.unsplash.com/photo-1526178613714-0a1a1a8bd9ea?q=80&w=1200&auto=format&fit=crop', name:'Fridge 260L', price:'₹24,990'},
+              {img:'https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=1200&auto=format&fit=crop', name:'Laptop i5 8GB', price:'₹42,990'},
+              {img:'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop', name:'Wrist Watch', price:'₹1,499'},
+              {img:'https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=1200&auto=format&fit=crop', name:'Sofa 3‑Seater', price:'₹12,990'},
+              {img:'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1?q=80&w=1200&auto=format&fit=crop', name:'Table Lamp', price:'₹799'},
+            ];
+            const ul = document.currentScript.parentElement;
+            items.forEach((it)=>{
+              const li = document.createElement('li');
+              li.className = 'snap-start shrink-0 w-56 bg-white rounded-xl ring-1 ring-slate-200 shadow-sm';
+              li.innerHTML = `
+                <a href="#" class="block">
+                  <img src="${it.img}" alt="${it.name}" class="w-full h-36 object-cover rounded-t-xl" />
+                  <div class="p-3 text-sm">
+                    <p class="font-medium truncate">${it.name}</p>
+                    <p class="text-emerald-600 font-semibold">${it.price}</p>
+                    <p class="text-[11px] text-slate-500">Limited Time Deal</p>
+                  </div>
+                </a>`;
+              ul.appendChild(li);
+            });
+          })();
+        </script>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Info tiles -->
+  <section class="mx-auto max-w-7xl px-3 sm:px-6 mt-10 grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm">
+      <h3 class="font-semibold mb-1">Fast & Free Delivery</h3>
+      <p class="text-sm text-slate-600">Get items at your doorstep in 2‑4 days in metro cities.</p>
+    </div>
+    <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm">
+      <h3 class="font-semibold mb-1">Secure Payments</h3>
+      <p class="text-sm text-slate-600">All major cards, UPI and wallets supported.</p>
+    </div>
+    <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm">
+      <h3 class="font-semibold mb-1">Easy Returns</h3>
+      <p class="text-sm text-slate-600">7‑day no‑questions return on eligible items.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-12 bg-slate-900 text-slate-300">
+    <div class="mx-auto max-w-7xl px-3 sm:px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
+      <div>
+        <h4 class="text-white font-semibold mb-2">About</h4>
+        <ul class="space-y-1">
+          <li><a href="#" class="hover:underline">Contact Us</a></li>
+          <li><a href="#" class="hover:underline">About AryaKart</a></li>
+          <li><a href="#" class="hover:underline">Careers</a></li>
+          <li><a href="#" class="hover:underline">Press</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold mb-2">Help</h4>
+        <ul class="space-y-1">
+          <li><a href="#" class="hover:underline">Payments</a></li>
+          <li><a href="#" class="hover:underline">Shipping</a></li>
+          <li><a href="#" class="hover:underline">Cancellation & Returns</a></li>
+          <li><a href="#" class="hover:underline">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold mb-2">Policy</h4>
+        <ul class="space-y-1">
+          <li><a href="#" class="hover:underline">Return Policy</a></li>
+          <li><a href="#" class="hover:underline">Terms Of Use</a></li>
+          <li><a href="#" class="hover:underline">Security</a></li>
+          <li><a href="#" class="hover:underline">Privacy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold mb-2">Social</h4>
+        <ul class="space-y-1">
+          <li><a href="#" class="hover:underline">Instagram</a></li>
+          <li><a href="#" class="hover:underline">YouTube</a></li>
+          <li><a href="#" class="hover:underline">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-slate-800">
+      <div class="mx-auto max-w-7xl px-3 sm:px-6 py-4 text-xs text-slate-400 flex items-center justify-between">
+        <p>© <span id="year"></span> AryaKart — Mock UI for testing.</p>
+        <p>Built with Tailwind. No tracking, no cookies.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Footer: year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // HERO CAROUSEL (vanilla JS)
+    const track = document.getElementById('carouselTrack');
+    const dots = Array.from(document.querySelectorAll('[data-dot]'));
+    let slideIndex = 0;
+    const total = track.children.length;
+
+    // Rotating sublines synced to the carousel
+    const sublines = [
+      "Discounts only on prices, never on quality.",
+      "Your wallet chills, your style thrills.",
+      "Aakarsh Arya is my name"
+    ];
+
+    function gotoSlide(i) {
+      slideIndex = (i + total) % total;
+      track.style.transform = `translateX(-${slideIndex * 100}%)`;
+      dots.forEach((d, idx) => d.style.background = idx === slideIndex ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.3)');
+      // Update subTagline text based on slideIndex
+      document.getElementById('subTagline').textContent = sublines[slideIndex % sublines.length];
+    }
+    document.getElementById('prevBtn').addEventListener('click', ()=> gotoSlide(slideIndex-1));
+    document.getElementById('nextBtn').addEventListener('click', ()=> gotoSlide(slideIndex+1));
+    dots.forEach(d=> d.addEventListener('click', ()=> gotoSlide(parseInt(d.dataset.dot,10))));
+    let timer = setInterval(()=> gotoSlide(slideIndex+1), 4000);
+    track.addEventListener('pointerenter', ()=> clearInterval(timer));
+    track.addEventListener('pointerleave', ()=> timer = setInterval(()=> gotoSlide(slideIndex+1), 4000));
+
+    // TOP OFFERS: generate 6 cards from template
+    const offerImgs = [
+      'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1505238680356-667803448bb6?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1517059224940-d4af9eec41e5?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1491555103944-7c438b3b5615?q=80&w=1200&auto=format&fit=crop'
+    ];
+    const tpl = document.getElementById('offerCardTemplate');
+    const grid = document.getElementById('offersGrid');
+    offerImgs.forEach((src, i)=>{
+      const node = tpl.content.cloneNode(true);
+      node.querySelector('img').src = src;
+      node.querySelector('img').alt = `Offer ${i+1}`;
+      grid.appendChild(node);
+    });
+
+    // Deals prev/next (scroll)
+    const dealsTrack = document.getElementById('dealsTrack');
+    document.getElementById('dealsPrev').addEventListener('click', ()=> dealsTrack.scrollBy({left:-400, behavior:'smooth'}));
+    document.getElementById('dealsNext').addEventListener('click', ()=> dealsTrack.scrollBy({left: 400, behavior:'smooth'}));
+  </script>
+
+  <!-- Optional: PWA Lite (later)
+  <script>
+    if ('serviceWorker' in navigator) {
+      // navigator.serviceWorker.register('/sw.js');
+    }
+  </script>
+  -->
+</body>
+</html>

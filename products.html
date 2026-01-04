@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NEXORA — Products</title>
+  <meta name="description" content="Custom T‑shirts & Hoodies for campuses, fests, and teams. Bulk‑friendly pricing with fast mockups." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --cream:#fcfbf8; --paper:#fbf7f2; --ink:#0b1220; --muted:#475569; --edge:#e7e5e4; }
+    html{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Apple Color Emoji','Segoe UI Emoji'}
+    /* Fallback light theme so it looks good even if Tailwind is blocked */
+    body{background:var(--cream);color:var(--ink)}
+    .btn-pop{transition:transform .2s ease, box-shadow .2s ease}
+    .btn-pop:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(2,6,23,.08)}
+    .card-hover{transition:transform .3s ease, box-shadow .3s ease}
+    .card-hover:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(2,6,23,.10)}
+    .chip{border-radius:9999px;border:1px solid #e7e5e4;padding:.5rem .75rem;font-size:.875rem;cursor:pointer;background:#fff}
+    .chip.active{background:#0f172a;color:#fff;border-color:#0f172a}
+    @media (prefers-reduced-motion: reduce){.btn-pop,.card-hover{transition:none!important}}
+  </style>
+</head>
+<body class="bg-[var(--cream)] text-slate-900">
+  <!-- Announcement bar -->
+  <div class="w-full bg-white/70 backdrop-blur border-b border-stone-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 text-center text-sm">
+      🎉 First order? <span class="font-semibold">Get 10% OFF</span> — <a href="index.html#order" class="underline underline-offset-4">Order Now</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-white/70 backdrop-blur border-b border-stone-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3" aria-label="Go to homepage">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-white font-black">N</span>
+        <span class="text-lg font-bold tracking-tight">NEXORA</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm">
+        <a href="index.html#home" class="text-slate-600 hover:text-slate-900">Home</a>
+        <a href="index.html#reviews" class="text-slate-600 hover:text-slate-900">Reviews</a>
+        <a href="products.html" class="text-slate-900 font-semibold">Products</a>
+        <a href="index.html#fest" class="text-slate-600 hover:text-slate-900">Fests</a>
+        <a href="FAQ.html" class="text-slate-600 hover:text-slate-900">FAQ</a>
+      </nav>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="index.html#order" class="rounded-xl border border-stone-300 px-4 py-2 text-sm btn-pop">Order Now</a>
+        <a href="https://wa.me/918360833126?text=Hi%20NEXORA%20team%2C%20I%20want%20to%20order%20custom%20T-shirts." target="_blank" rel="noreferrer" class="rounded-xl bg-slate-900 text-white px-4 py-2 text-sm font-semibold btn-pop">WhatsApp Us</a>
+      </div>
+      <button id="menuBtn" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg bg-stone-100" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+      </button>
+    </div>
+    <div id="mobileNav" class="md:hidden hidden border-t border-stone-200 bg-white/90">
+      <div class="mx-auto max-w-7xl px-4 py-4 space-y-3 text-sm">
+        <a href="index.html#home" class="block text-slate-600 hover:text-slate-900">Home</a>
+        <a href="index.html#reviews" class="block text-slate-600 hover:text-slate-900">Reviews</a>
+        <a href="products.html" class="block text-slate-900 font-semibold">Products</a>
+        <a href="index.html#fest" class="block text-slate-600 hover:text-slate-900">Fests</a>
+        <a href="FAQ.html" class="block text-slate-600 hover:text-slate-900">FAQ</a>
+        <div class="pt-3 flex gap-2">
+          <a href="index.html#order" class="flex-1 rounded-xl border border-stone-300 px-4 py-2 text-center">Order Now</a>
+          <a href="https://wa.me/918360833126?text=Hi%20NEXORA%20team%2C%20I%20want%20to%20order%20custom%20T-shirts." target="_blank" rel="noreferrer" class="flex-1 rounded-xl bg-slate-900 text-white px-4 py-2 text-center font-semibold">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page header / breadcrumb -->
+  <section class="bg-white border-b border-stone-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+      <nav class="text-sm text-slate-500"><a class="hover:underline" href="index.html">Home</a> → <span class="text-slate-700">Products</span></nav>
+      <h1 class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight">Custom T‑shirts & Hoodies</h1>
+      <p class="mt-2 text-slate-600">Bulk‑friendly, campus‑ready. Typical ranges ₹299–₹699 depending on fabric, print and quantity.</p>
+    </div>
+  </section>
+
+  <!-- Filters (non-functional demo) -->
+  <section class="bg-[var(--paper)] border-b border-stone-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex flex-wrap gap-2 items-center">
+        <span class="text-sm text-slate-600 mr-2">Filter:</span>
+        <button class="chip" data-chip>180 GSM</button>
+        <button class="chip" data-chip>220 GSM</button>
+        <button class="chip" data-chip>100% Cotton</button>
+        <button class="chip" data-chip>Poly‑Cotton</button>
+        <button class="chip" data-chip>DTF</button>
+        <button class="chip" data-chip>Screen Print</button>
+        <button class="chip" data-chip>Embroidery</button>
+        <button class="chip" data-chip>Budget</button>
+        <button class="chip" data-chip>Premium</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- T‑shirts grid -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <div class="flex items-end justify-between">
+        <h2 class="text-2xl sm:text-3xl font-bold">T‑shirts</h2>
+        <a href="index.html#order" class="text-sm text-slate-600 hover:text-slate-900">Need a mockup? →</a>
+      </div>
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- card -->
+        <article class="rounded-3xl bg-white ring-1 ring-stone-200 overflow-hidden card-hover">
+          <img class="h-56 w-full object-cover" src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80" alt="Classic 180 GSM tee" />
+          <div class="p-5">
+            <h3 class="font-semibold">Classic 180 GSM Tee</h3>
+            <p class="mt-1 text-sm text-slate-600">100% cotton • Single side print</p>
+            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full bg-stone-100 px-2 py-1">₹299–₹449</span>
+              <span class="rounded-full bg-stone-100 px-2 py-1">DTF</span>
+              <span class="rounded-full bg-stone-100 px-2 py-1">S–XXL</span>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <a href="index.html#order" class="rounded-xl bg-slate-900 text-white px-4 py-2 text-sm font-semibold btn-pop">Order Now</a>
+              <a href="https://wa.me/918360833126?text=I%20like%20the%20Classic%20180%20GSM%20Tee%20from%20NEXORA" target="_blank" rel="noreferrer" class="rounded-xl border border-stone-300 px-4 py-2 text-sm btn-pop">WhatsApp</a>
+            </div>
+          </div>
+        </article>
+        <article class="rounded-3xl bg-white ring-1 ring-stone-200 overflow-hidden card-hover">
+          <img class="h-56 w-full object-cover" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1600&q=80" alt="Premium 220 GSM tee" />
+          <div class="p-5">
+            <h3 class="font-semibold">Premium 220 GSM Tee</h3>
+            <p class="mt-1 text-sm text-slate-600">Ultra‑soft • Front + back print</p>
+            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full bg-stone-100 px-2 py-1">₹449–₹699</span>
+              <span class="rounded-full bg-stone-100 px-2 py-1">DTF / Screen</span>
+              <span class="rounded-full bg-stone-100 px-2 py-1">S–XXL</span>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <a href="index.html#order" class="rounded-xl bg-slate-900 text-white px-4 py-2 text-sm font-semibold btn-pop">Order Now</a>
+              <a href="https://wa.me/919599320559?text=I%20like%20the%20Premium%20220%20GSM%20Tee%20from%20NEXORA" target="_blank" rel="noreferrer" class="rounded-xl border border-stone-300 px-4 py-2 text-sm btn-pop">WhatsApp</a>
+            </div>
+          </div>
+        </article>
+        <article class="rounded-3xl bg-white ring-1 ring-stone-200 overflow-hidden card-hover">
+          <img class="h-56 w-full object-cover" src="https://images.unsplash.com/photo-1520975922323-387c51309b52?auto=format&fit=crop&w=1600&q=80" alt="Varsity tee" />
+          <div class="p-5">
+            <h3 class="font-semibold">Varsity Tee (Embroidery)</h3>
+            <p class="mt-1 text-sm text-slate-600">Left‑chest embroidery + print</p>
+            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full bg-stone-100 px-2 py-1">₹549–₹799</span>
+              <span class="rounded-full bg-stone-100 px-2 py-1">Embroidery + DTF</span>
+              <span class="rounded-full bg-stone-100 px-2 py-1">S–XXL</span>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <a href="index.html#order" class="rounded-xl bg-slate-900 text-white px-4 py-2 text-sm font-semibold btn-pop">Order Now</a>
+              <a href="https://wa.me/918360833126?text=I%20like%20the%20Varsity%20Tee%20(Embroidery)%20from%20NEXORA" target="_blank" rel="noreferrer" class="rounded-xl border border-stone-300 px-4 py-2 text-sm btn-pop">WhatsApp</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hoodies grid -->
+  <section class="bg-[var(--paper)] border-t border-stone-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <div class="flex items-end justify-between">
+        <h2 class="text-2xl sm:text-3xl font-bold">Hoodies</h2>
+        <a href="index.html#order" class="text-sm text-slate-600 hover:text-slate-900">Not sure which? Ask us →</a>
+      </div>
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article class="rounded-3xl bg-white ring-1 ring-stone-200 overflow-hidden card-hover">
+          <img class="h-56 w-full object-cover" src="https://images.unsplash.com/photo-1520975735099-3b1cda8b227f?auto=format&fit=crop&w=1600&q=80" alt="Classic fleece hoodie" />
+          <div class="p-5">
+            <h3 class="font-semibold">Classic Fleece Hoodie</h3>
+            <p class="mt-1 text-sm text-slate-600">Mid‑weight • Front print</p>
+            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full bg-stone-100 px-2 py-1">₹799–₹1099</span>
+              <span class="rounded-full bg-stone-100 px-2 py-1">DTF / Screen</span>
+              <span class="rounded-full bg-stone-100 px-2 py-1">S–XXL</span>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <a href="index.html#order" class="rounded-xl bg-slate-900 text-white px-4 py-2 text-sm font-semibold btn-pop">Order Now</a>
+              <a href="https://wa.me/919599320559?text=I%20like%20the%20Classic%20Fleece%20Hoodie%20from%20NEXORA" target="_blank" rel="noreferrer" class="rounded-xl border border-stone-300 px-4 py-2 text-sm btn-pop">WhatsApp</a>
+            </div>
+          </div>
+        </article>
+        <article class="rounded-3xl bg-white ring-1 ring-stone-200 overflow-hidden card-hover">
+          <img class="h-56 w-full object-cover" src="https://images.unsplash.com/photo-1516822003754-cca485356ecb?auto=format&fit=crop&w=1600&q=80" alt="Varsity hoodie" />
+          <div class="p-5">
+            <h3 class="font-semibold">Varsity Hoodie (Embroidery)</h3>
+            <p class="mt-1 text-sm text-slate-600">Left‑chest embroidery • Back print</p>
+            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full bg-stone-100 px-2 py-1">₹999–₹1399</span>
+              <span class="rounded-full bg-stone-100 px-2 py-1">Embroidery + DTF</span>
+              <span class="rounded-full bg-stone-100 px-2 py-1">S–XXL</span>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <a href="index.html#order" class="rounded-xl bg-slate-900 text-white px-4 py-2 text-sm font-semibold btn-pop">Order Now</a>
+              <a href="https://wa.me/918360833126?text=I%20like%20the%20Varsity%20Hoodie%20(Embroidery)%20from%20NEXORA" target="_blank" rel="noreferrer" class="rounded-xl border border-stone-300 px-4 py-2 text-sm btn-pop">WhatsApp</a>
+            </div>
+          </div>
+        </article>
+        <article class="rounded-3xl bg-white ring-1 ring-stone-200 overflow-hidden card-hover">
+          <img class="h-56 w-full object-cover" src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80" alt="Oversized hoodie" />
+          <div class="p-5">
+            <h3 class="font-semibold">Oversized Hoodie</h3>
+            <p class="mt-1 text-sm text-slate-600">Heavy‑weight • Street fit</p>
+            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full bg-stone-100 px-2 py-1">₹1199–₹1699</span>
+              <span class="rounded-full bg-stone-100 px-2 py-1">DTF</span>
+              <span class="rounded-full bg-stone-100 px-2 py-1">S–XXL</span>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <a href="index.html#order" class="rounded-xl bg-slate-900 text-white px-4 py-2 text-sm font-semibold btn-pop">Order Now</a>
+              <a href="https://wa.me/919599320559?text=I%20like%20the%20Oversized%20Hoodie%20from%20NEXORA" target="_blank" rel="noreferrer" class="rounded-xl border border-stone-300 px-4 py-2 text-sm btn-pop">WhatsApp</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coming soon -->
+  <section class="bg-white border-t border-stone-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <h2 class="text-2xl sm:text-3xl font-bold">Coming soon</h2>
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="rounded-3xl bg-[var(--paper)] ring-1 ring-stone-200 p-6">
+          <div class="aspect-[4/3] rounded-2xl bg-stone-100"></div>
+          <p class="mt-3 text-slate-700">Caps</p>
+        </div>
+        <div class="rounded-3xl bg-[var(--paper)] ring-1 ring-stone-200 p-6">
+          <div class="aspect-[4/3] rounded-2xl bg-stone-100"></div>
+          <p class="mt-3 text-slate-700">Jerseys</p>
+        </div>
+        <div class="rounded-3xl bg-[var(--paper)] ring-1 ring-stone-200 p-6">
+          <div class="aspect-[4/3] rounded-2xl bg-stone-100"></div>
+          <p class="mt-3 text-slate-700">Mugs</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-stone-200 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-white font-black">N</span>
+            <span class="text-lg font-bold tracking-tight">NEXORA</span>
+          </div>
+          <p class="mt-3 text-sm text-slate-600">Custom merch for campuses & teams.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold">Quick links</h4>
+          <ul class="mt-3 space-y-2 text-sm text-slate-600">
+            <li><a class="hover:text-slate-900" href="index.html">Home</a></li>
+            <li><a class="hover:text-slate-900" href="products.html">Products</a></li>
+            <li><a class="hover:text-slate-900" href="index.html#fest">About</a></li>
+            <li><a class="hover:text-slate-900" href="index.html#order">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Contact</h4>
+          <ul class="mt-3 space-y-2 text-sm text-slate-600">
+            <li>Phone: <a class="underline" href="tel:+918360833126">8360833126</a> / <a class="underline" href="tel:+919599320559">9599320559</a></li>
+            <li>Email: <a class="underline" href="mailto:hello@nexora.in">hello@nexora.in</a></li>
+            <li>Instagram: <a class="underline" href="#" aria-label="Instagram link">@nexora</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Privacy</h4>
+          <p class="mt-3 text-sm text-slate-600">We only use your info to contact you about your order. No spam, no resale.</p>
+        </div>
+      </div>
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+        <p>© <span id="year"></span> NEXORA. All rights reserved.</p>
+        <div class="flex items-center gap-4">
+          <a class="hover:text-slate-800" href="#">Privacy</a>
+          <a class="hover:text-slate-800" href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky CTA (site-wide) -->
+  <div class="fixed inset-x-0 bottom-0 z-50 md:hidden">
+    <div class="mx-auto max-w-7xl px-4 pb-4">
+      <div class="rounded-2xl bg-white/90 backdrop-blur ring-1 ring-stone-200 p-3 flex items-center justify-between gap-3">
+        <a href="index.html#order" class="flex-1 rounded-xl border border-stone-300 px-4 py-3 text-center btn-pop">Order Now 🚀</a>
+        <a href="https://wa.me/918360833126?text=Hi%20NEXORA%2C%20I%20want%20to%20order%20custom%20T-shirts." target="_blank" rel="noreferrer" class="flex-1 rounded-xl bg-slate-900 text-white px-4 py-3 text-center font-semibold btn-pop">WhatsApp 💬</a>
+      </div>
+    </div>
+  </div>
+  <div class="hidden md:block fixed right-4 bottom-6 z-50">
+    <div class="flex flex-col gap-3">
+      <a href="index.html#order" class="rounded-xl bg-white/90 backdrop-blur ring-1 ring-stone-200 px-4 py-3 font-semibold btn-pop">Order Now 🚀</a>
+      <a href="https://wa.me/918360833126?text=Hi%20NEXORA%2C%20I%20want%20to%20order%20custom%20T-shirts." target="_blank" rel="noreferrer" class="rounded-xl bg-slate-900 text-white px-4 py-3 font-semibold btn-pop">WhatsApp 💬</a>
+    </div>
+  </div>
+
+  <script>
+    // Mobile nav toggle
+    const btn = document.getElementById('menuBtn');
+    const nav = document.getElementById('mobileNav');
+    if (btn) btn.addEventListener('click', () => nav.classList.toggle('hidden'));
+
+    // Year
+    const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+
+    // Demo filter chip toggle (purely visual)
+    document.querySelectorAll('[data-chip]').forEach(chip => {
+      chip.addEventListener('click', () => chip.classList.toggle('active'));
+    });
+
+    // Unsplash license note: images are free to use (unsplash.com/license). Replace with your own assets when ready.
+  </script>
+</body>
+</html>

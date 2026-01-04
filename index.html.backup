@@ -1,0 +1,3410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* Prevent mobile text auto-zoom that widens/wraps text */
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+    /* --- HERO container --- */
+    .hero-box{
+      position: relative;
+      overflow: hidden;
+      min-height: clamp(420px, 52dvh, 680px); /* real vertical room on phones */
+    }
+    @media (min-width: 768px){
+      .hero-box{ aspect-ratio: 16 / 9; min-height: 520px; }
+    }
+
+    /* Slides fill hero height */
+    .hero-box .carousel-track > .slide { position: relative; height: 100%; }
+
+    /* Caption inside each slide (click-through except inner) */
+    .hero-caption{
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: flex-start;
+      padding: clamp(12px, 4vw, 20px);
+      pointer-events: none;
+    }
+    .hero-caption-inner{
+      max-width: min(560px, 92vw);
+      pointer-events: auto;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    }
+    .hero-caption-inner h1{
+      white-space: normal;
+      font-weight: 800; line-height: 1.1; margin-top: 8px;
+      font-size: clamp(22px, 6vw, 56px);
+    }
+    .hero-caption-inner .caption-sub{ font-size: clamp(14px, 2.6vw, 18px); margin-top: .7rem; }
+    .hero-caption-inner .cta-row{ margin-top: clamp(10px, 2.2vw, 20px); gap: clamp(8px, 2vw, 16px); display: flex; flex-wrap: wrap; }
+
+    /* Keep subject framed when hero grows taller */
+    .hero-box img{ object-position: 74% center; }
+    @media (min-width: 1024px){ .hero-box img{ object-position: center; } }
+
+    /* Arrows: move down on tiny phones to avoid colliding with copy */
+    @media (max-width: 640px){
+      #prevBtn, #nextBtn{ top: auto; bottom: 10px; transform: none; }
+      #prevBtn{ left: 10px; }  #nextBtn{ right: 10px; }
+    }
+
+    /* ADD MYNTRA-STYLE PRODUCT CARD STYLING */
+    .product-card {
+      position: relative;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      transform: translateY(-2px);
+    }
+
+    .product-image-container {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.05);
+    }
+
+    .discount-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: #ff3f6c;
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 6px;
+      border-radius: 2px;
+      letter-spacing: 0.5px;
+    }
+
+    .product-info {
+      padding: 12px;
+      background: white;
+    }
+
+    .product-brand {
+      font-size: 14px;
+      font-weight: 600;
+      color: #282c3f;
+      margin-bottom: 2px;
+      line-height: 1.2;
+    }
+
+    .product-title {
+      font-size: 12px;
+      color: #535766;
+      margin-bottom: 6px;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .product-pricing {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .current-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: #282c3f;
+    }
+
+    .original-price {
+      font-size: 12px;
+      color: #94969f;
+      text-decoration: line-through;
+    }
+
+    .discount-percent {
+      font-size: 12px;
+      color: #ff3f6c;
+      font-weight: 600;
+    }
+
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+    }
+
+    .rating-star {
+      color: #14958f;
+      font-weight: 600;
+    }
+
+    .rating-count {
+      color: #94969f;
+    }
+
+    /* Update existing product cards to use new styling */
+    .shrink-0.w-56 {
+      width: 220px;
+      flex-shrink: 0;
+    }
+
+    /* Override existing product card styles */
+    .shrink-0 .relative .absolute.inset-x-0.bottom-0 {
+      position: static !important;
+      background: none !important;
+      padding: 0 !important;
+      min-height: auto !important;
+    }
+
+    .shrink-0 .bg-gradient-to-t {
+      display: none !important;
+    }
+
+    /* ADD TO QUOTE BUTTON STYLES */
+    .quote-btn {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 20;
+      min-height: 32px;
+      min-width: 80px;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+
+    .product-card:hover .quote-btn {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .quote-btn.btn-added {
+      background: #dc2626;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
+    /* Mobile-specific styles */
+    @media (max-width: 768px) {
+      .quote-btn {
+        opacity: 1;
+        pointer-events: auto;
+        bottom: 12px;
+        padding: 10px 16px;
+        font-size: 12px;
+        min-height: 36px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      }
+      
+      .quote-btn:active {
+        transform: translateX(-50%) scale(0.95);
+      }
+      
+      .product-card {
+        position: relative;
+      }
+      
+      .product-image-container {
+        position: relative;
+      }
+    }
+
+    /* FRAME IMAGE STYLES FOR ROTATOR CARDS */
+    .frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .frame:first-child {
+      opacity: 1;
+    }
+
+    .rotator-card .frame.active {
+      opacity: 1;
+    }
+
+    .frame.broken {
+      display: none !important;
+    }
+
+    /* QUOTE BUTTON STYLES */
+
+    .quote-btn:hover {
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Mobile: always show quote buttons */
+    @media (max-width: 767px) {
+      .quote-btn {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    /* Quote counter in header */
+    .quote-counter {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #dc2626;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: scale(0);
+      transition: transform 0.2s ease;
+    }
+
+    .quote-counter.show {
+      transform: scale(1);
+    }
+
+    /* Selected product list in form */
+    .selected-products {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 8px;
+    }
+
+    .selected-product {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .selected-product:last-child {
+      border-bottom: none;
+    }
+
+    .remove-product {
+      color: #dc2626;
+      cursor: pointer;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: background 0.2s ease;
+    }
+
+    .remove-product:hover {
+      background: #fee2e2;
+    }
+
+    /* --- HERO container --- */
+    .hero-box{
+      position: relative;
+      overflow: hidden;
+      min-height: clamp(420px, 52dvh, 680px);
+    }
+    @media (min-width: 768px){
+      .hero-box{ aspect-ratio: 16 / 9; min-height: 520px; }
+    }
+
+    .hero-overlay{
+      position: absolute; inset: 0; z-index: 10;
+      display: grid; grid-template-columns: 1fr;
+      align-items: center; pointer-events: none;
+    }
+    .hero-overlay > :last-child{ display: none; }
+    @media (min-width: 768px){
+      .hero-overlay{ grid-template-columns: 48% 1fr; }
+      .hero-overlay > :last-child{ display: block; }
+    }
+
+    #heroPanel{
+      --hero-pad: clamp(12px, 4vw, 20px);
+      height: 100%; padding: var(--hero-pad);
+      display: flex; align-items: center; justify-content: flex-start;
+      pointer-events: auto; background: transparent;
+    }
+
+    #heroCopy{
+      max-width: min(560px, 92vw);
+      transform: none !important;
+    }
+    #heroCopy h1{
+      white-space: normal;
+      font-weight: 800; line-height: 1.1; margin-top: 8px;
+      font-size: clamp(22px, 6vw, 56px);
+    }
+    #subTagline{ font-size: clamp(14px, 2.6vw, 18px); margin-top: .7rem; }
+    #heroCopy .cta-row{ margin-top: clamp(10px, 2.2vw, 20px); gap: clamp(8px, 2vw, 16px); }
+
+    .hero-box img{ object-position: 74% center; }
+    @media (min-width: 1024px){ .hero-box img{ object-position: center; } }
+
+    @media (max-width: 640px){
+      #prevBtn, #nextBtn{ top: auto; bottom: 10px; transform: none; }
+      #prevBtn{ left: 10px; }  #nextBtn{ right: 10px; }
+    }
+
+    /* add/override at the end of your existing styles */
+
+    /* Give the hero a definite height */
+    .hero-box{
+      height: clamp(420px, 52dvh, 680px);   /* was only min-height */
+    }
+    @media (min-width: 768px){
+      .hero-box{ aspect-ratio: 16/9; }      /* keeps pleasant desktop height */
+    }
+
+    /* Make track/slides fill the hero height */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+
+    /* Ensure image truly fills and remove baseline gap */
+    .hero-box .slide img{
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* HERO: lock ratio + scale copy with hero (not viewport) */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto;
+      min-height: 0;
+      container-type: size; /* enable cqi/cqh */
+    }
+
+    /* Same crop everywhere */
+    .hero-box .slide img{ object-position: center; display: block; }
+
+    /* Caption scales with hero width */
+    .hero-caption{ padding: clamp(10px, 2cqi, 24px); }
+    .hero-caption-inner{
+      font-size: clamp(12px, 1.2cqi, 16px); /* base for ems below */
+      max-width: min(560px, 92cqi);
+    }
+    .hero-caption-inner h1{ font-size: 3em; line-height: 1.1; margin-top: .4em; }
+    .hero-caption-inner .caption-sub{ font-size: 1.1em; margin-top: .7em; }
+
+    /* Buttons and gaps scale too */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: clamp(8px, 1.6cqi, 16px);
+      margin-top: clamp(8px, 2cqi, 20px);
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em;
+      padding: clamp(9px, 1.1cqi, 14px) clamp(14px, 1.6cqi, 22px);
+      border-radius: clamp(8px, 1.2cqi, 12px);
+    }
+
+    /* Ensure slides fill hero exactly */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{ width: 100%; height: 100%; object-fit: cover; }
+
+    /* FINAL HERO OVERRIDES — keep image and text in fixed proportion */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto !important;
+      min-height: 0 !important;
+      container-type: size;              /* enables cqi/cqh */
+    }
+
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{
+      display: block; width: 100%; height: 100%;
+      object-fit: cover;                 /* no distortion */
+      object-position: center;           /* same framing */
+    }
+
+    /* Caption scales with hero (not viewport) */
+    .hero-caption{ padding: 3cqi !important; } /* proportional inset */
+    .hero-caption-inner{
+      /* Strict proportional base; clamp keeps it readable on very small/large screens */
+      font-size: clamp(12px, 1.35cqi, 16px);
+      max-width: 42cqi;                  /* copy block width stays proportional */
+    }
+    .hero-caption-inner h1{
+      font-size: 3.3em;                  /* scales from base above */
+      line-height: 1.1;
+      margin-top: .5em;
+    }
+    .hero-caption-inner .caption-sub{ font-size: 1.15em; margin-top: .8em; }
+
+    /* Buttons and gaps scale too */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: 1.6cqi;                       /* proportional gap */
+      margin-top: 2.2cqi;
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em;
+      padding: 1.1cqi 1.8cqi;            /* overrides Tailwind px- utilities here */
+      border-radius: 1.1cqi;
+    }
+
+    /* Optional: move arrows on tiny phones (kept) */
+    @media (max-width: 640px){
+      #prevBtn, #nextBtn{ top: auto; bottom: 10px; transform: none; }
+      #prevBtn{ left: 10px; }  #nextBtn{ right: 10px; }
+    }
+
+    /* HERO — strict proportional scaling of copy to image */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto !important;
+      min-height: 0 !important;
+      container-type: size; /* enables cqi/cqh */
+    }
+
+    /* Fill hero exactly */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{
+      display: block; width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center !important; /* same crop on all screens */
+    }
+
+    /* Copy scales with hero width (not viewport) */
+    .hero-caption{ padding: 3cqi !important; }
+    .hero-caption-inner{
+      max-width: 42cqi;
+      font-size: 1.35cqi !important; /* exact proportional base (remove clamp) */
+    }
+
+    /* All sizes derived from the proportional base */
+    .hero-caption-inner h1{
+      font-size: 3.3em !important;
+      line-height: 1.1;
+      margin-top: .5em !important;
+    }
+    .hero-caption-inner .caption-sub{
+      font-size: 1.15em !important;
+      margin-top: .8em !important;
+    }
+
+    /* Buttons and gaps scale too (override Tailwind px- classes) */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: 1.6cqi !important;
+      margin-top: 2.2cqi !important;
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em !important;
+      padding: 1.1cqi 1.8cqi !important;
+      border-radius: 1.1cqi !important;
+    }
+
+    /* HERO chip — scale with hero (proportional to caption base) */
+    .hero-caption-inner > span.inline-flex:first-child{
+      font-size: .85em !important;   /* inherits from .hero-caption-inner (cqi-based) */
+      line-height: 1 !important;
+      padding: .55em .9em !important;
+      gap: .5em !important;
+      border-radius: 9999px !important; /* keep pill look, proportional */
+    }
+
+    /* HERO headline subline — 20% smaller than H1, bold, proportional */
+    .hero-caption-inner h1 .sub-kicker{
+      display: block;
+      font-size: .8em !important;   /* 20% smaller than h1 */
+      font-weight: 800 !important;
+      margin-top: .18em !important; /* slight gap under the main line */
+    }
+
+    /* Force H1 to exactly two lines: 
+       1) "What you customize" 
+       2) "becomes your aura" */
+    .hero-caption-inner h1 .line1,
+    .hero-caption-inner h1 .line2{
+      display: block;
+      white-space: nowrap !important; /* keep each phrase on its own line */
+    }
+
+    /* Make the two headline lines 95% of H1 size (all slides) */
+    .hero-caption-inner h1 .line1,
+    .hero-caption-inner h1 .line2{
+      font-size: .95em !important;
+    }
+
+    /* HERO: mobile = touch scroll + snap, hide arrows; desktop keeps arrows */
+    @media (max-width: 767px){
+      #prevBtn, #nextBtn{ display: none !important; }
+
+      #carouselTrack{
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      #carouselTrack::-webkit-scrollbar{ display: none; }
+      #carouselTrack > .slide{ scroll-snap-align: start; }
+      /* no transform animation on mobile track */
+      .hero-box .carousel-track{ transition: none !important; }
+    }
+
+    /* Dots visible on all views */
+    .dot{
+      width: 10px; height: 10px;
+      border-radius: 9999px;
+      display: inline-block;
+    }
+
+    /* Mobile: hide T‑Shirts/Hoodies/Varsity row arrows; touch scroll only */
+    @media (max-width: 767px){
+      .row-prev, .row-next{ display: none !important; }
+    }
+
+    /* Ronaldo head-pop: leave ~40% empty at top */
+    .head-pop{ background: var(--cream); }
+    .head-pop > img{
+      /* override Tailwind absolute inset-0 + sizing */
+      top: auto !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 60% !important;   /* leaves ~40% empty at top */
+      width: 100% !important;
+      object-fit: contain !important;
+      object-position: bottom center !important;
+    }
+
+    /* Smooth anchor scroll + offset for sticky header */
+    html{ scroll-behavior: smooth; }
+    section[id]{ scroll-margin-top: 80px; }
+
+    /* T‑Shirt #4 hover rotator */
+    .rotator-card{ position: relative; }
+    .rotator-card .frame{
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;
+      opacity: 0; transition: opacity .25s ease;
+    }
+    .rotator-card .frame.active{ opacity: 1; }
+    .rotator-dots{
+      position: absolute; top: 8px; right: 8px;
+      display: none; gap: 6px;
+    }
+    .rotator-card.rot-show .rotator-dots{ display: flex; }
+    .rotator-dots .dot{
+      width: 8px; height: 8px; border-radius: 9999px;
+      background: rgba(0,0,0,.28);
+    }
+    .rotator-dots .dot.active{ background: #fff; }
+
+    /* Hide rotator dots entirely */
+    .rotator-dots{ display: none !important; }
+
+    /* Ensure first frame shows by default (mobile/no-hover) */
+    .rotator-card .frame:first-of-type{ opacity: 1 !important; }
+
+    /* Modal open/close animation */
+    #imgModal{
+      opacity: 0; pointer-events: none;
+      transition: opacity 200ms ease;
+    }
+    #imgModal.open{
+      opacity: 1; pointer-events: auto;
+    }
+    #imgModal .modal-shell{
+      transform: scale(0.96);
+      transition: transform 220ms ease;
+    }
+    #imgModal.open .modal-shell{
+      transform: scale(1);
+    }
+
+    /* Default first frame visible when no hover */
+    .rotator-card .frame{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:0; transition:opacity .25s; }
+    .rotator-card .frame:first-of-type{ opacity:1 !important; }
+
+    /* Optional dots (inside modal) */
+    #imgModalDots .dot{ width:8px; height:8px; border-radius:9999px; background:#ffffff66; }
+    #imgModalDots .dot.active{ background:#fff; }
+
+    /* Fix product card text overlapping */
+    .shrink-0 .relative .absolute.inset-x-0.bottom-0 {
+      /* Increase padding and ensure proper spacing */
+      padding: 16px 12px 12px 12px !important;
+      min-height: 80px; /* Ensure enough vertical space */
+    }
+
+    /* CLEAN FIX: Move ALL discount badges to top-right corner */
+    span.absolute.top-2.left-2 {
+      top: 6px !important;
+      left: auto !important;
+      right: 6px !important;
+      z-index: 30 !important;
+    }
+
+    /* Alternative selector to catch all discount badges */
+    .absolute.top-2.left-2,
+    .absolute[class*="top-2"][class*="left-2"] {
+      top: 6px !important;
+      left: auto !important;
+      right: 6px !important;
+      z-index: 30 !important;
+    }
+
+    /* Clean up text area spacing */
+    .shrink-0 .relative .absolute.inset-x-0.bottom-0 {
+      padding: 16px 12px 12px 12px !important;
+      min-height: 80px !important;
+    }
+
+    /* Enhanced gradient for better text readability */
+    .shrink-0 .relative .bg-gradient-to-t {
+      background: linear-gradient(to top, 
+        rgba(255,255,255,0.98) 0%, 
+        rgba(255,255,255,0.92) 50%, 
+        rgba(255,255,255,0.75) 70%,
+        rgba(255,255,255,0.3) 85%,
+        transparent 100%) !important;
+    }
+  </style>
+  <title>AURA / NEXORA — Custom T-Shirts, Hoodies & Varsity Jackets for Colleges | Fast Quotes</title>
+  <meta name="description" content="Bulk custom T‑shirts, hoodies & varsity jackets for colleges and teams across India. Fast mockups and quotes with AURA / NEXORA." />
+  <link rel="canonical" href="https://nexora.in/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nexora.in/">
+  <meta property="og:title" content="Custom Campus Merch — Fast Quotes & Mockups">
+  <meta property="og:description" content="Bulk custom T-shirts, hoodies & varsity jackets for colleges and teams. Fast mockups and quotes.">
+  <meta property="og:image" content=Images/Carousel_hoodies.jpg"><!-- TODO: replace with real 1200x630 OG image and hosted URL after domain confirm -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Custom Campus Merch — Fast Quotes & Mockups">
+  <meta name="twitter:description" content="Bulk custom T-shirts, hoodies & varsity jackets. Fast quotes.">
+  <meta name="twitter:image" content="Images/Carousel_Hoodies.jpg">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- TODO: Preload primary webfont if self-hosted to improve LCP text
+  <link rel="preload" href="/fonts/Inter.woff2" as="font" type="font/woff2" crossorigin>
+  -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "NEXORA",
+    "url": "https://nexora.in/",
+    "logo": "https://nexora.in/assets/logo.jpg",
+    "sameAs": ["https://www.instagram.com/nexora"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "Product",
+        "name": "Classic Cotton Tee • Unisex",
+        "brand": { "@type": "Brand", "name": "NEXORA" },
+        "description": "Classic unisex cotton t-shirt for bulk campus orders.",
+        "offers": { "@type": "Offer", "priceCurrency": "INR", "price": "499", "availability": "https://schema.org/InStock" }
+      },
+      {
+        "@type": "Product",
+        "name": "Pullover Hoodie • Fleece Cozy",
+        "brand": { "@type": "Brand", "name": "NEXORA" },
+        "description": "Cozy fleece pullover hoodie ideal for teams and clubs.",
+        "offers": { "@type": "Offer", "priceCurrency": "INR", "price": "1199", "availability": "https://schema.org/InStock" }
+      },
+      {
+        "@type": "Product",
+        "name": "Classic Varsity • Wool Blend",
+        "brand": { "@type": "Brand", "name": "NEXORA" },
+        "description": "Wool blend varsity jacket with customization options.",
+        "offers": { "@type": "Offer", "priceCurrency": "INR", "price": "1999", "availability": "https://schema.org/InStock" }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root { --cream:#fcfbf8; --paper:#fbf7f2; --ink:#0b1220; --muted:#475569; --edge:#e7e5e4; }
+    html{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Apple Color Emoji','Segoe UI Emoji'}
+    body{background:var(--cream);color:var(--ink)}
+    .hero-splash{background:
+      radial-gradient(800px 300px at 15% 10%, rgba(56,189,248,.18), transparent 60%),
+      radial-gradient(600px 240px at 90% 8%, rgba(167,139,250,.18), transparent 60%),
+      linear-gradient(180deg, #fff 0%, var(--cream) 100%)}
+    .shimmer{background-size:200% 100%;animation:shimmer 10s ease-in-out infinite}
+    @keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .btn-pop{transition:transform .2s ease, box-shadow .2s ease}
+    .btn-pop:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(2,6,23,.08)}
+    .card-hover{transition:transform .3s ease, box-shadow .3s ease}
+    .card-hover:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(2,6,23,.10)}
+    .no-scrollbar::-webkit-scrollbar{display:none}
+    .no-scrollbar{scrollbar-width:none;-ms-overflow-style:none}
+    [data-row]{touch-action: pan-x pan-y; cursor: grab;} /* allow vertical scroll */
+    [data-row].dragging{cursor: grabbing; scroll-behavior: auto !important;}
+    @supports (overscroll-behavior-x: contain){
+      [data-row]{ overscroll-behavior-x: contain; } /* avoid page rubber-band on horizontal fling */
+    }
+    .carousel-track{transition: transform 600ms ease;}
+    .rotator{opacity:1;transition:opacity .5s ease}
+    .rotator.hide{opacity:0}
+    @media (prefers-reduced-motion: reduce){.btn-pop,.card-hover,.shimmer{animation:none!important;transition:none!important}}
+
+    /* --- HERO container (duplicate kept in sync) --- */
+    .hero-box{
+      position: relative;
+      overflow: hidden;
+      min-height: clamp(420px, 52dvh, 680px);
+    }
+    @media (min-width: 768px){
+      .hero-box{ aspect-ratio: 16 / 9; min-height: 520px; }
+    }
+
+    .hero-overlay{
+      position: absolute; inset: 0; z-index: 10;
+      display: grid; grid-template-columns: 1fr;
+      align-items: center; pointer-events: none;
+    }
+    .hero-overlay > :last-child{ display: none; }
+    @media (min-width: 768px){
+      .hero-overlay{ grid-template-columns: 48% 1fr; }
+      .hero-overlay > :last-child{ display: block; }
+    }
+
+    #heroPanel{
+      --hero-pad: clamp(12px, 4vw, 20px);
+      height: 100%; padding: var(--hero-pad);
+      display: flex; align-items: center; justify-content: flex-start;
+      pointer-events: auto; background: transparent;
+    }
+
+    #heroCopy{
+      max-width: min(560px, 92vw);
+      transform: none !important;
+    }
+    #heroCopy h1{
+      white-space: normal;
+      font-weight: 800; line-height: 1.1; margin-top: 8px;
+      font-size: clamp(22px, 6vw, 56px);
+    }
+    #subTagline{ font-size: clamp(14px, 2.6vw, 18px); margin-top: .7rem; }
+    #heroCopy .cta-row{ margin-top: clamp(10px, 2.2vw, 20px); gap: clamp(8px, 2vw, 16px); }
+
+    .hero-box img{ object-position: 74% center; }
+    @media (min-width: 1024px){ .hero-box img{ object-position: center; } }
+
+    @media (max-width: 640px){
+      #prevBtn, #nextBtn{ top: auto; bottom: 10px; transform: none; }
+      #prevBtn{ left: 10px; }  #nextBtn{ right: 10px; }
+    }
+
+    /* add/override at the end of your existing styles */
+
+    /* Give the hero a definite height */
+    .hero-box{
+      height: clamp(420px, 52dvh, 680px);   /* was only min-height */
+    }
+    @media (min-width: 768px){
+      .hero-box{ aspect-ratio: 16/9; }      /* keeps pleasant desktop height */
+    }
+
+    /* Make track/slides fill the hero height */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+
+    /* Ensure image truly fills and remove baseline gap */
+    .hero-box .slide img{
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* HERO: lock ratio + scale copy with hero (not viewport) */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto;
+      min-height: 0;
+      container-type: size; /* enable cqi/cqh */
+    }
+
+    /* Same crop everywhere */
+    .hero-box .slide img{ object-position: center; display: block; }
+
+    /* Caption scales with hero width */
+    .hero-caption{ padding: clamp(10px, 2cqi, 24px); }
+    .hero-caption-inner{
+      font-size: clamp(12px, 1.2cqi, 16px); /* base for ems below */
+      max-width: min(560px, 92cqi);
+    }
+    .hero-caption-inner h1{ font-size: 3em; line-height: 1.1; margin-top: .4em; }
+    .hero-caption-inner .caption-sub{ font-size: 1.1em; margin-top: .7em; }
+
+    /* Buttons and gaps scale too */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: clamp(8px, 1.6cqi, 16px);
+      margin-top: clamp(8px, 2cqi, 20px);
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em;
+      padding: clamp(9px, 1.1cqi, 14px) clamp(14px, 1.6cqi, 22px);
+      border-radius: clamp(8px, 1.2cqi, 12px);
+    }
+
+    /* Ensure slides fill hero exactly */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{ width: 100%; height: 100%; object-fit: cover; }
+
+    /* FINAL HERO OVERRIDES — keep image and text in fixed proportion */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto !important;
+      min-height: 0 !important;
+      container-type: size;              /* enables cqi/cqh */
+    }
+
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{
+      display: block; width: 100%; height: 100%;
+      object-fit: cover;                 /* no distortion */
+      object-position: center;           /* same framing */
+    }
+
+    /* Caption scales with hero (not viewport) */
+    .hero-caption{ padding: 3cqi !important; } /* proportional inset */
+    .hero-caption-inner{
+      /* Strict proportional base; clamp keeps it readable on very small/large screens */
+      font-size: clamp(12px, 1.35cqi, 16px);
+      max-width: 42cqi;                  /* copy block width stays proportional */
+    }
+    .hero-caption-inner h1{
+      font-size: 3.3em;                  /* scales from base above */
+      line-height: 1.1;
+      margin-top: .5em;
+    }
+    .hero-caption-inner .caption-sub{ font-size: 1.15em; margin-top: .8em; }
+
+    /* Buttons and gaps scale too */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: 1.6cqi;                       /* proportional gap */
+      margin-top: 2.2cqi;
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em;
+      padding: 1.1cqi 1.8cqi;            /* overrides Tailwind px- utilities here */
+      border-radius: 1.1cqi;
+    }
+
+    /* Optional: move arrows on tiny phones (kept) */
+    @media (max-width: 640px){
+      #prevBtn, #nextBtn{ top: auto; bottom: 10px; transform: none; }
+      #prevBtn{ left: 10px; }  #nextBtn{ right: 10px; }
+    }
+
+    /* HERO — strict proportional scaling of copy to image */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto !important;
+      min-height: 0 !important;
+      container-type: size; /* enables cqi/cqh */
+    }
+
+    /* Fill hero exactly */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{
+      display: block; width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center !important; /* same crop on all screens */
+    }
+
+    /* Copy scales with hero width (not viewport) */
+    .hero-caption{ padding: 3cqi !important; }
+    .hero-caption-inner{
+      max-width: 42cqi;
+      font-size: 1.35cqi !important; /* exact proportional base (remove clamp) */
+    }
+
+    /* All sizes derived from the proportional base */
+    .hero-caption-inner h1{
+      font-size: 3.3em !important;
+      line-height: 1.1;
+      margin-top: .5em !important;
+    }
+    .hero-caption-inner .caption-sub{
+      font-size: 1.15em !important;
+      margin-top: .8em !important;
+    }
+
+    /* Buttons and gaps scale too (override Tailwind px- classes) */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: 1.6cqi !important;
+      margin-top: 2.2cqi !important;
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em !important;
+      padding: 1.1cqi 1.8cqi !important;
+      border-radius: 1.1cqi !important;
+    }
+
+    /* HERO chip — scale with hero (proportional to caption base) */
+    .hero-caption-inner > span.inline-flex:first-child{
+      font-size: .85em !important;   /* inherits from .hero-caption-inner (cqi-based) */
+      line-height: 1 !important;
+      padding: .55em .9em !important;
+      gap: .5em !important;
+      border-radius: 9999px !important; /* keep pill look, proportional */
+    }
+
+    /* HERO headline subline — 20% smaller than H1, bold, proportional */
+    .hero-caption-inner h1 .sub-kicker{
+      display: block;
+      font-size: .8em !important;   /* 20% smaller than h1 */
+      font-weight: 800 !important;
+      margin-top: .18em !important; /* slight gap under the main line */
+    }
+
+    /* Force H1 to exactly two lines: 
+       1) "What you customize" 
+       2) "becomes your aura" */
+    .hero-caption-inner h1 .line1,
+    .hero-caption-inner h1 .line2{
+      display: block;
+      white-space: nowrap !important; /* keep each phrase on its own line */
+    }
+
+    /* Make the two headline lines 95% of H1 size (all slides) */
+    .hero-caption-inner h1 .line1,
+    .hero-caption-inner h1 .line2{
+      font-size: .95em !important;
+    }
+
+    /* HERO: mobile = touch scroll + snap, hide arrows; desktop keeps arrows */
+    @media (max-width: 767px){
+      #prevBtn, #nextBtn{ display: none !important; }
+
+      #carouselTrack{
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      #carouselTrack::-webkit-scrollbar{ display: none; }
+      #carouselTrack > .slide{ scroll-snap-align: start; }
+      /* no transform animation on mobile track */
+      .hero-box .carousel-track{ transition: none !important; }
+    }
+
+    /* Dots visible on all views */
+    .dot{
+      width: 10px; height: 10px;
+      border-radius: 9999px;
+      display: inline-block;
+    }
+
+    /* Mobile: hide T‑Shirts/Hoodies/Varsity row arrows; touch scroll only */
+    @media (max-width: 767px){
+      .row-prev, .row-next{ display: none !important; }
+    }
+
+    /* Ronaldo head-pop: leave ~40% empty at top */
+    .head-pop{ background: var(--cream); }
+    .head-pop > img{
+      /* override Tailwind absolute inset-0 + sizing */
+      top: auto !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 60% !important;   /* leaves ~40% empty at top */
+      width: 100% !important;
+      object-fit: contain !important;
+      object-position: bottom center !important;
+    }
+
+    /* Smooth anchor scroll + offset for sticky header */
+    html{ scroll-behavior: smooth; }
+    section[id]{ scroll-margin-top: 80px; }
+
+    /* T‑Shirt #4 hover rotator */
+    .rotator-card{ position: relative; }
+    .rotator-card .frame{
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;
+      opacity: 0; transition: opacity .25s ease;
+    }
+    .rotator-card .frame.active{ opacity: 1; }
+    .rotator-dots{
+      position: absolute; top: 8px; right: 8px;
+      display: none; gap: 6px;
+    }
+    .rotator-card.rot-show .rotator-dots{ display: flex; }
+    .rotator-dots .dot{
+      width: 8px; height: 8px; border-radius: 9999px;
+      background: rgba(0,0,0,.28);
+    }
+    .rotator-dots .dot.active{ background: #fff; }
+
+    /* Hide rotator dots entirely */
+    .rotator-dots{ display: none !important; }
+
+    /* Ensure first frame shows by default (mobile/no-hover) */
+    .rotator-card .frame:first-of-type{ opacity: 1 !important; }
+
+    /* Modal open/close animation */
+    #imgModal{
+      opacity: 0; pointer-events: none;
+      transition: opacity 200ms ease;
+    }
+    #imgModal.open{
+      opacity: 1; pointer-events: auto;
+    }
+    #imgModal .modal-shell{
+      transform: scale(0.96);
+      transition: transform 220ms ease;
+    }
+    #imgModal.open .modal-shell{
+      transform: scale(1);
+    }
+
+    /* Default first frame visible when no hover */
+    .rotator-card .frame{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:0; transition:opacity .25s; }
+    .rotator-card .frame:first-of-type{ opacity:1 !important; }
+
+    /* Optional dots (inside modal) */
+    #imgModalDots .dot{ width:8px; height:8px; border-radius:9999px; background:#ffffff66; }
+    #imgModalDots .dot.active{ background:#fff; }
+
+    /* Fix product card text overlapping */
+    .shrink-0 .relative .absolute.inset-x-0.bottom-0 {
+      /* Increase padding and ensure proper spacing */
+      padding: 16px 12px 12px 12px !important;
+      min-height: 80px; /* Ensure enough vertical space */
+    }
+
+    /* CLEAN FIX: Move ALL discount badges to top-right corner */
+    span.absolute.top-2.left-2 {
+      top: 6px !important;
+      left: auto !important;
+      right: 6px !important;
+      z-index: 30 !important;
+    }
+
+    /* Alternative selector to catch all discount badges */
+    .absolute.top-2.left-2,
+    .absolute[class*="top-2"][class*="left-2"] {
+      top: 6px !important;
+      left: auto !important;
+      right: 6px !important;
+      z-index: 30 !important;
+    }
+
+    /* Clean up text area spacing */
+    .shrink-0 .relative .absolute.inset-x-0.bottom-0 {
+      padding: 16px 12px 12px 12px !important;
+      min-height: 80px !important;
+    }
+
+    /* Enhanced gradient for better text readability */
+    .shrink-0 .relative .bg-gradient-to-t {
+      background: linear-gradient(to top, 
+        rgba(255,255,255,0.98) 0%, 
+        rgba(255,255,255,0.92) 50%, 
+        rgba(255,255,255,0.75) 70%,
+        rgba(255,255,255,0.3) 85%,
+        transparent 100%) !important;
+    }
+  </style>
+  <title>AURA / NEXORA — Custom T-Shirts, Hoodies & Varsity Jackets for Colleges | Fast Quotes</title>
+  <meta name="description" content="Bulk custom T‑shirts, hoodies & varsity jackets for colleges and teams across India. Fast mockups and quotes with AURA / NEXORA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --cream:#fcfbf8; --paper:#fbf7f2; --ink:#0b1220; --muted:#475569; --edge:#e7e5e4; }
+    html{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Apple Color Emoji','Segoe UI Emoji'}
+    body{background:var(--cream);color:var(--ink)}
+    .hero-splash{background:
+      radial-gradient(800px 300px at 15% 10%, rgba(56,189,248,.18), transparent 60%),
+      radial-gradient(600px 240px at 90% 8%, rgba(167,139,250,.18), transparent 60%),
+      linear-gradient(180deg, #fff 0%, var(--cream) 100%)}
+    .shimmer{background-size:200% 100%;animation:shimmer 10s ease-in-out infinite}
+    @keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .btn-pop{transition:transform .2s ease, box-shadow .2s ease}
+    .btn-pop:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(2,6,23,.08)}
+    .card-hover{transition:transform .3s ease, box-shadow .3s ease}
+    .card-hover:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(2,6,23,.10)}
+    .no-scrollbar::-webkit-scrollbar{display:none}
+    .no-scrollbar{scrollbar-width:none;-ms-overflow-style:none}
+    [data-row]{touch-action: pan-x pan-y; cursor: grab;} /* allow vertical scroll */
+    [data-row].dragging{cursor: grabbing; scroll-behavior: auto !important;}
+    @supports (overscroll-behavior-x: contain){
+      [data-row]{ overscroll-behavior-x: contain; } /* avoid page rubber-band on horizontal fling */
+    }
+    .carousel-track{transition: transform 600ms ease;}
+    .rotator{opacity:1;transition:opacity .5s ease}
+    .rotator.hide{opacity:0}
+    @media (prefers-reduced-motion: reduce){.btn-pop,.card-hover,.shimmer{animation:none!important;transition:none!important}}
+
+    /* --- HERO container (duplicate kept in sync) --- */
+    .hero-box{
+      position: relative;
+      overflow: hidden;
+      min-height: clamp(420px, 52dvh, 680px);
+    }
+    @media (min-width: 768px){
+      .hero-box{ aspect-ratio: 16 / 9; min-height: 520px; }
+    }
+
+    .hero-overlay{
+      position: absolute; inset: 0; z-index: 10;
+      display: grid; grid-template-columns: 1fr;
+      align-items: center; pointer-events: none;
+    }
+    .hero-overlay > :last-child{ display: none; }
+    @media (min-width: 768px){
+      .hero-overlay{ grid-template-columns: 48% 1fr; }
+      .hero-overlay > :last-child{ display: block; }
+    }
+
+    #heroPanel{
+      --hero-pad: clamp(12px, 4vw, 20px);
+      height: 100%; padding: var(--hero-pad);
+      display: flex; align-items: center; justify-content: flex-start;
+      pointer-events: auto; background: transparent;
+    }
+
+    #heroCopy{
+      max-width: min(560px, 92vw);
+      transform: none !important;
+    }
+    #heroCopy h1{
+      white-space: normal;
+      font-weight: 800; line-height: 1.1; margin-top: 8px;
+      font-size: clamp(22px, 6vw, 56px);
+    }
+    #subTagline{ font-size: clamp(14px, 2.6vw, 18px); margin-top: .7rem; }
+    #heroCopy .cta-row{ margin-top: clamp(10px, 2.2vw, 20px); gap: clamp(8px, 2vw, 16px); }
+
+    .hero-box img{ object-position: 74% center; }
+    @media (min-width: 1024px){ .hero-box img{ object-position: center; } }
+
+    @media (max-width: 640px){
+      #prevBtn, #nextBtn{ top: auto; bottom: 10px; transform: none; }
+      #prevBtn{ left: 10px; }  #nextBtn{ right: 10px; }
+    }
+
+    /* add/override at the end of your existing styles */
+
+    /* Give the hero a definite height */
+    .hero-box{
+      height: clamp(420px, 52dvh, 680px);   /* was only min-height */
+    }
+    @media (min-width: 768px){
+      .hero-box{ aspect-ratio: 16/9; }      /* keeps pleasant desktop height */
+    }
+
+    /* Make track/slides fill the hero height */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+
+    /* Ensure image truly fills and remove baseline gap */
+    .hero-box .slide img{
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* HERO: lock ratio + scale copy with hero (not viewport) */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto;
+      min-height: 0;
+      container-type: size; /* enable cqi/cqh */
+    }
+
+    /* Same crop everywhere */
+    .hero-box .slide img{ object-position: center; display: block; }
+
+    /* Caption scales with hero width */
+    .hero-caption{ padding: clamp(10px, 2cqi, 24px); }
+    .hero-caption-inner{
+      font-size: clamp(12px, 1.2cqi, 16px); /* base for ems below */
+      max-width: min(560px, 92cqi);
+    }
+    .hero-caption-inner h1{ font-size: 3em; line-height: 1.1; margin-top: .4em; }
+    .hero-caption-inner .caption-sub{ font-size: 1.1em; margin-top: .7em; }
+
+    /* Buttons and gaps scale too */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: clamp(8px, 1.6cqi, 16px);
+      margin-top: clamp(8px, 2cqi, 20px);
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em;
+      padding: clamp(9px, 1.1cqi, 14px) clamp(14px, 1.6cqi, 22px);
+      border-radius: clamp(8px, 1.2cqi, 12px);
+    }
+
+    /* Ensure slides fill hero exactly */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{ width: 100%; height: 100%; object-fit: cover; }
+
+    /* FINAL HERO OVERRIDES — keep image and text in fixed proportion */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto !important;
+      min-height: 0 !important;
+      container-type: size;              /* enables cqi/cqh */
+    }
+
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{
+      display: block; width: 100%; height: 100%;
+      object-fit: cover;                 /* no distortion */
+      object-position: center;           /* same framing */
+    }
+
+    /* Caption scales with hero (not viewport) */
+    .hero-caption{ padding: 3cqi !important; } /* proportional inset */
+    .hero-caption-inner{
+      /* Strict proportional base; clamp keeps it readable on very small/large screens */
+      font-size: clamp(12px, 1.35cqi, 16px);
+      max-width: 42cqi;                  /* copy block width stays proportional */
+    }
+    .hero-caption-inner h1{
+      font-size: 3.3em;                  /* scales from base above */
+      line-height: 1.1;
+      margin-top: .5em;
+    }
+    .hero-caption-inner .caption-sub{ font-size: 1.15em; margin-top: .8em; }
+
+    /* Buttons and gaps scale too */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: 1.6cqi;                       /* proportional gap */
+      margin-top: 2.2cqi;
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em;
+      padding: 1.1cqi 1.8cqi;            /* overrides Tailwind px- utilities here */
+      border-radius: 1.1cqi;
+    }
+
+    /* Optional: move arrows on tiny phones (kept) */
+    @media (max-width: 640px){
+      #prevBtn, #nextBtn{ top: auto; bottom: 10px; transform: none; }
+      #prevBtn{ left: 10px; }  #nextBtn{ right: 10px; }
+    }
+
+    /* HERO — strict proportional scaling of copy to image */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto !important;
+      min-height: 0 !important;
+      container-type: size; /* enables cqi/cqh */
+    }
+
+    /* Fill hero exactly */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{
+      display: block; width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center !important; /* same crop on all screens */
+    }
+
+    /* Copy scales with hero width (not viewport) */
+    .hero-caption{ padding: 3cqi !important; }
+    .hero-caption-inner{
+      max-width: 42cqi;
+      font-size: 1.35cqi !important; /* exact proportional base (remove clamp) */
+    }
+
+    /* All sizes derived from the proportional base */
+    .hero-caption-inner h1{
+      font-size: 3.3em !important;
+      line-height: 1.1;
+      margin-top: .5em !important;
+    }
+    .hero-caption-inner .caption-sub{
+      font-size: 1.15em !important;
+      margin-top: .8em !important;
+    }
+
+    /* Buttons and gaps scale too (override Tailwind px- classes) */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: 1.6cqi !important;
+      margin-top: 2.2cqi !important;
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em !important;
+      padding: 1.1cqi 1.8cqi !important;
+      border-radius: 1.1cqi !important;
+    }
+
+    /* HERO chip — scale with hero (proportional to caption base) */
+    .hero-caption-inner > span.inline-flex:first-child{
+      font-size: .85em !important;   /* inherits from .hero-caption-inner (cqi-based) */
+      line-height: 1 !important;
+      padding: .55em .9em !important;
+      gap: .5em !important;
+      border-radius: 9999px !important; /* keep pill look, proportional */
+    }
+
+    /* HERO headline subline — 20% smaller than H1, bold, proportional */
+    .hero-caption-inner h1 .sub-kicker{
+      display: block;
+      font-size: .8em !important;   /* 20% smaller than h1 */
+      font-weight: 800 !important;
+      margin-top: .18em !important; /* slight gap under the main line */
+    }
+
+    /* Force H1 to exactly two lines: 
+       1) "What you customize" 
+       2) "becomes your aura" */
+    .hero-caption-inner h1 .line1,
+    .hero-caption-inner h1 .line2{
+      display: block;
+      white-space: nowrap !important; /* keep each phrase on its own line */
+    }
+
+    /* Make the two headline lines 95% of H1 size (all slides) */
+    .hero-caption-inner h1 .line1,
+    .hero-caption-inner h1 .line2{
+      font-size: .95em !important;
+    }
+
+    /* HERO: mobile = touch scroll + snap, hide arrows; desktop keeps arrows */
+    @media (max-width: 767px){
+      #prevBtn, #nextBtn{ display: none !important; }
+
+      #carouselTrack{
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      #carouselTrack::-webkit-scrollbar{ display: none; }
+      #carouselTrack > .slide{ scroll-snap-align: start; }
+      /* no transform animation on mobile track */
+      .hero-box .carousel-track{ transition: none !important; }
+    }
+
+    /* Dots visible on all views */
+    .dot{
+      width: 10px; height: 10px;
+      border-radius: 9999px;
+      display: inline-block;
+    }
+
+    /* Mobile: hide T‑Shirts/Hoodies/Varsity row arrows; touch scroll only */
+    @media (max-width: 767px){
+      .row-prev, .row-next{ display: none !important; }
+    }
+
+    /* Ronaldo head-pop: leave ~40% empty at top */
+    .head-pop{ background: var(--cream); }
+    .head-pop > img{
+      /* override Tailwind absolute inset-0 + sizing */
+      top: auto !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 60% !important;   /* leaves ~40% empty at top */
+      width: 100% !important;
+      object-fit: contain !important;
+      object-position: bottom center !important;
+    }
+
+    /* Smooth anchor scroll + offset for sticky header */
+    html{ scroll-behavior: smooth; }
+    section[id]{ scroll-margin-top: 80px; }
+
+    /* T‑Shirt #4 hover rotator */
+    .rotator-card{ position: relative; }
+    .rotator-card .frame{
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;
+      opacity: 0; transition: opacity .25s ease;
+    }
+    .rotator-card .frame.active{ opacity: 1; }
+    .rotator-dots{
+      position: absolute; top: 8px; right: 8px;
+      display: none; gap: 6px;
+    }
+    .rotator-card.rot-show .rotator-dots{ display: flex; }
+    .rotator-dots .dot{
+      width: 8px; height: 8px; border-radius: 9999px;
+      background: rgba(0,0,0,.28);
+    }
+    .rotator-dots .dot.active{ background: #fff; }
+
+    /* Hide rotator dots entirely */
+    .rotator-dots{ display: none !important; }
+
+    /* Ensure first frame shows by default (mobile/no-hover) */
+    .rotator-card .frame:first-of-type{ opacity: 1 !important; }
+
+    /* Modal open/close animation */
+    #imgModal{
+      opacity: 0; pointer-events: none;
+      transition: opacity 200ms ease;
+    }
+    #imgModal.open{
+      opacity: 1; pointer-events: auto;
+    }
+    #imgModal .modal-shell{
+      transform: scale(0.96);
+      transition: transform 220ms ease;
+    }
+    #imgModal.open .modal-shell{
+      transform: scale(1);
+    }
+
+    /* Default first frame visible when no hover */
+    .rotator-card .frame{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:0; transition:opacity .25s; }
+    .rotator-card .frame:first-of-type{ opacity:1 !important; }
+
+    /* Optional dots (inside modal) */
+    #imgModalDots .dot{ width:8px; height:8px; border-radius:9999px; background:#ffffff66; }
+    #imgModalDots .dot.active{ background:#fff; }
+
+    /* Fix product card text overlapping */
+    .shrink-0 .relative .absolute.inset-x-0.bottom-0 {
+      /* Increase padding and ensure proper spacing */
+      padding: 16px 12px 12px 12px !important;
+      min-height: 80px; /* Ensure enough vertical space */
+    }
+
+    /* CLEAN FIX: Move ALL discount badges to top-right corner */
+    span.absolute.top-2.left-2 {
+      top: 6px !important;
+      left: auto !important;
+      right: 6px !important;
+      z-index: 30 !important;
+    }
+
+    /* Alternative selector to catch all discount badges */
+    .absolute.top-2.left-2,
+    .absolute[class*="top-2"][class*="left-2"] {
+      top: 6px !important;
+      left: auto !important;
+      right: 6px !important;
+      z-index: 30 !important;
+    }
+
+    /* Clean up text area spacing */
+    .shrink-0 .relative .absolute.inset-x-0.bottom-0 {
+      padding: 16px 12px 12px 12px !important;
+      min-height: 80px !important;
+    }
+
+    /* Enhanced gradient for better text readability */
+    .shrink-0 .relative .bg-gradient-to-t {
+      background: linear-gradient(to top, 
+        rgba(255,255,255,0.98) 0%, 
+        rgba(255,255,255,0.92) 50%, 
+        rgba(255,255,255,0.75) 70%,
+        rgba(255,255,255,0.3) 85%,
+        transparent 100%) !important;
+    }
+  </style>
+  <title>AURA / NEXORA — Custom T-Shirts, Hoodies & Varsity Jackets for Colleges | Fast Quotes</title>
+  <meta name="description" content="Bulk custom T‑shirts, hoodies & varsity jackets for colleges and teams across India. Fast mockups and quotes with AURA / NEXORA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --cream:#fcfbf8; --paper:#fbf7f2; --ink:#0b1220; --muted:#475569; --edge:#e7e5e4; }
+    html{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Apple Color Emoji','Segoe UI Emoji'}
+    body{background:var(--cream);color:var(--ink)}
+    .hero-splash{background:
+      radial-gradient(800px 300px at 15% 10%, rgba(56,189,248,.18), transparent 60%),
+      radial-gradient(600px 240px at 90% 8%, rgba(167,139,250,.18), transparent 60%),
+      linear-gradient(180deg, #fff 0%, var(--cream) 100%)}
+    .shimmer{background-size:200% 100%;animation:shimmer 10s ease-in-out infinite}
+    @keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .btn-pop{transition:transform .2s ease, box-shadow .2s ease}
+    .btn-pop:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(2,6,23,.08)}
+    .card-hover{transition:transform .3s ease, box-shadow .3s ease}
+    .card-hover:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(2,6,23,.10)}
+    .no-scrollbar::-webkit-scrollbar{display:none}
+    .no-scrollbar{scrollbar-width:none;-ms-overflow-style:none}
+    [data-row]{touch-action: pan-x pan-y; cursor: grab;} /* allow vertical scroll */
+    [data-row].dragging{cursor: grabbing; scroll-behavior: auto !important;}
+    @supports (overscroll-behavior-x: contain){
+      [data-row]{ overscroll-behavior-x: contain; } /* avoid page rubber-band on horizontal fling */
+    }
+    .carousel-track{transition: transform 600ms ease;}
+    .rotator{opacity:1;transition:opacity .5s ease}
+    .rotator.hide{opacity:0}
+    @media (prefers-reduced-motion: reduce){.btn-pop,.card-hover,.shimmer{animation:none!important;transition:none!important}}
+
+    /* --- HERO container (duplicate kept in sync) --- */
+    .hero-box{
+      position: relative;
+      overflow: hidden;
+      min-height: clamp(420px, 52dvh, 680px);
+    }
+    @media (min-width: 768px){
+      .hero-box{ aspect-ratio: 16 / 9; min-height: 520px; }
+    }
+
+    .hero-overlay{
+      position: absolute; inset: 0; z-index: 10;
+      display: grid; grid-template-columns: 1fr;
+      align-items: center; pointer-events: none;
+    }
+    .hero-overlay > :last-child{ display: none; }
+    @media (min-width: 768px){
+      .hero-overlay{ grid-template-columns: 48% 1fr; }
+      .hero-overlay > :last-child{ display: block; }
+    }
+
+    #heroPanel{
+      --hero-pad: clamp(12px, 4vw, 20px);
+      height: 100%; padding: var(--hero-pad);
+      display: flex; align-items: center; justify-content: flex-start;
+      pointer-events: auto; background: transparent;
+    }
+
+    #heroCopy{
+      max-width: min(560px, 92vw);
+      transform: none !important;
+    }
+    #heroCopy h1{
+      white-space: normal;
+      font-weight: 800; line-height: 1.1; margin-top: 8px;
+      font-size: clamp(22px, 6vw, 56px);
+    }
+    #subTagline{ font-size: clamp(14px, 2.6vw, 18px); margin-top: .7rem; }
+    #heroCopy .cta-row{ margin-top: clamp(10px, 2.2vw, 20px); gap: clamp(8px, 2vw, 16px); }
+
+    .hero-box img{ object-position: 74% center; }
+    @media (min-width: 1024px){ .hero-box img{ object-position: center; } }
+
+    @media (max-width: 640px){
+      #prevBtn, #nextBtn{ top: auto; bottom: 10px; transform: none; }
+      #prevBtn{ left: 10px; }  #nextBtn{ right: 10px; }
+    }
+
+    /* add/override at the end of your existing styles */
+
+    /* Give the hero a definite height */
+    .hero-box{
+      height: clamp(420px, 52dvh, 680px);   /* was only min-height */
+    }
+    @media (min-width: 768px){
+      .hero-box{ aspect-ratio: 16/9; }      /* keeps pleasant desktop height */
+    }
+
+    /* Make track/slides fill the hero height */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+
+    /* Ensure image truly fills and remove baseline gap */
+    .hero-box .slide img{
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* HERO: lock ratio + scale copy with hero (not viewport) */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto;
+      min-height: 0;
+      container-type: size; /* enable cqi/cqh */
+    }
+
+    /* Same crop everywhere */
+    .hero-box .slide img{ object-position: center; display: block; }
+
+    /* Caption scales with hero width */
+    .hero-caption{ padding: clamp(10px, 2cqi, 24px); }
+    .hero-caption-inner{
+      font-size: clamp(12px, 1.2cqi, 16px); /* base for ems below */
+      max-width: min(560px, 92cqi);
+    }
+    .hero-caption-inner h1{ font-size: 3em; line-height: 1.1; margin-top: .4em; }
+    .hero-caption-inner .caption-sub{ font-size: 1.1em; margin-top: .7em; }
+
+    /* Buttons and gaps scale too */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: clamp(8px, 1.6cqi, 16px);
+      margin-top: clamp(8px, 2cqi, 20px);
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em;
+      padding: clamp(9px, 1.1cqi, 14px) clamp(14px, 1.6cqi, 22px);
+      border-radius: clamp(8px, 1.2cqi, 12px);
+    }
+
+    /* Ensure slides fill hero exactly */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{ width: 100%; height: 100%; object-fit: cover; }
+
+    /* FINAL HERO OVERRIDES — keep image and text in fixed proportion */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto !important;
+      min-height: 0 !important;
+      container-type: size;              /* enables cqi/cqh */
+    }
+
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{
+      display: block; width: 100%; height: 100%;
+      object-fit: cover;                 /* no distortion */
+      object-position: center;           /* same framing */
+    }
+
+    /* Caption scales with hero (not viewport) */
+    .hero-caption{ padding: 3cqi !important; } /* proportional inset */
+    .hero-caption-inner{
+      /* Strict proportional base; clamp keeps it readable on very small/large screens */
+      font-size: clamp(12px, 1.35cqi, 16px);
+      max-width: 42cqi;                  /* copy block width stays proportional */
+    }
+    .hero-caption-inner h1{
+      font-size: 3.3em;                  /* scales from base above */
+      line-height: 1.1;
+      margin-top: .5em;
+    }
+    .hero-caption-inner .caption-sub{ font-size: 1.15em; margin-top: .8em; }
+
+    /* Buttons and gaps scale too */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: 1.6cqi;                       /* proportional gap */
+      margin-top: 2.2cqi;
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em;
+      padding: 1.1cqi 1.8cqi;            /* overrides Tailwind px- utilities here */
+      border-radius: 1.1cqi;
+    }
+
+    /* Optional: move arrows on tiny phones (kept) */
+    @media (max-width: 640px){
+      #prevBtn, #nextBtn{ top: auto; bottom: 10px; transform: none; }
+      #prevBtn{ left: 10px; }  #nextBtn{ right: 10px; }
+    }
+
+    /* HERO — strict proportional scaling of copy to image */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto !important;
+      min-height: 0 !important;
+      container-type: size; /* enables cqi/cqh */
+    }
+
+    /* Fill hero exactly */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{
+      display: block; width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center !important; /* same crop on all screens */
+    }
+
+    /* Copy scales with hero width (not viewport) */
+    .hero-caption{ padding: 3cqi !important; }
+    .hero-caption-inner{
+      max-width: 42cqi;
+      font-size: 1.35cqi !important; /* exact proportional base (remove clamp) */
+    }
+
+    /* All sizes derived from the proportional base */
+    .hero-caption-inner h1{
+      font-size: 3.3em !important;
+      line-height: 1.1;
+      margin-top: .5em !important;
+    }
+    .hero-caption-inner .caption-sub{
+      font-size: 1.15em !important;
+      margin-top: .8em !important;
+    }
+
+    /* Buttons and gaps scale too (override Tailwind px- classes) */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: 1.6cqi !important;
+      margin-top: 2.2cqi !important;
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em !important;
+      padding: 1.1cqi 1.8cqi !important;
+      border-radius: 1.1cqi !important;
+    }
+
+    /* HERO chip — scale with hero (proportional to caption base) */
+    .hero-caption-inner > span.inline-flex:first-child{
+      font-size: .85em !important;   /* inherits from .hero-caption-inner (cqi-based) */
+      line-height: 1 !important;
+      padding: .55em .9em !important;
+      gap: .5em !important;
+      border-radius: 9999px !important; /* keep pill look, proportional */
+    }
+
+    /* HERO headline subline — 20% smaller than H1, bold, proportional */
+    .hero-caption-inner h1 .sub-kicker{
+      display: block;
+      font-size: .8em !important;   /* 20% smaller than h1 */
+      font-weight: 800 !important;
+      margin-top: .18em !important; /* slight gap under the main line */
+    }
+
+    /* Force H1 to exactly two lines: 
+       1) "What you customize" 
+       2) "becomes your aura" */
+    .hero-caption-inner h1 .line1,
+    .hero-caption-inner h1 .line2{
+      display: block;
+      white-space: nowrap !important; /* keep each phrase on its own line */
+    }
+
+    /* Make the two headline lines 95% of H1 size (all slides) */
+    .hero-caption-inner h1 .line1,
+    .hero-caption-inner h1 .line2{
+      font-size: .95em !important;
+    }
+
+    /* HERO: mobile = touch scroll + snap, hide arrows; desktop keeps arrows */
+    @media (max-width: 767px){
+      #prevBtn, #nextBtn{ display: none !important; }
+
+      #carouselTrack{
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      #carouselTrack::-webkit-scrollbar{ display: none; }
+      #carouselTrack > .slide{ scroll-snap-align: start; }
+      /* no transform animation on mobile track */
+      .hero-box .carousel-track{ transition: none !important; }
+    }
+
+    /* Dots visible on all views */
+    .dot{
+      width: 10px; height: 10px;
+      border-radius: 9999px;
+      display: inline-block;
+    }
+
+    /* Mobile: hide T‑Shirts/Hoodies/Varsity row arrows; touch scroll only */
+    @media (max-width: 767px){
+      .row-prev, .row-next{ display: none !important; }
+    }
+
+    /* Ronaldo head-pop: leave ~40% empty at top */
+    .head-pop{ background: var(--cream); }
+    .head-pop > img{
+      /* override Tailwind absolute inset-0 + sizing */
+      top: auto !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 60% !important;   /* leaves ~40% empty at top */
+      width: 100% !important;
+      object-fit: contain !important;
+      object-position: bottom center !important;
+    }
+
+    /* Smooth anchor scroll + offset for sticky header */
+    html{ scroll-behavior: smooth; }
+    section[id]{ scroll-margin-top: 80px; }
+
+    /* T‑Shirt #4 hover rotator */
+    .rotator-card{ position: relative; }
+    .rotator-card .frame{
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;
+      opacity: 0; transition: opacity .25s ease;
+    }
+    .rotator-card .frame.active{ opacity: 1; }
+    .rotator-dots{
+      position: absolute; top: 8px; right: 8px;
+      display: none; gap: 6px;
+    }
+    .rotator-card.rot-show .rotator-dots{ display: flex; }
+    .rotator-dots .dot{
+      width: 8px; height: 8px; border-radius: 9999px;
+      background: rgba(0,0,0,.28);
+    }
+    .rotator-dots .dot.active{ background: #fff; }
+
+    /* Hide rotator dots entirely */
+    .rotator-dots{ display: none !important; }
+
+    /* Ensure first frame shows by default (mobile/no-hover) */
+    .rotator-card .frame:first-of-type{ opacity: 1 !important; }
+
+    /* Modal open/close animation */
+    #imgModal{
+      opacity: 0; pointer-events: none;
+      transition: opacity 200ms ease;
+    }
+    #imgModal.open{
+      opacity: 1; pointer-events: auto;
+    }
+    #imgModal .modal-shell{
+      transform: scale(0.96);
+      transition: transform 220ms ease;
+    }
+    #imgModal.open .modal-shell{
+      transform: scale(1);
+    }
+
+    /* Default first frame visible when no hover */
+    .rotator-card .frame{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:0; transition:opacity .25s; }
+    .rotator-card .frame:first-of-type{ opacity:1 !important; }
+
+    /* Optional dots (inside modal) */
+    #imgModalDots .dot{ width:8px; height:8px; border-radius:9999px; background:#ffffff66; }
+    #imgModalDots .dot.active{ background:#fff; }
+
+    /* Fix product card text overlapping */
+    .shrink-0 .relative .absolute.inset-x-0.bottom-0 {
+      /* Increase padding and ensure proper spacing */
+      padding: 16px 12px 12px 12px !important;
+      min-height: 80px; /* Ensure enough vertical space */
+    }
+
+    /* CLEAN FIX: Move ALL discount badges to top-right corner */
+    span.absolute.top-2.left-2 {
+      top: 6px !important;
+      left: auto !important;
+      right: 6px !important;
+      z-index: 30 !important;
+    }
+
+    /* Alternative selector to catch all discount badges */
+    .absolute.top-2.left-2,
+    .absolute[class*="top-2"][class*="left-2"] {
+      top: 6px !important;
+      left: auto !important;
+      right: 6px !important;
+      z-index: 30 !important;
+    }
+
+    /* Clean up text area spacing */
+    .shrink-0 .relative .absolute.inset-x-0.bottom-0 {
+      padding: 16px 12px 12px 12px !important;
+      min-height: 80px !important;
+    }
+
+    /* Enhanced gradient for better text readability */
+    .shrink-0 .relative .bg-gradient-to-t {
+      background: linear-gradient(to top, 
+        rgba(255,255,255,0.98) 0%, 
+        rgba(255,255,255,0.92) 50%, 
+        rgba(255,255,255,0.75) 70%,
+        rgba(255,255,255,0.3) 85%,
+        transparent 100%) !important;
+    }
+  </style>
+  <title>AURA / NEXORA — Custom T-Shirts, Hoodies & Varsity Jackets for Colleges | Fast Quotes</title>
+  <meta name="description" content="Bulk custom T‑shirts, hoodies & varsity jackets for colleges and teams across India. Fast mockups and quotes with AURA / NEXORA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --cream:#fcfbf8; --paper:#fbf7f2; --ink:#0b1220; --muted:#475569; --edge:#e7e5e4; }
+    html{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Apple Color Emoji','Segoe UI Emoji'}
+    body{background:var(--cream);color:var(--ink)}
+    .hero-splash{background:
+      radial-gradient(800px 300px at 15% 10%, rgba(56,189,248,.18), transparent 60%),
+      radial-gradient(600px 240px at 90% 8%, rgba(167,139,250,.18), transparent 60%),
+      linear-gradient(180deg, #fff 0%, var(--cream) 100%)}
+    .shimmer{background-size:200% 100%;animation:shimmer 10s ease-in-out infinite}
+    @keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .btn-pop{transition:transform .2s ease, box-shadow .2s ease}
+    .btn-pop:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(2,6,23,.08)}
+    .card-hover{transition:transform .3s ease, box-shadow .3s ease}
+    .card-hover:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(2,6,23,.10)}
+    .no-scrollbar::-webkit-scrollbar{display:none}
+    .no-scrollbar{scrollbar-width:none;-ms-overflow-style:none}
+    [data-row]{touch-action: pan-x pan-y; cursor: grab;} /* allow vertical scroll */
+    [data-row].dragging{cursor: grabbing; scroll-behavior: auto !important;}
+    @supports (overscroll-behavior-x: contain){
+      [data-row]{ overscroll-behavior-x: contain; } /* avoid page rubber-band on horizontal fling */
+    }
+    .carousel-track{transition: transform 600ms ease;}
+    .rotator{opacity:1;transition:opacity .5s ease}
+    .rotator.hide{opacity:0}
+    @media (prefers-reduced-motion: reduce){.btn-pop,.card-hover,.shimmer{animation:none!important;transition:none!important}}
+
+    /* --- HERO container (duplicate kept in sync) --- */
+    .hero-box{
+      position: relative;
+      overflow: hidden;
+      min-height: clamp(420px, 52dvh, 680px);
+    }
+    @media (min-width: 768px){
+      .hero-box{ aspect-ratio: 16 / 9; min-height: 520px; }
+    }
+
+    .hero-overlay{
+      position: absolute; inset: 0; z-index: 10;
+      display: grid; grid-template-columns: 1fr;
+      align-items: center; pointer-events: none;
+    }
+    .hero-overlay > :last-child{ display: none; }
+    @media (min-width: 768px){
+      .hero-overlay{ grid-template-columns: 48% 1fr; }
+      .hero-overlay > :last-child{ display: block; }
+    }
+
+    #heroPanel{
+      --hero-pad: clamp(12px, 4vw, 20px);
+      height: 100%; padding: var(--hero-pad);
+      display: flex; align-items: center; justify-content: flex-start;
+      pointer-events: auto; background: transparent;
+    }
+
+    #heroCopy{
+      max-width: min(560px, 92vw);
+      transform: none !important;
+    }
+    #heroCopy h1{
+      white-space: normal;
+      font-weight: 800; line-height: 1.1; margin-top: 8px;
+      font-size: clamp(22px, 6vw, 56px);
+    }
+    #subTagline{ font-size: clamp(14px, 2.6vw, 18px); margin-top: .7rem; }
+    #heroCopy .cta-row{ margin-top: clamp(10px, 2.2vw, 20px); gap: clamp(8px, 2vw, 16px); }
+
+    .hero-box img{ object-position: 74% center; }
+    @media (min-width: 1024px){ .hero-box img{ object-position: center; } }
+
+    @media (max-width: 640px){
+      #prevBtn, #nextBtn{ top: auto; bottom: 10px; transform: none; }
+      #prevBtn{ left: 10px; }  #nextBtn{ right: 10px; }
+    }
+
+    /* add/override at the end of your existing styles */
+
+    /* Give the hero a definite height */
+    .hero-box{
+      height: clamp(420px, 52dvh, 680px);   /* was only min-height */
+    }
+    @media (min-width: 768px){
+      .hero-box{ aspect-ratio: 16/9; }      /* keeps pleasant desktop height */
+    }
+
+    /* Make track/slides fill the hero height */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+
+    /* Ensure image truly fills and remove baseline gap */
+    .hero-box .slide img{
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* HERO: lock ratio + scale copy with hero (not viewport) */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto;
+      min-height: 0;
+      container-type: size; /* enable cqi/cqh */
+    }
+
+    /* Same crop everywhere */
+    .hero-box .slide img{ object-position: center; display: block; }
+
+    /* Caption scales with hero width */
+    .hero-caption{ padding: clamp(10px, 2cqi, 24px); }
+    .hero-caption-inner{
+      font-size: clamp(12px, 1.2cqi, 16px); /* base for ems below */
+      max-width: min(560px, 92cqi);
+    }
+    .hero-caption-inner h1{ font-size: 3em; line-height: 1.1; margin-top: .4em; }
+    .hero-caption-inner .caption-sub{ font-size: 1.1em; margin-top: .7em; }
+
+    /* Buttons and gaps scale too */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: clamp(8px, 1.6cqi, 16px);
+      margin-top: clamp(8px, 2cqi, 20px);
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em;
+      padding: clamp(9px, 1.1cqi, 14px) clamp(14px, 1.6cqi, 22px);
+      border-radius: clamp(8px, 1.2cqi, 12px);
+    }
+
+    /* Ensure slides fill hero exactly */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{ width: 100%; height: 100%; object-fit: cover; }
+
+    /* FINAL HERO OVERRIDES — keep image and text in fixed proportion */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto !important;
+      min-height: 0 !important;
+      container-type: size;              /* enables cqi/cqh */
+    }
+
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{
+      display: block; width: 100%; height: 100%;
+      object-fit: cover;                 /* no distortion */
+      object-position: center;           /* same framing */
+    }
+
+    /* Caption scales with hero (not viewport) */
+    .hero-caption{ padding: 3cqi !important; } /* proportional inset */
+    .hero-caption-inner{
+      /* Strict proportional base; clamp keeps it readable on very small/large screens */
+      font-size: clamp(12px, 1.35cqi, 16px);
+      max-width: 42cqi;                  /* copy block width stays proportional */
+    }
+    .hero-caption-inner h1{
+      font-size: 3.3em;                  /* scales from base above */
+      line-height: 1.1;
+      margin-top: .5em;
+    }
+    .hero-caption-inner .caption-sub{ font-size: 1.15em; margin-top: .8em; }
+
+    /* Buttons and gaps scale too */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: 1.6cqi;                       /* proportional gap */
+      margin-top: 2.2cqi;
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em;
+      padding: 1.1cqi 1.8cqi;            /* overrides Tailwind px- utilities here */
+      border-radius: 1.1cqi;
+    }
+
+    /* Optional: move arrows on tiny phones (kept) */
+    @media (max-width: 640px){
+      #prevBtn, #nextBtn{ top: auto; bottom: 10px; transform: none; }
+      #prevBtn{ left: 10px; }  #nextBtn{ right: 10px; }
+    }
+
+    /* HERO — strict proportional scaling of copy to image */
+    .hero-box{
+      aspect-ratio: 16 / 9;
+      height: auto !important;
+      min-height: 0 !important;
+      container-type: size; /* enables cqi/cqh */
+    }
+
+    /* Fill hero exactly */
+    .hero-box .carousel-track{ height: 100%; }
+    .hero-box .carousel-track > .slide{ height: 100%; }
+    .hero-box .slide img{
+      display: block; width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center !important; /* same crop on all screens */
+    }
+
+    /* Copy scales with hero width (not viewport) */
+    .hero-caption{ padding: 3cqi !important; }
+    .hero-caption-inner{
+      max-width: 42cqi;
+      font-size: 1.35cqi !important; /* exact proportional base (remove clamp) */
+    }
+
+    /* All sizes derived from the proportional base */
+    .hero-caption-inner h1{
+      font-size: 3.3em !important;
+      line-height: 1.1;
+      margin-top: .5em !important;
+    }
+    .hero-caption-inner .caption-sub{
+      font-size: 1.15em !important;
+      margin-top: .8em !important;
+    }
+
+    /* Buttons and gaps scale too (override Tailwind px- classes) */
+    .hero-caption-inner .cta-row{
+      display: flex; flex-wrap: wrap;
+      gap: 1.6cqi !important;
+      margin-top: 2.2cqi !important;
+    }
+    .hero-caption-inner .cta-row a{
+      font-size: 1em !important;
+      padding: 1.1cqi 1.8cqi !important;
+      border-radius: 1.1cqi !important;
+    }
+
+    /* HERO chip — scale with hero (proportional to caption base) */
+    .hero-caption-inner > span.inline-flex:first-child{
+      font-size: .85em !important;   /* inherits from .hero-caption-inner (cqi-based) */
+      line-height: 1 !important;
+      padding: .55em .9em !important;
+      gap: .5em !important;
+      border-radius: 9999px !important; /* keep pill look, proportional */
+    }
+
+    /* HERO headline subline — 20% smaller than H1, bold, proportional */
+    .hero-caption-inner h1 .sub-kicker{
+      display: block;
+      font-size: .8em !important;   /* 20% smaller than h1 */
+      font-weight: 800 !important;
+      margin-top: .18em !important; /* slight gap under the main line */
+    }
+
+    /* Force H1 to exactly two lines: 
+       1) "What you customize" 
+       2) "becomes your aura" */
+    .hero-caption-inner h1 .line1,
+    .hero-caption-inner h1 .line2{
+      display: block;
+      white-space: nowrap !important; /* keep each phrase on its own line */
+    }
+
+    /* Make the two headline lines 95% of H1 size (all slides) */
+    .hero-caption-inner h1 .line1,
+    .hero-caption-inner h1 .line2{
+      font-size: .95em !important;
+    }
+
+    /* HERO: mobile = touch scroll + snap, hide arrows; desktop keeps arrows */
+    @media (max-width: 767px){
+      #prevBtn, #nextBtn{ display: none !important; }
+
+      #carouselTrack{
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      #carouselTrack::-webkit-scrollbar{ display: none; }
+      #carouselTrack > .slide{ scroll-snap-align: start; }
+      /* no transform animation on mobile track */
+      .hero-box .carousel-track{ transition: none !important; }
+    }
+
+    /* Dots visible on all views */
+    .dot{
+      width: 10px; height: 10px;
+      border-radius: 9999px;
+      display: inline-block;
+    }
+
+    /* Mobile: hide T‑Shirts/Hoodies/Varsity row arrows; touch scroll only */
+    @media (max-width: 767px){
+      .row-prev, .row-next{ display: none !important; }
+    }
+
+    /* Ronaldo head-pop: leave ~40% empty at top */
+    .head-pop{ background: var(--cream); }
+    .head-pop > img{
+      /* override Tailwind absolute inset-0 + sizing */
+      top: auto !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 60% !important;   /* leaves ~40% empty at top */
+      width: 100% !important;
+      object-fit: contain !important;
+      object-position: bottom center !important;
+    }
+
+    /* Smooth anchor scroll + offset for sticky header */
+    html{ scroll-behavior: smooth; }
+    section[id]{ scroll-margin-top: 80px; }
+
+    /* T‑Shirt #4 hover rotator */
+    .rotator-card{ position: relative; }
+    .rotator-card .frame{
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;
+      opacity: 0; transition: opacity .25s ease;
+    }
+    .rotator-card .frame.active{ opacity: 1; }
+    .rotator-dots{
+      position: absolute; top: 8px; right: 8px;
+      display: none; gap: 6px;
+    }
+    .rotator-card.rot-show .rotator-dots{ display: flex; }
+    .rotator-dots .dot{
+      width: 8px; height: 8px; border-radius: 9999px;
+      background: rgba(0,0,0,.28);
+    }
+    .rotator-dots .dot.active{ background: #fff; }
+
+    /* Hide rotator dots entirely */
+    .rotator-dots{ display: none !important; }
+
+    /* Ensure first frame shows by default (mobile/no-hover) */
+    .rotator-card .frame:first-of-type{ opacity: 1 !important; }
+
+    /* Modal open/close animation */
+    #imgModal{
+      opacity: 0; pointer-events: none;
+      transition: opacity 200ms ease;
+    }
+    #imgModal.open{
+      opacity: 1; pointer-events: auto;
+    }
+    #imgModal .modal-shell{
+      transform: scale(0.96);
+      transition: transform 220ms ease;
+    }
+    #imgModal.open .modal-shell{
+      transform: scale(1);
+    }
+
+    /* Default first frame visible when no hover */
+    .rotator-card .frame{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:0; transition:opacity .25s; }
+    .rotator-card .frame:first-of-type{ opacity:1 !important; }
+
+    /* Optional dots (inside modal) */
+    #imgModalDots .dot{ width:8px; height:8px; border-radius:9999px; background:#ffffff66; }
+    #imgModalDots .dot.active{ background:#fff; }
+
+    /* Fix product card text overlapping */
+    .shrink-0 .relative .absolute.inset-x-0.bottom-0 {
+      /* Increase padding and ensure proper spacing */
+      padding: 16px 12px 12px 12px !important;
+      min-height: 80px; /* Ensure enough vertical space */
+    }
+
+    /* CLEAN FIX: Move ALL discount badges to top-right corner */
+    span.absolute.top-2.left-2 {
+      top: 6px !important;
+      left: auto !important;
+      right: 6px !important;
+      z-index: 30 !important;
+    }
+
+    /* Alternative selector to catch all discount badges */
+    .absolute.top-2.left-2,
+    .absolute[class*="top-2"][class*="left-2"] {
+      top: 6px !important;
+      left: auto !important;
+      right: 6px !important;
+      z-index: 30 !important;
+    }
+
+    /* Clean up text area spacing */
+    .shrink-0 .relative .absolute.inset-x-0.bottom-0 {
+      padding: 16px 12px 12px 12px !important;
+      min-height: 80px !important;
+    }
+
+    /* Enhanced gradient for better text readability */
+    .shrink-0 .relative .bg-gradient-to-t {
+      background: linear-gradient(to top, 
+        rgba(255,255,255,0.98) 0%, 
+        rgba(255,255,255,0.92) 50%, 
+        rgba(255,255,255,0.75) 70%,
+        rgba(255,255,255,0.3) 85%,
+        transparent 100%) !important;
+    }
+  </style>
+</head>
+<body class="bg-[var(--cream)] text-slate-900">
+  <!-- Announcement bar -->
+  <div class="w-full bg-white/70 backdrop-blur border-b border-stone-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 text-center text-sm">
+      🎉 First order? <span class="font-semibold">Get 10% OFF</span> — <a href="#order" class="underline underline-offset-4">Order Now</a>
+    </div>
+  </div>
+
+  <!-- Header with quote counter -->
+  <header class="sticky top-0 z-40 bg-white/70 backdrop-blur border-b border-stone-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3" aria-label="Go to homepage">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-white font-black">A</span>
+        <span class="text-lg font-bold tracking-tight">AURA</span>
+      </a>
+  <nav class="hidden md:flex items-center gap-8 text-sm" aria-label="Primary">
+  <a href="#home" class="text-slate-600 hover:text-slate-900">Home</a> <!-- TODO: split into / (home) -->
+  <a href="#reviews" class="text-slate-600 hover:text-slate-900">Reviews</a> <!-- TODO: split into /fests or /reviews -->
+  <a href="products.html" class="text-slate-600 hover:text-slate-900">Products</a> <!-- TODO: split into /products -->
+  <a href="#fest" class="text-slate-600 hover:text-slate-900">Fests</a> <!-- TODO: split into /fests -->
+  <a href="FAQ.html" class="text-slate-600 hover:text-slate-900">FAQ</a> <!-- TODO: split into /faq -->
+      </nav>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="#quote" class="rounded-xl border border-stone-300 px-4 py-2 text-sm btn-pop relative" onclick="document.getElementById('quote').scrollIntoView({behavior:'smooth'}); return false;">
+          Order Now
+          <span id="quoteCounter" class="quote-counter">0</span>
+        </a>
+  <a href="https://wa.me/918360833126?text=Hi%20AURA%20team%2C%20I%20want%20to%20order%20custom%20T-shirts." target="_blank" rel="noopener noreferrer" class="rounded-xl bg-slate-900 text-white px-4 py-2 text-sm font-semibold btn-pop">WhatsApp Us</a>
+      </div>
+      <button id="menuBtn" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg bg-stone-100" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+      </button>
+    </div>
+    <div id="mobileNav" class="md:hidden hidden border-t border-stone-200 bg-white/90">
+      <div class="mx-auto max-w-7xl px-4 py-4 space-y-3 text-sm">
+        <a href="#home" class="block text-slate-600 hover:text-slate-900">Home</a>
+        <a href="#reviews" class="block text-slate-600 hover:text-slate-900">Reviews</a>
+        <a href="products.html" class="block text-slate-600 hover:text-slate-900">Products</a>
+        <a href="#fest" class="block text-slate-600 hover:text-slate-900">Fests</a>
+        <a href="#faq" class="block text-slate-600 hover:text-slate-900">FAQ</a>
+        <div class="pt-3 flex gap-2">
+          <a href="#quote" class="flex-1 rounded-xl border border-stone-300 px-4 py-2 text-center" onclick="document.getElementById('quote').scrollIntoView({behavior:'smooth'}); return false;">Order Now</a>
+    <a href="https://wa.me/918360833126?text=Hi%20AURA%20team%2C%20I%20want%20to%20order%20custom%20T-shirts." target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-slate-900 text-white px-4 py-2 text-center font-semibold">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="hero" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-4">
+    <div class="relative rounded-2xl overflow-hidden bg-slate-200 hero-box">
+      <div id="carouselTrack" class="carousel-track flex">
+        <!-- Slide 1 -->
+        <div class="min-w-full slide">
+          <img src="./Images/Carousel_Hoodies.jpg" alt="Custom hoodies" class="w-full h-full object-cover" fetchpriority="high" />
+          <div class="hero-caption">
+            <div class="hero-caption-inner">
+              <span class="inline-flex items-center gap-2 rounded-full border border-black/20 bg-white/30 backdrop-blur px-3 py-1 text-[11px]">
+                Bulk • Campus • Fast mockups
+              </span>
+              <!-- changed: move subline inside H1 -->
+              <h1>
+                <span class="line1">What you customize</span>
+                <span class="line2">becomes your aura</span>
+                <span class="sub-kicker">the next aura is yours</span>
+              </h1>
+              <!-- removed the old separate span -->
+              <p class="caption-sub">Discounts only on prices, never on quality.</p>
+              <div class="cta-row">
+                <a href="#quote" class="rounded-xl bg-slate-900 text-white px-5 py-3 font-semibold" onclick="document.getElementById('quote').scrollIntoView({behavior:'smooth'}); return false;">Order Now</a>
+                <a href="products.html" class="rounded-xl border border-slate-300 px-5 py-3 font-semibold">See Products</a>
+                <a href="#quote" class="rounded-xl px-5 py-3 font-semibold" style="background-color:#25D366;color:#fff;" onclick="document.getElementById('quote').scrollIntoView({behavior:'smooth'}); return false;">Contact Us</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="min-w-full slide">
+          <img src="Images/Carousel_T Shirts.jpg" alt="Custom T‑shirts" class="w-full h-full object-cover" loading="lazy" />
+          <div class="hero-caption">
+            <div class="hero-caption-inner">
+              <span class="inline-flex items-center gap-2 rounded-full border border-black/20 bg-white/30 backdrop-blur px-3 py-1 text-[11px]">
+                Bulk • Campus • Fast mockups
+              </span>
+              <h1>
+                <span class="line1">What you customize</span>
+                <span class="line2">becomes your aura</span>
+                <span class="sub-kicker">the next aura is yours</span>
+              </h1>
+              <p class="caption-sub">Discounts only on prices, never on quality.</p>
+              <div class="cta-row">
+                <a href="#quote" class="rounded-xl bg-slate-900 text-white px-5 py-3 font-semibold" onclick="document.getElementById('quote').scrollIntoView({behavior:'smooth'}); return false;">Order Now</a>
+                <a href="products.html" class="rounded-xl border border-slate-300 px-5 py-3 font-semibold">See Products</a>
+                <a href="#quote" class="rounded-xl px-5 py-3 font-semibold" style="background-color:#25D366;color:#fff;" onclick="document.getElementById('quote').scrollIntoView({behavior:'smooth'}); return false;">Contact Us</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="min-w-full slide">
+          <img src="Images/Varsity.jpg" alt="Varsity jackets" class="w-full h-full object-cover" loading="lazy" />
+          <div class="hero-caption">
+            <div class="hero-caption-inner">
+              <span class="inline-flex items-center gap-2 rounded-full border border-black/20 bg-white/30 backdrop-blur px-3 py-1 text-[11px]">
+                Bulk • Campus • Fast mockups
+              </span>
+              <h1>
+                <span class="line1">What you customize</span>
+                <span class="line2">becomes your aura</span>
+                <span class="sub-kicker">the next aura is yours</span>
+              </h1>
+              <p class="caption-sub">Discounts only on prices, never on quality.</p>
+              <div class="cta-row">
+                <a href="#quote" class="rounded-xl bg-slate-900 text-white px-5 py-3 font-semibold" onclick="document.getElementById('quote').scrollIntoView({behavior:'smooth'}); return false;">Order Now</a>
+                <a href="products.html" class="rounded-xl border border-slate-300 px-5 py-3 font-semibold">See Products</a>
+                <a href="#quote" class="rounded-xl px-5 py-3 font-semibold" style="background-color:#25D366;color:#fff;" onclick="document.getElementById('quote').scrollIntoView({behavior:'smooth'}); return false;">Contact Us</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls/Dots -->
+      <button id="prevBtn" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Previous slide">&#9664;</button>
+      <button id="nextBtn" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Next slide">&#9654;</button>
+      <div class="absolute inset-x-0 bottom-2 flex items-center justify-center gap-2">
+        <span class="dot bg-white/80" data-dot="0"></span>
+        <span class="dot bg-white/40" data-dot="1"></span>
+        <span class="dot bg-white/40" data-dot="2"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section id="reviews" class="border-t border-stone-200 bg-[var(--paper)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+      <h2 class="text-2xl sm:text-3xl font-bold">Loved by student crews</h2>
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <figure class="rounded-2xl bg-white p-6 ring-1 ring-stone-200 card-hover">
+          <blockquote class="text-slate-800">“We locked designs in a day and got awesome tees for our hackathon.”</blockquote>
+          <figcaption class="mt-4 flex items-center gap-3">
+            <img class="h-10 w-10 rounded-full object-cover" src="https://images.unsplash.com/photo-1545996124-0501ebae84d0?auto=format&fit=crop&w=200&q=60" alt="Portrait" />
+            <div class="text-sm">
+              <div class="font-semibold">Rohit Sharma</div>
+              <div class="text-slate-500">Club Lead, HackClub</div>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="rounded-2xl bg-white p-6 ring-1 ring-stone-200 card-hover">
+          <blockquote class="text-slate-800">“Bulk price was fair and the print quality slapped. Would recommend.”</blockquote>
+          <figcaption class="mt-4 flex items-center gap-3">
+            <img class="h-10 w-10 rounded-full object-cover" src="https://images.unsplash.com/photo-1616087413163-c35feb2b2ea6?auto=format&fit=crop&w=200&q=60" alt="Portrait" />
+            <div class="text-sm">
+              <div class="font-semibold">Amrita Rao</div>
+              <div class="text-slate-500">Fest Core, TechFest</div>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alias anchor for Home -->
+  <div id="home" class="sr-only"></div>
+
+  <!-- Product rows -->
+  <!-- T-Shirts section - Myntra style cards with quote buttons -->
+  <section id="tshirts" class="mx-auto max-w-7xl px-3 sm:px-6 mt-10">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-xl font-semibold">T‑Shirts</h2>
+      <a href="products.html#tshirts" class="text-sky-700 hover:underline">See more</a>
+    </div>
+    <div class="relative">
+      <div class="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth" data-row="tshirts">
+        <!-- Card 1 -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-product-id="tee1">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Tee_1.jpg" alt="Classic unisex cotton t‑shirt, black" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">20% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="tee1" data-name="Classic Cotton Tee • Unisex" data-price="₹499">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Classic Cotton Tee • Unisex</div>
+            <div class="product-pricing">
+              <span class="current-price">₹499</span>
+              <span class="original-price">₹624</span>
+              <span class="discount-percent">(20% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.2 ★</span>
+              <span class="rating-count">(1.2k)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-product-id="tee2">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Tee_2.jpg" alt="Oversized heavy GSM t‑shirt, white" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">25% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="tee2" data-name="Oversized Heavy GSM Tee" data-price="₹599">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Oversized Heavy GSM Tee</div>
+            <div class="product-pricing">
+              <span class="current-price">₹599</span>
+              <span class="original-price">₹799</span>
+              <span class="discount-percent">(25% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(856)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-product-id="tee3">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Tee_3.jpg" alt="Ringer t‑shirt with contrast collar" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">15% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="tee3" data-name="Ringer Tee • Contrast Collar" data-price="₹549">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Ringer Tee • Contrast Collar</div>
+            <div class="product-pricing">
+              <span class="current-price">₹549</span>
+              <span class="original-price">₹646</span>
+              <span class="discount-percent">(15% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.1 ★</span>
+              <span class="rating-count">(642)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 4 (rotator card) -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-rotator="tee4" data-product-id="tee4">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Tee_4a.jpg" alt="Graphic tee front view" class="frame product-image" loading="lazy" />
+            <img data-frame="1" src="Images/Tee_4b.jpg" alt="Graphic tee back view" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">30% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="tee4" data-name="Graphic Tee • DTF Print" data-price="₹699">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Graphic Tee • DTF Print</div>
+            <div class="product-pricing">
+              <span class="current-price">₹699</span>
+              <span class="original-price">₹999</span>
+              <span class="discount-percent">(30% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.4 ★</span>
+              <span class="rating-count">(1.5k)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 5 -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-product-id="tee5">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Tee_5.jpg" alt="Premium bio-wash t‑shirt" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">10% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="tee5" data-name="Premium Bio-wash Tee" data-price="₹799">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Premium Bio-wash Tee</div>
+            <div class="product-pricing">
+              <span class="current-price">₹799</span>
+              <span class="original-price">₹888</span>
+              <span class="discount-percent">(10% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.5 ★</span>
+              <span class="rating-count">(928)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="row-prev absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Scroll T‑Shirts left" data-target="tshirts">&#9664;</button>
+      <button class="row-next absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Scroll T‑Shirts right" data-target="tshirts">&#9654;</button>
+    </div>
+  </section>
+
+  <!-- Hoodies section - Myntra style cards with quote buttons -->
+  <section id="hoodies" class="mx-auto max-w-7xl px-3 sm:px-6 mt-10">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-xl font-semibold">Hoodies</h2>
+      <a href="products.html#hoodies" class="text-sky-700 hover:underline">See more</a>
+    </div>
+    <div class="relative">
+      <div class="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth" data-row="hoodies">
+        <!-- Hoodie Card 1 -->
+    <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie1">
+          <div class="product-image-container">
+      <img data-frame="0" src="Images/Hoodie_1.jpg" alt="Pullover hoodie, fleece" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">20% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie1" data-name="Pullover Hoodie • Fleece Cozy" data-price="₹1,199">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Pullover Hoodie • Fleece Cozy</div>
+            <div class="product-pricing">
+              <span class="current-price">₹1,199</span>
+              <span class="original-price">₹1,499</span>
+              <span class="discount-percent">(20% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(743)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hoodie Card 2 -->
+    <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie2">
+          <div class="product-image-container">
+      <img data-frame="0" src="Images/Hoodie_2.jpg" alt="Zip hoodie, mid-weight" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">22% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie2" data-name="Zip Hoodie • Mid-weight" data-price="₹1,299">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Zip Hoodie • Mid-weight</div>
+            <div class="product-pricing">
+              <span class="current-price">₹1,299</span>
+              <span class="original-price">₹1,665</span>
+              <span class="discount-percent">(22% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.2 ★</span>
+              <span class="rating-count">(592)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hoodie Card 3 -->
+    <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie3">
+          <div class="product-image-container">
+      <img data-frame="0" src="Images/Hoodie_3.jpg" alt="Oversize hoodie, heavy GSM" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">18% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie3" data-name="Oversize Hoodie • Heavy GSM" data-price="₹1,399">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Oversize Hoodie • Heavy GSM</div>
+            <div class="product-pricing">
+              <span class="current-price">₹1,399</span>
+              <span class="original-price">₹1,706</span>
+              <span class="discount-percent">(18% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.4 ★</span>
+              <span class="rating-count">(826)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hoodie Card 4 -->
+    <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie4">
+          <div class="product-image-container">
+      <img data-frame="0" src="Images/Hoodie_4.jpg" alt="Graphic hoodie with DTF print" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">25% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie4" data-name="Graphic Hoodie • DTF Print" data-price="₹1,349">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Graphic Hoodie • DTF Print</div>
+            <div class="product-pricing">
+              <span class="current-price">₹1,349</span>
+              <span class="original-price">₹1,799</span>
+              <span class="discount-percent">(25% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.5 ★</span>
+              <span class="rating-count">(1.1k)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hoodie Card 5 -->
+    <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie5">
+          <div class="product-image-container">
+      <img data-frame="0" src="Images/Hoodie_5.jpg" alt="Raglan hoodie with contrast sleeves" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">12% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie5" data-name="Raglan Hoodie • Contrast Sleeves" data-price="₹1,299">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Raglan Hoodie • Contrast Sleeves</div>
+            <div class="product-pricing">
+              <span class="current-price">₹1,299</span>
+              <span class="original-price">₹1,476</span>
+              <span class="discount-percent">(12% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.1 ★</span>
+              <span class="rating-count">(687)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hoodie Card 6 -->
+    <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie6">
+          <div class="product-image-container">
+      <img data-frame="0" src="Images/Hoodie_6.jpg" alt="Slim fit zip-thru hoodie" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">16% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie6" data-name="Zip‑Thru • Slim Fit" data-price="₹1,279">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Zip‑Thru • Slim Fit</div>
+            <div class="product-pricing">
+              <span class="current-price">₹1,279</span>
+              <span class="original-price">₹1,523</span>
+              <span class="discount-percent">(16% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(534)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hoodie Card 7 -->
+    <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie7">
+          <div class="product-image-container">
+      <img data-frame="0" src="Images/Hoodie_7.jpg" alt="Athleisure quick-dry hoodie" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">22% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie7" data-name="Athleisure Hoodie • Quick Dry" data-price="₹1,499">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Athleisure Hoodie • Quick Dry</div>
+            <div class="product-pricing">
+              <span class="current-price">₹1,499</span>
+              <span class="original-price">₹1,922</span>
+              <span class="discount-percent">(22% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.4 ★</span>
+              <span class="rating-count">(891)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hoodie Card 8 (Ronaldo) -->
+    <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie8">
+          <div class="product-image-container head-pop">
+      <img data-frame="0" src="Images/Ronaldo.jpg" alt="Premium hoodie brushed fleece" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">8% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie8" data-name="Premium Hoodie • Brushed Fleece" data-price="₹1,599">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Premium Hoodie • Brushed Fleece</div>
+            <div class="product-pricing">
+              <span class="current-price">₹1,599</span>
+              <span class="original-price">₹1,738</span>
+              <span class="discount-percent">(8% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.6 ★</span>
+              <span class="rating-count">(1.3k)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hoodie Card 9 -->
+    <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie9">
+          <div class="product-image-container">
+      <img data-frame="0" src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=800&auto=format&fit=crop" alt="Campus hoodie, unisex" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">14% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie9" data-name="Campus Hoodie • Unisex" data-price="₹1,279">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Campus Hoodie • Unisex</div>
+            <div class="product-pricing">
+              <span class="current-price">₹1,279</span>
+              <span class="original-price">₹1,487</span>
+              <span class="discount-percent">(14% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.2 ★</span>
+              <span class="rating-count">(498)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hoodie Card 10 -->
+    <div class="shrink-0 w-56 product-card rotator-card" data-product-id="hoodie10">
+          <div class="product-image-container">
+      <img data-frame="0" src="https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?q=80&w=800&auto=format&fit=crop" alt="College hoodie, soft fleece" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">15% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="hoodie10" data-name="College Hoodie • Soft Fleece" data-price="₹1,249">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">College Hoodie • Soft Fleece</div>
+            <div class="product-pricing">
+              <span class="current-price">₹1,249</span>
+              <span class="original-price">₹1,469</span>
+              <span class="discount-percent">(15% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(634)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="row-prev absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Scroll Hoodies left" data-target="hoodies">&#9664;</button>
+      <button class="row-next absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Scroll Hoodies right" data-target="hoodies">&#9654;</button>
+    </div>
+  </section>
+
+  <!-- Varsity section - Myntra style cards with quote buttons -->
+  <section id="varsity" class="mx-auto max-w-7xl px-3 sm:px-6 mt-10">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-xl font-semibold">Varsity Jackets</h2>
+      <a href="products.html#varsity" class="text-sky-700 hover:underline">See more</a>
+    </div>
+    <div class="relative">
+      <div class="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth" data-row="varsity">
+        <!-- Varsity Card 1 - 4-image rotator -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-rotator="varsity1" data-product-id="varsity1">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Varsity_1a.jpg" alt="Custom varsity jacket green/white front" class="frame product-image" loading="lazy" />
+            <img data-frame="1" src="Images/Varsity_1b.jpg" alt="Custom varsity jacket side" class="frame product-image" loading="lazy" />
+            <img data-frame="2" src="Images/Varsity_1c.jpg" alt="Custom varsity jacket back" class="frame product-image" loading="lazy" />
+            <img data-frame="3" src="Images/Varsity_1d.jpg" alt="Custom varsity jacket detail" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">20% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity1" data-name="Classic Varsity • Wool Blend" data-price="₹1,999">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Classic Varsity • Wool Blend</div>
+            <div class="product-pricing">
+              <span class="current-price">₹1,999</span>
+              <span class="original-price">₹2,499</span>
+              <span class="discount-percent">(20% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(456)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Varsity Card 2 - 4-image rotator -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-rotator="varsity2" data-product-id="varsity2">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Varsity_2a.jpg" alt="Contrast sleeves varsity front" class="frame product-image" loading="lazy" />
+            <img data-frame="1" src="Images/Varsity_2b.jpg" alt="Contrast sleeves varsity side" class="frame product-image" loading="lazy" />
+            <img data-frame="2" src="Images/Varsity_2c.jpg" alt="Contrast sleeves varsity back" class="frame product-image" loading="lazy" />
+            <img data-frame="3" src="Images/Varsity_2d.jpg" alt="Contrast sleeves varsity detail" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">18% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity2" data-name="Contrast Sleeves Varsity • PU Sleeves" data-price="₹2,099">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Contrast Sleeves Varsity • PU Sleeves</div>
+            <div class="product-pricing">
+              <span class="current-price">₹2,099</span>
+              <span class="original-price">₹2,549</span>
+              <span class="discount-percent">(18% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.5 ★</span>
+              <span class="rating-count">(312)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Varsity Card 3 - 4-image rotator -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-rotator="varsity3" data-product-id="varsity3">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Varsity_3a.jpg" alt="Premium varsity front with embroidery" class="frame product-image" loading="lazy" />
+            <img data-frame="1" src="Images/Varsity_3b.jpg" alt="Premium varsity side" class="frame product-image" loading="lazy" />
+            <img data-frame="2" src="Images/Varsity_3c.jpg" alt="Premium varsity back" class="frame product-image" loading="lazy" />
+            <img data-frame="3" src="Images/Varsity_3d.jpg" alt="Premium varsity detail" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">22% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity3" data-name="Premium Varsity • Embroidery" data-price="₹2,299">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Premium Varsity • Embroidery</div>
+            <div class="product-pricing">
+              <span class="current-price">₹2,299</span>
+              <span class="original-price">₹2,949</span>
+              <span class="discount-percent">(22% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.4 ★</span>
+              <span class="rating-count">(524)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Varsity Card 4 - 4-image rotator -->
+        <div class="shrink-0 w-56 product-card rotator-card" data-rotator="varsity4" data-product-id="varsity4">
+          <div class="product-image-container">
+            <img data-frame="0" src="Images/Varsity_4a.jpg" alt="Athletic varsity lightweight front" class="frame product-image" loading="lazy" />
+            <img data-frame="1" src="Images/Varsity_4b.jpg" alt="Athletic varsity side" class="frame product-image" loading="lazy" />
+            <img data-frame="2" src="Images/Varsity_4c.jpg" alt="Athletic varsity back" class="frame product-image" loading="lazy" />
+            <img data-frame="3" src="Images/Varsity_4d.jpg" alt="Athletic varsity detail" class="frame product-image" loading="lazy" />
+            <span class="discount-badge">12% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity4" data-name="Athletic Varsity • Lightweight" data-price="₹2,049">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Athletic Varsity • Lightweight</div>
+            <div class="product-pricing">
+              <span class="current-price">₹2,049</span>
+              <span class="original-price">₹2,329</span>
+              <span class="discount-percent">(12% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.6 ★</span>
+              <span class="rating-count">(398)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Varsity Card 5 -->
+        <div class="shrink-0 w-56 product-card" data-product-id="varsity5">
+          <div class="product-image-container">
+            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=800&auto=format&fit=crop" alt="Team varsity jacket" class="product-image" loading="lazy" />
+            <span class="discount-badge">16% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity5" data-name="Team Varsity • Team Colors" data-price="₹2,149">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Team Varsity • Team Colors</div>
+            <div class="product-pricing">
+              <span class="current-price">₹2,149</span>
+              <span class="original-price">₹2,549</span>
+              <span class="discount-percent">(16% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.3 ★</span>
+              <span class="rating-count">(215)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Varsity Card 6 -->
+        <div class="shrink-0 w-56 product-card" data-product-id="varsity6">
+          <div class="product-image-container">
+            <img src="https://images.unsplash.com/photo-1517059224940-d4af9eec41e5?q=80&w=800&auto=format&fit=crop" alt="Classic stripe varsity jacket" class="product-image" loading="lazy" />
+            <span class="discount-badge">10% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity6" data-name="Classic Stripe Varsity • Ribbed Trims" data-price="₹1,949">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Classic Stripe Varsity • Ribbed Trims</div>
+            <div class="product-pricing">
+              <span class="current-price">₹1,949</span>
+              <span class="original-price">₹2,049</span>
+              <span class="discount-percent">(10% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.1 ★</span>
+              <span class="rating-count">(342)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Varsity Card 7 -->
+        <div class="shrink-0 w-56 product-card" data-product-id="varsity7">
+          <div class="product-image-container">
+            <img src="https://images.unsplash.com/photo-1526178613714-0a1a1a8bd9ea?q=80&w=800&auto=format&fit=crop" alt="Heritage varsity jacket" class="product-image" loading="lazy" />
+            <span class="discount-badge">24% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity7" data-name="Heritage Varsity • Heritage Patch" data-price="₹2,399">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Heritage Varsity • Heritage Patch</div>
+            <div class="product-pricing">
+              <span class="current-price">₹2,399</span>
+              <span class="original-price">₹2,999</span>
+              <span class="discount-percent">(24% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.5 ★</span>
+              <span class="rating-count">(178)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Varsity Card 8 -->
+        <div class="shrink-0 w-56 product-card" data-product-id="varsity8">
+          <div class="product-image-container">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop" alt="Mono varsity jacket" class="product-image" loading="lazy" />
+            <span class="discount-badge">11% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity8" data-name="Mono Varsity • Mono Tones" data-price="₹1,899">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Mono Varsity • Mono Tones</div>
+            <div class="product-pricing">
+              <span class="current-price">₹1,899</span>
+              <span class="original-price">₹2,129</span>
+              <span class="discount-percent">(11% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.2 ★</span>
+              <span class="rating-count">(256)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Varsity Card 9 -->
+        <div class="shrink-0 w-56 product-card" data-product-id="varsity9">
+          <div class="product-image-container">
+            <img src="https://images.unsplash.com/photo-1475180098004-ca77a66827be?q=80&w=800&auto=format&fit=crop" alt="Raglan varsity jacket" class="product-image" loading="lazy" />
+            <span class="discount-badge">14% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity9" data-name="Raglan Varsity • Contrast Sleeves" data-price="₹2,049">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Raglan Varsity • Contrast Sleeves</div>
+            <div class="product-pricing">
+              <span class="current-price">₹2,049</span>
+              <span class="original-price">₹2,379</span>
+              <span class="discount-percent">(14% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.4 ★</span>
+              <span class="rating-count">(312)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Varsity Card 10 -->
+        <div class="shrink-0 w-56 product-card" data-product-id="varsity10">
+          <div class="product-image-container">
+            <img src="https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=800&auto=format&fit=crop" alt="Luxury varsity jacket" class="product-image" loading="lazy" />
+            <span class="discount-badge">11% OFF</span>
+            <button class="quote-btn" data-action="add" data-product="varsity10" data-name="Luxury Varsity • Premium Trims" data-price="₹2,499">
+              Add to Quote
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NEXORA</div>
+            <div class="product-title">Luxury Varsity • Premium Trims</div>
+            <div class="product-pricing">
+              <span class="current-price">₹2,499</span>
+              <span class="original-price">₹2,799</span>
+              <span class="discount-percent">(11% OFF)</span>
+            </div>
+            <div class="product-rating">
+              <span class="rating-star">4.5 ★</span>
+              <span class="rating-count">(198)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="row-prev absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Scroll Varsity left" data-target="varsity">&#9664;</button>
+      <button class="row-next absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-700 rounded-full p-2 shadow" aria-label="Scroll Varsity right" data-target="varsity">&#9654;</button>
+    </div>
+  </section>
+
+  <!-- Quote form -->
+  <section id="quote" class="mx-auto max-w-3xl px-3 sm:px-6 mt-12">
+    <div class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm p-6 sm:p-8">
+      <h2 class="text-2xl font-bold">Get a quick quote</h2>
+      <p class="text-slate-600 text-sm mt-1">We'll call you back in 10–15 mins.</p>
+      
+      <!-- Selected products display -->
+      <div id="selectedProductsContainer">
+        <label class="block text-sm font-medium mt-4 mb-2">Selected Products</label>
+        <div id="selectedProductsList" class="selected-products" style="display: none;">
+          <!-- Products will be inserted here -->
+        </div>
+      </div>
+
+  <form id="quoteForm" class="mt-5 space-y-4" name="quote" netlify data-netlify="true" data-netlify-honeypot="company" aria-describedby="quoteStatus">
+        <input type="hidden" name="form-name" value="quote" />
+        <input type="hidden" name="selectedProducts" id="selectedProductsInput" />
+        <input type="hidden" name="products" id="products" />
+        
+        <div>
+          <label for="quoteName" class="block text-sm font-medium">Name *</label>
+          <input id="quoteName" required name="name" type="text" autocomplete="name" class="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-sky-500" />
+        </div>
+        <div>
+          <label for="quotePhone" class="block text-sm font-medium">Phone *</label>
+          <input id="quotePhone" required name="phone" type="tel" inputmode="numeric" autocomplete="tel" class="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-sky-500" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Product type (optional)</label>
+          <div id="productChips" class="mt-1 flex flex-wrap gap-2"></div>
+          <input type="hidden" name="productType" id="productType" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Upload your designs (optional)</label>
+          <div class="mt-1 relative">
+            <input type="file" name="designs" id="designUpload" multiple accept="image/*,.pdf,.ai,.psd" 
+                   class="hidden" onchange="handleFileUpload(this)" />
+            <label for="designUpload" 
+                   class="flex items-center justify-center w-full h-32 border-2 border-dashed border-slate-300 rounded-lg cursor-pointer hover:border-slate-400 transition-colors">
+              <div class="text-center">
+                <div class="text-2xl mb-2">📎</div>
+                <div class="text-sm text-slate-600">
+                  <span class="font-medium text-sky-600">Click to upload</span> or drag and drop
+                </div>
+                <div class="text-xs text-slate-500 mt-1">
+                  PNG, JPG, PDF, AI, PSD up to 10MB each
+                </div>
+              </div>
+            </label>
+            <div id="fileList" class="mt-2 space-y-1"></div>
+          </div>
+        </div>
+        <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
+        <button type="submit" class="rounded-xl bg-slate-900 text-white px-5 py-3 font-semibold">Get Quote</button>
+  <a href="https://wa.me/918360833126?text=Hi%20AURA%20team" target="_blank" rel="noopener noreferrer" class="ml-3 text-sky-700 hover:underline text-sm">Prefer WhatsApp?</a>
+        <p class="text-[11px] text-slate-500 mt-2">By submitting, you agree to be contacted by AURA.</p>
+      </form>
+  <div id="quoteStatus" class="mt-4 text-sm" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- Use-case grid -->
+  <section id="usecases" class="mx-auto max-w-7xl px-3 sm:px-6 mt-12">
+    <div class="mb-6">
+      <h2 class="text-2xl font-bold">Perfect for…</h2>
+      <p class="text-slate-600 text-sm">Made for every moment that matters</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm hover:shadow transition" data-usecase="fests">
+        <div class="text-3xl">🎉</div>
+        <h3 class="mt-2 font-semibold">College Fests</h3>
+        <p class="text-sm text-slate-600">Bulk merch that makes your fest unforgettable.</p>
+        <button class="mt-3 text-sky-700 hover:underline text-sm get-quote-uc">Get a Quote →</button>
+      </div>
+      <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm hover:shadow transition" data-usecase="section_merch">
+        <div class="text-3xl">🎓</div>
+        <h3 class="mt-2 font-semibold">Section Merch</h3>
+        <p class="text-sm text-slate-600">Build unity, wear your batch pride.</p>
+        <button class="mt-3 text-sky-700 hover:underline text-sm get-quote-uc">Get a Quote →</button>
+      </div>
+      <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm hover:shadow transition" data-usecase="sports_teams">
+        <div class="text-3xl">🏆</div>
+        <h3 class="mt-2 font-semibold">Sports Teams</h3>
+        <p class="text-sm text-slate-600">One jersey, one spirit—on & off the field.</p>
+        <button class="mt-3 text-sky-700 hover:underline text-sm get-quote-uc">Get a Quote →</button>
+      </div>
+      <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm hover:shadow transition" data-usecase="club_identity">
+        <div class="text-3xl">🔗</div>
+        <h3 class="mt-2 font-semibold">Club Identity</h3>
+        <p class="text-sm text-slate-600">Your vibe, your brand, your aura.</p>
+        <button class="mt-3 text-sky-700 hover:underline text-sm get-quote-uc">Get a Quote →</button>
+      </div>
+      <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm hover:shadow transition" data-usecase="events_giveaways">
+        <div class="text-3xl">🎁</div>
+        <h3 class="mt-2 font-semibold">Events & Giveaways</h3>
+        <p class="text-sm text-slate-600">Gifts that carry your brand everywhere.</p>
+        <button class="mt-3 text-sky-700 hover:underline text-sm get-quote-uc">Get a Quote →</button>
+      </div>
+      <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-sm hover:shadow transition" data-usecase="corporate_alumni">
+        <div class="text-3xl">🧑‍💼</div>
+        <h3 class="mt-2 font-semibold">Corporate & Alumni</h3>
+        <p class="text-sm text-slate-600">Professional yet personal—for teams & memories.</p>
+        <button class="mt-3 text-sky-700 hover:underline text-sm get-quote-uc">Get a Quote →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coming soon carousel -->
+  <section class="mx-auto max-w-7xl px-3 sm:px-6 mt-12">
+    <div class="mb-3">
+      <h2 class="text-2xl font-bold">✨ Coming Soon</h2>
+      <p class="text-slate-600 text-sm">New drops you’ll love</p>
+    </div>
+    <div class="relative rounded-2xl overflow-hidden bg-slate-200">
+      <div id="comingTrack" class="carousel-track flex">
+        <div class="min-w-full"><img src="https://images.unsplash.com/photo-1557800636-894a64c1696f?q=80&w=1600&auto=format&fit=crop" alt="Yearbook" class="w-full h-72 sm:h-96 object-cover" /></div>
+        <div class="min-w-full"><img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?q=80&w=1600&auto=format&fit=crop" alt="Mugs" class="w-full h-72 sm:h-96 object-cover" /></div>
+        <div class="min-w-full"><img src="https://images.unsplash.com/photo-1579047134765-3a03f94b1876?q=80&w=1600&auto=format&fit=crop" alt="Keychains" class="w-full h-72 sm:h-96 object-cover" /></div>
+      </div>
+      <div class="absolute inset-0 bg-black/5 flex items-center justify-center">
+        <div class="text-center text-white">
+          <div class="text-sm tracking-widest">COMING SOON</div>
+        </div>
+      </div>
+      <div class="absolute inset-x-0 bottom-2 flex items-center justify-center gap-2">
+        <span class="dot bg-white/80" data-cdot="0"></span>
+        <span class="dot bg-white/40" data-cdot="1"></span>
+        <span class="dot bg-white/40" data-cdot="2"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="mx-auto max-w-4xl px-3 sm:px-6 mt-12 mb-16">
+    <h2 class="text-2xl font-bold">Frequently Asked Questions</h2>
+    <div class="mt-4 divide-y divide-slate-200" id="faqList">
+      <!-- Example items; add up to 10–12 -->
+      <div class="py-3">
+        <button id="faq-q-shipping_policy" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-shipping_policy" data-id="shipping_policy">
+          <span class="font-medium">What’s the typical delivery time?</span>
+          <span class="transition-transform rotate-0">▸</span>
+        </button>
+        <div id="faq-a-shipping_policy" class="mt-2 text-sm text-slate-600 hidden" role="region" aria-labelledby="faq-q-shipping_policy">Usually 7–10 working days, depending on quantity and customization.</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-min_order" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-min_order" data-id="min_order">
+          <span class="font-medium">Is there a minimum order quantity?</span>
+          <span class="transition-transform rotate-0">▸</span>
+        </button>
+        <div id="faq-a-min_order" class="mt-2 text-sm text-slate-600 hidden" role="region" aria-labelledby="faq-q-min_order">We’re bulk-friendly; MOQs vary by product. Share your needs in the quote form.</div>
+      </div>
+      <div class="py-3">
+        <button id="faq-q-quality_prints" class="w-full flex items-center justify-between text-left faq-q" aria-expanded="false" aria-controls="faq-a-quality_prints" data-id="quality_prints">
+          <span class="font-medium">What print methods do you support?</span>
+          <span class="transition-transform rotate-0">▸</span>
+        </button>
+        <div id="faq-a-quality_prints" class="mt-2 text-sm text-slate-600 hidden" role="region" aria-labelledby="faq-q-quality_prints">DTF, screen print, embroidery, and more—picked to match your design and budget.</div>
+      </div>
+    </div>
+    <div class="mt-4 text-sm">
+      Didn't find your answer? <a href="#quote" class="text-sky-700 hover:underline" onclick="event.preventDefault(); document.getElementById('quote').scrollIntoView({behavior:'smooth'});">Drop your question</a> and we'll get back.
+    </div>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"What’s the typical delivery time?","acceptedAnswer":{"@type":"Answer","text":"Usually 7–10 working days, depending on quantity and customization."}},
+        {"@type":"Question","name":"Is there a minimum order quantity?","acceptedAnswer":{"@type":"Answer","text":"We’re bulk-friendly; MOQs vary by product. Share your needs in the quote form."}},
+        {"@type":"Question","name":"What print methods do you support?","acceptedAnswer":{"@type":"Answer","text":"DTF, screen print, embroidery, and more—picked to match your design and budget."}}
+      ]
+    }
+    </script>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-300">
+    <div class="mx-auto max-w-7xl px-3 sm:px-6 py-6 text-xs flex items-center justify-between">
+      <p>© <span id="year"></span> AURA</p>
+      <p>No tracking cookies. Fast quotes.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="scripts.js" defer></script>
+
+  <!-- Image modal/lightbox (mobile) -->
+  <div id="imgModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex items-center justify-center" aria-hidden="true">
+    <div class="relative w-full h-full max-w-4xl max-h-full">
+      <button id="imgModalClose" class="absolute top-4 right-4 z-10 text-white text-2xl">&times;</button>
+      <div id="imgModalTrack" class="w-full h-full overflow-hidden">
+        <div data-track class="flex h-full transition-transform duration-500">
+          <!-- slides inserted here by JS -->
+        </div>
+      </div>
+      <div id="imgModalDots" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+        <!-- dots inserted here by JS -->
+      </div>
+    </div>
+    <div data-close class="absolute inset-0 -z-10"></div>
+  </div>
+
+  <!-- Simple Quote Reminder -->
+  <div id="quoteReminder" class="fixed bottom-4 right-4 bg-slate-900 text-white px-4 py-2 rounded-lg shadow-lg text-sm font-medium z-20 opacity-0 transition-opacity duration-300" style="display: none;">
+    📋 Check your quote below!
+  </div>
+
+</body>
+</html>
+
