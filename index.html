@@ -194,6 +194,7 @@
         <a href="#tshirts" class="text-slate-600 hover:text-slate-900 nav-products-link">Products</a>
         <a href="#fest" class="text-slate-600 hover:text-slate-900">Fests</a>
         <a href="#faq" class="text-slate-600 hover:text-slate-900">FAQ</a>
+        <a href="blog.html" class="text-slate-600 hover:text-slate-900">Blog</a>
       </nav>
       <div class="hidden md:flex items-center gap-3">
         <a href="#quote" class="relative rounded-xl border border-stone-300 px-4 py-2 text-sm btn-pop" onclick="event.preventDefault(); document.getElementById('quote').scrollIntoView({behavior:'smooth'});">
@@ -212,6 +213,7 @@
         <a href="#tshirts" class="block text-slate-600 hover:text-slate-900 nav-products-link">Products</a>
         <a href="#fest" class="block text-slate-600 hover:text-slate-900">Fests</a>
         <a href="#faq" class="block text-slate-600 hover:text-slate-900">FAQ</a>
+  <a href="blog.html" class="block text-slate-600 hover:text-slate-900">Blog</a>
         <div class="pt-3 flex gap-2">
           <a href="#quote" class="flex-1 rounded-xl border border-stone-300 px-4 py-2 text-center" onclick="event.preventDefault(); document.getElementById('quote').scrollIntoView({behavior:'smooth'}); document.getElementById('mobileNav').classList.add('hidden');">Order Now</a>
           <a href="https://wa.me/918360833126?text=Hi%20NEXORA%20team%2C%20I%20want%20to%20order%20custom%20T-shirts." target="_blank" rel="noopener noreferrer" class="flex-1 rounded-xl bg-slate-900 text-white px-4 py-2 text-center font-semibold">WhatsApp</a>
@@ -931,24 +933,37 @@
   <!-- Coming soon carousel -->
   <section class="mx-auto max-w-7xl px-3 sm:px-6 mt-12">
     <div class="mb-3">
-      <h2 class="text-2xl font-bold">🔥 Coming Soon</h2>
+      <h2 class="text-2xl font-bold">🔥 Our Blog Posts</h2>
       <p class="text-slate-600 text-sm">New drops you'll love</p>
     </div>
     <div class="coming-soon-carousel">
-      <div id="comingTrack" class="carousel-track flex h-full" role="region" aria-label="Coming soon carousel">
-        <div class="min-w-full h-full"><img src="https://images.unsplash.com/photo-1557800636-894a64c1696f?q=80&w=1600&auto=format&fit=crop" alt="Yearbook sample" class="w-full h-full object-cover" loading="lazy" decoding="async" /></div>
-        <div class="min-w-full h-full"><img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?q=80&w=1600&auto=format&fit=crop" alt="Branded mugs" class="w-full h-full object-cover" loading="lazy" decoding="async" /></div>
-        <div class="min-w-full h-full"><img src="https://images.unsplash.com/photo-1579047134765-3a03f94b1876?q=80&w=1600&auto=format&fit=crop" alt="Custom keychains" class="w-full h-full object-cover" loading="lazy" decoding="async" /></div>
-      </div>
-      <div class="absolute inset-0 bg-black/5 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <div class="text-center text-white">
-          <div class="text-sm tracking-widest">COMING SOON</div>
+      <div id="comingTrack" class="carousel-track flex h-full" role="region" aria-label="Blog highlights carousel">
+        <div class="min-w-full h-full">
+          <a href="blog.html" class="group relative block w-full h-full" aria-label="From Sketch to Merch blog">
+            <img src="Images/Blog/bg1_img1.avif" alt="From Sketch to Merch blog cover" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+            <div class="absolute left-3 top-3 bg-white/85 text-slate-900 text-xs font-semibold px-3 py-1 rounded-full shadow-sm">From Sketch to Merch</div>
+            <div class="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center text-white text-sm font-medium">Click to read the full blog</div>
+          </a>
+        </div>
+        <div class="min-w-full h-full">
+          <a href="blog.html" class="group relative block w-full h-full" aria-label="From Sketch to Merch blog">
+            <img src="Images/Blog/bg1_img1.avif" alt="From Sketch to Merch blog cover" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+            <div class="absolute left-3 top-3 bg-white/85 text-slate-900 text-xs font-semibold px-3 py-1 rounded-full shadow-sm">From Sketch to Merch</div>
+            <div class="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center text-white text-sm font-medium">Click to read the full blog</div>
+          </a>
+        </div>
+        <div class="min-w-full h-full">
+          <a href="blog.html" class="group relative block w-full h-full" aria-label="From Sketch to Merch blog">
+            <img src="Images/Blog/bg1_img1.avif" alt="From Sketch to Merch blog cover" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+            <div class="absolute left-3 top-3 bg-white/85 text-slate-900 text-xs font-semibold px-3 py-1 rounded-full shadow-sm">From Sketch to Merch</div>
+            <div class="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center text-white text-sm font-medium">Click to read the full blog</div>
+          </a>
         </div>
       </div>
-      <div class="absolute inset-x-0 bottom-2 flex items-center justify-center gap-2" role="tablist" aria-label="Coming slides">
-        <button class="dot bg-white/80" data-cdot="0" role="tab" aria-label="Go to coming slide 1"></button>
-        <button class="dot bg-white/40" data-cdot="1" role="tab" aria-label="Go to coming slide 2"></button>
-        <button class="dot bg-white/40" data-cdot="2" role="tab" aria-label="Go to coming slide 3"></button>
+      <div class="absolute inset-x-0 bottom-2 flex items-center justify-center gap-2" role="tablist" aria-label="Blog slides">
+        <button class="dot bg-white/80" data-cdot="0" role="tab" aria-label="Go to blog slide 1"></button>
+        <button class="dot bg-white/40" data-cdot="1" role="tab" aria-label="Go to blog slide 2"></button>
+        <button class="dot bg-white/40" data-cdot="2" role="tab" aria-label="Go to blog slide 3"></button>
       </div>
     </div>
   </section>
@@ -1080,6 +1095,7 @@
     <div class="mx-auto max-w-7xl px-3 sm:px-6 py-6 text-xs flex items-center justify-between">
       <p>© <span id="year">2024</span> NEXORA</p>
       <div class="flex items-center gap-4">
+        <a href="blog.html" class="text-slate-400 hover:text-white transition-colors">Blog</a>
         <a href="policy.html" class="text-slate-400 hover:text-white transition-colors" aria-label="View our Policies">Policies</a>
         <a href="https://www.instagram.com/wearnexora.in?igsh=OWZhc2g4ZWU3MjFp" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors" aria-label="Follow us on Instagram">
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

@@ -1,0 +1,17 @@
+{
+  "name": "web-app",
+  "version": "1.0.0",
+  "description": "A web application that includes a policy page.",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "live-server src",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "typescript": "^4.5.4"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
