@@ -22,7 +22,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Custom Campus Merch — Fast Quotes & Mockups">
   <meta name="twitter:description" content="Bulk custom T-shirts, hoodies & varsity jackets. Fast quotes.">
-  <meta name="twitter:image" content="https://nexora.in/Images/Carousel_T_Shirts.png">
+  <meta name="twitter:image" content="https://nexora.in/Images/Carousel_T_Shirts.avif">
   
   <!-- Favicon / PWA -->
   <link rel="icon" type="image/png" href="Images/Nex_favicon.png">
@@ -126,8 +126,7 @@
   
   <!-- Critical image preloads (reduce hero CLS) -->
   <link rel="preload" as="image" href="Images/Carousel_Hoodies.avif" imagesrcset="Images/Carousel_Hoodies.avif 1600w" imagesizes="100vw">
-  <link rel="preload" as="image" href="Images/Carousel_T_Shirts.avif" imagesrcset="Images/Carousel_T_Shirts.avif 1600w" imagesizes="100vw">
-  <link rel="preload" as="image" href="Images/Varsity.avif" imagesrcset="Images/Varsity.jpg 1600w" imagesizes="100vw">
+  <link rel="preload" as="image" href="Images/Carousel_T_Shirts.avif" imagesrcset="Images/Carousel_T_Shirts.png 1600w" imagesizes="100vw">
 
   <!-- Structured Data: Organization -->
   <script type="application/ld+json">
@@ -227,7 +226,7 @@
     <div class="relative rounded-2xl overflow-hidden bg-slate-200 hero-box">
       <div id="carouselTrack" class="carousel-track flex" role="region" aria-label="Featured products carousel">
         <!-- Slide 1 -->
-        <div class="min-w-full slide" aria-roledescription="slide" aria-label="Hoodies slide 1 of 3">
+        <div class="min-w-full slide" aria-roledescription="slide" aria-label="Hoodies slide 1 of 2">
           <img src="Images/Carousel_Hoodies.avif" alt="Custom hoodies for colleges by NEXORA" class="w-full h-full object-cover" fetchpriority="high" decoding="async" />
           <div class="hero-caption">
             <div class="hero-caption-inner">
@@ -249,28 +248,8 @@
         </div>
 
         <!-- Slide 2 -->
-        <div class="min-w-full slide" aria-roledescription="slide" aria-label="T-shirts slide 2 of 3">
-          <img src="Images/Carousel_T_Shirts.png" alt="Custom T-shirts for student crews by NEXORA" class="w-full h-full object-cover" decoding="async" />
-          <div class="hero-caption">
-            <div class="hero-caption-inner">
-              <span class="inline-flex items-center gap-2 rounded-full border border-white/40 bg-transparent backdrop-blur px-3 py-1 text-[11px]">Bulk • Campus • Fast mockups</span>
-              <h1>
-                <span class="line1">What you customize</span>
-                <span class="line2">becomes your aura</span>
-                <span class="sub-kicker">the next aura is yours</span>
-              </h1>
-              <p class="caption-sub">Discounts only on prices, never on quality.</p>
-              <div class="cta-row">
-                <a href="#tshirts" class="rounded-xl border border-slate-300 px-6 py-2.5 font-semibold btn-see-products">See Products</a>
-                <a href="https://wa.me/918360833126?text=Hi%20NEXORA%20team" class="rounded-xl px-6 py-2.5 font-semibold" style="background-color:#25D366;color:#fff;">Contact Us</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="min-w-full slide" aria-roledescription="slide" aria-label="Varsity jackets slide 3 of 3">
-          <img src="Images/Varsity.jpg" alt="Custom varsity jackets by NEXORA" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+        <div class="min-w-full slide" aria-roledescription="slide" aria-label="T-shirts slide 2 of 2">
+          <img src="Images/Carousel_T_Shirts.avif" alt="Custom T-shirts for student crews by NEXORA" class="w-full h-full object-cover" decoding="async" />
           <div class="hero-caption">
             <div class="hero-caption-inner">
               <span class="inline-flex items-center gap-2 rounded-full border border-white/40 bg-transparent backdrop-blur px-3 py-1 text-[11px]">Bulk • Campus • Fast mockups</span>
@@ -295,7 +274,6 @@
       <div class="absolute inset-x-0 bottom-2 flex items-center justify-center gap-2" role="tablist" aria-label="Hero slides">
         <button class="dot bg-white/80" data-dot="0" role="tab" aria-label="Go to slide 1"></button>
         <button class="dot bg-white/40" data-dot="1" role="tab" aria-label="Go to slide 2"></button>
-        <button class="dot bg-white/40" data-dot="2" role="tab" aria-label="Go to slide 3"></button>
       </div>
     </div>
   </section>
