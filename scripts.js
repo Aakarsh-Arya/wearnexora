@@ -1236,12 +1236,61 @@ Thank you!`;
         comingSoonInterval = setInterval(rotateComingSoon, 3000);
         dbg('Coming Soon carousel auto-rotation started with', slides.length, 'slides');
         dbg('Coming Soon interval ID:', comingSoonInterval);
+        
+        // iOS touch support for blog carousel links
+        setupBlogCarouselTouchSupport();
       } else {
         dbg('Coming Soon carousel: Not enough slides for auto-rotation');
       }
     } else {
       dbg('Coming Soon carousel: comingTrack not found');
     }
+  }
+  
+  // iOS touch support for blog carousel - ensures links work properly on iOS
+  function setupBlogCarouselTouchSupport() {
+    const blogLinks = document.querySelectorAll('.coming-soon-carousel a[href="blog.html"]');
+    
+    if (!blogLinks.length) {
+      dbg('Blog carousel: No blog links found');
+      return;
+    }
+    
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    
+    blogLinks.forEach((link, index) => {
+      // Add touch class on touchstart for iOS hover effect
+      link.addEventListener('touchstart', function(e) {
+        this.classList.add('touch-active');
+        dbg(`Blog link ${index + 1}: touchstart`);
+      }, { passive: true });
+      
+      link.addEventListener('touchend', function(e) {
+        const wasActive = this.classList.contains('touch-active');
+        this.classList.remove('touch-active');
+        
+        // On iOS, ensure the click goes through
+        if (isIOS && wasActive) {
+          dbg(`Blog link ${index + 1}: touchend on iOS, navigating to blog.html`);
+          // Small delay to show the hover effect before navigation
+          setTimeout(() => {
+            window.location.href = this.getAttribute('href');
+          }, 100);
+        }
+      }, { passive: true });
+      
+      link.addEventListener('touchcancel', function() {
+        this.classList.remove('touch-active');
+      }, { passive: true });
+      
+      // Ensure click works on all devices
+      link.addEventListener('click', function(e) {
+        dbg(`Blog link ${index + 1}: click event`);
+        // Don't prevent default - let the link work naturally
+      });
+    });
+    
+    dbg(`Blog carousel: Touch support enabled for ${blogLinks.length} links, iOS=${isIOS}`);
   }
 
   function pauseProductRowRotation(rowId) {
